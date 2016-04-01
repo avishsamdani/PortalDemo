@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>ERx Custom Object</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Advisor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <label>Advisor</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>R00N80000002kRlNEAU</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Goal_10__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 10th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 10 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 10th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 10 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Enrollment Accepted</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_11__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 11th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 11 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 11th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 11 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 11</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_12__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 12th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 12 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 12th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 12 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Starts</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_13__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 13th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 13 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 13th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 13 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 13</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 1st of 12 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 1 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 1st of 12 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 1 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>New</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_2__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 2nd of 12 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 2 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of contact completed in the goal period.</inlineHelpText>
+        <label>Contact Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_3__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 3rd of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 3 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 3rd of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 3 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_4__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 4th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 4 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of interviews scheduled in the goal period.</inlineHelpText>
+        <label>Interview Scheduled</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_5__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 5th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 5 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 5th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 5 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 5</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_6__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 6th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 6 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total number of interviews completed in the goal period.</inlineHelpText>
+        <label>Interview Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_7__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 7th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 7 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 7th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 7 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 7</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_8__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 8th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 8 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of applications completed in the goal period.</inlineHelpText>
+        <label>Application Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_9__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The 9th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 9 Status&quot; to match the status you wish to track for this goal.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The 9th of 13 possible goals that can be tracked in Advisor Goals. To track a new goal, change the label of this field and change the Configuration &quot;Advisor Goal 9 Status&quot; to match the status you wish to track for this goal.</inlineHelpText>
+        <label>Goal 9</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Term__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Term</label>
+        <referenceTo>Term__c</referenceTo>
+        <relationshipLabel>Advisor Goals for this Term</relationshipLabel>
+        <relationshipName>Advisor_Goals</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Goal</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Actual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Updated__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx - Target field for Status Tracking Analytic Snapshot.</description>
+        <externalId>false</externalId>
+        <label>Updated</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Advisor Goal</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Type__c</columns>
+        <columns>NAME</columns>
+        <columns>Term__c</columns>
+        <columns>Advisor__c</columns>
+        <columns>Goal_2__c</columns>
+        <columns>Goal_4__c</columns>
+        <columns>Goal_6__c</columns>
+        <columns>Goal_8__c</columns>
+        <columns>Goal_10__c</columns>
+        <columns>Goal_12__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Spring_2009</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Advisor__c</columns>
+        <columns>Term__c</columns>
+        <columns>Goal_1__c</columns>
+        <columns>Goal_2__c</columns>
+        <columns>Goal_4__c</columns>
+        <columns>Goal_6__c</columns>
+        <columns>Goal_8__c</columns>
+        <columns>Goal_10__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Term__c</field>
+            <operation>contains</operation>
+            <value>Spring 2009</value>
+        </filters>
+        <label>Spring 2009</label>
+    </listViews>
+    <nameField>
+        <displayFormat>AG - {YYYY}-{MM}-{000}</displayFormat>
+        <label>Advisor Goals Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Advisor Goals</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Advisor__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Goal_2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Goal_4__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Goal_10__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Goal_6__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Advisor__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Goal_2__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Goal_4__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Goal_10__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Goal_6__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>OBJECT_ID</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Advisor__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Goal_2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Goal_4__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Goal_10__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Goal_6__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

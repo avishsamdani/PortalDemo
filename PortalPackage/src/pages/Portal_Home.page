@@ -1,0 +1,108 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+<apex:composition template="Portal_Config_Main_Template">
+<apex:define name="body">
+    
+
+    <!-- <div class="slds"> -->
+    <div class="section-header">
+        <h1 class="slds-text-heading--medium slds-truncate" >Welcome to Enrollmentrx Application App</h1>
+    </div>
+
+ <!--        <div class="slds-tabs--default">
+        <ul class="slds-tabs--default__nav" role="tablist">
+            <li class="slds-tabs--default__item slds-text-heading--label item1" title="Item One" role="presentation">
+                <div class="slds-dropdown-trigger">
+				  	<button type="button" onclick="" class="slds-button slds-button--neutral action-button">
+				      	<img title="" alt="" class="slds-icon " src="/img/icon/t4v35/utility/settings_120.png" style="background-color: #EDB566; font-size: 2rem; padding: 7px; width: 5rem; height: 5rem;" />
+				  	</button>
+				  	<div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+				      	<ul class="slds-dropdown__list">
+				          <li class="slds-dropdown__item">
+				              <p class="slds-truncate">Template Assignment</p>
+				          </li>
+				      	</ul>
+				  	</div>
+				</div>
+            </li>
+            <li class="slds-tabs--default__item slds-text-heading--label item2" title="Item Two" role="presentation">
+                <a class="slds-tabs--default__link" href="TM_TemplateContent" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">
+                <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/utility/settings_120.png" style="background-color: #EDB566; font-size: 2rem; padding: 7px; width: 5rem; height: 5rem; margin: 0 auto;" />
+                <br/>Template Content
+                </a>
+            </li>
+            <li class="slds-tabs--default__item slds-text-heading--label item3" title="Item Three"
+            role="presentation">
+                <a class="slds-tabs--default__link" href="Portal_RegistrationSetting" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">
+                Login Configuration
+                </a>
+            </li>
+            <li class="slds-tabs--default__item slds-text-heading--label item4" title="Item Three" role="presentation">
+                <a class="slds-tabs--default__link" href="Portal_Page_Configure" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-4" id="tab-default-4__item">
+                Form Builder
+                </a>
+            </li>
+            <li class="slds-tabs--default__item slds-text-heading--label item5" title="Item Three" role="presentation">
+                <a class="slds-tabs--default__link" href="HomepageBuilder_ng" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" id="tab-default-5__item">
+                Homepage Builder
+                </a>
+            </li>
+
+        </ul>
+		</div>
+
+
+<br/>
+
+<br/>
+
+<br/>
+        <table class="slds-table slds-max-medium-table--stacked">
+          <tbody>
+            <tr >
+
+              <td data-label="Template Assignment" style="text-align: ">
+                <span class="slds-truncate">
+               
+                     <div class="slds-dropdown-trigger">
+                          <button type="button" onclick="" class="slds-button slds-button--neutral action-button" style="width: 16em;">
+                              <img src="/resource/SLDS0121/assets/icons/utility/settings_120.png" class="action-img" style="    height: 8em; width: 8em;" />
+                          </button>
+                          <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                              <ul class="slds-dropdown__list">
+                                  <li class="slds-dropdown__item">
+                                      <p class="slds-truncate">Template Assignment</p>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                </span>
+              </td>
+              <td data-label="Template Assignment">
+                <span class="slds-truncate">
+               
+                     <div class="slds-dropdown-trigger">
+                          <button type="button" onclick="" class="slds-button slds-button--neutral action-button" style="width: 16em;">
+                              <img src="/resource/SLDS0121/assets/icons/utility/settings_120.png" class="action-img" style="    height: 8em; width: 8em;" />
+                          </button>
+                          <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                              <ul class="slds-dropdown__list">
+                                  <li class="slds-dropdown__item">
+                                      <p class="slds-truncate">Template Assignment</p>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+</div>
+ -->
+
+</apex:define>
+</apex:composition>
+</apex:page>

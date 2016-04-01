@@ -1,0 +1,133 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="TM_TemplateAssignmentController">
+
+
+<script>
+    var newWin=null;
+    function openLookupPopup(tmpId)
+    {
+        var url="/apex/TM_Template?previewMode=tmpReview&templateId="+tmpId;
+        newWin=window.open(url, "_blank",'height=750,width=1000,left=10,top=10,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        return false;
+    }
+</script>
+<apex:composition template="Portal_Config_Main_Template">
+<apex:define name="body">
+<div class="slds">
+   
+
+<apex:form id="wholeFormSectionId">
+
+
+    <apex:actionFunction name="assignTemp" rerender="wholeSectionId,wholeFormSectionId" immediate="true" action="{!tempAssignment}">
+          <apex:param name="frontRecordId" value="" assignTo="{!frontRecordId}"/>
+    </apex:actionFunction>
+
+
+
+
+    <apex:outputpanel id="wholeSectionId">
+    
+    <br/>    
+
+
+    <apex:pageblock id="curSectionId">
+
+        
+        <apex:outputpanel id="TemplateSectionId">
+        
+        <apex:outputpanel rendered="{!tmpList!=null && tmpList.SIZE>0}">
+            <div class="slds-card">
+
+            <header class="slds-card__header slds-grid">
+              <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+                <div class="slds-media__body">
+                  <h3 class="slds-text-heading--small slds-truncate">Configure Your Current Community/Site</h3>
+                </div>
+              </div>
+            </header>
+
+        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+          <thead>
+            <tr class="slds-text-heading--label">
+              <th scope="col">
+                <span class="slds-truncate">Template Name</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Assign</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Preview</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <apex:repeat value="{!tmpList}" var="t">
+            <tr class="slds-hint-parent">
+              <td data-label="Template Name">
+                <span class="slds-truncate">{!t.SiteTemplateName__c}</span>
+              </td>
+              <td data-label="Assign">
+                <apex:actionRegion >
+
+
+                <div class="slds-dropdown-trigger">
+                    <button type="button" onclick="assignTemp('{!t.Id}');" class="slds-button slds-button--neutral action-button">
+                        <img src="/resource/SLDS0121/assets/icons/utility/{!IF(currentEntity.TP_Manage_Active_Template__c==t.Id, 'package_org', 'check')}_120.png" class="action-img" />
+                    </button>
+                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                        <ul class="slds-dropdown__list">
+                            <li class="slds-dropdown__item">
+                                <p class="slds-truncate">{!IF(currentEntity.TP_Manage_Active_Template__c==t.Id, 'Assigned', 'Assign')}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                    
+
+
+                </apex:actionRegion>
+              </td>
+              <td data-label="Preview">
+                <span class="slds-truncate">
+                <!-- <apex:actionRegion >
+                 <apex:commandButton value="Preview" onClick="openLookupPopup('{!currentEntity.Id}','{!t.Id}');" styleClass="slds-button slds-button--neutral"/>
+                 </apex:actionRegion> -->
+
+                <div class="slds-dropdown-trigger">
+                    <button type="button" onclick="openLookupPopup('{!t.Id}');" class="slds-button slds-button--neutral action-button">
+                        <img src="/resource/SLDS0121/assets/icons/utility/preview_120.png" class="action-img" />
+                    </button>
+                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                        <ul class="slds-dropdown__list">
+                            <li class="slds-dropdown__item">
+                                <p class="slds-truncate">Preview</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                </span>
+              </td>
+            </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+        </div>
+        </apex:outputpanel>
+        </apex:outputpanel>
+
+    <br/>
+
+    </apex:pageblock>
+    </apex:outputpanel>
+</apex:form>
+</div>
+</apex:define>
+</apex:composition>
+
+
+</apex:page>

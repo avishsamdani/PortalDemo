@@ -1,0 +1,63 @@
+<apex:page showHeader="false" sidebar="false" controller="TestCustomPageController">
+    <html  ng-app="SLDSApp" ng-controller="myCtrl">
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js">
+                </script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js">
+            </script> 
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>  
+        <body>
+            <form class="slds slds-form--vertical" name = "myForm" novalidate="true" ng-submit="submitForm();">
+                    <div class="slds-form-element slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--6-of-12">
+                        <label class="slds-m-top--medium slds-form-element__label" for="name">Name</label>
+                        <div class="slds-form-element__control">
+                            <input id="name" class="slds-input slds-form-element__control" type="text" name="name" ng-model="name" required = "true" ng-pattern = "/^[A-Za-z]+$/" />
+                            <div class="slds-has-error" ng-show="myForm.name.$dirty && myForm.name.$invalid">Invalid: 
+                                <span ng-show="myForm.name.$error.required">Name is required.</span> 
+                                <span ng-show="myForm.name.$error.pattern">Name doesn't respect the pattern.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--6-of-12">
+                        <label class="slds-m-top--medium slds-form-element__label" for="age">Age</label>
+                        <div class="slds-form-element__control">
+                            <input id="age" class="slds-input slds-form-element__control" type="text" name="age" ng-model="age" required = "true"
+                                   ng-pattern="/^(0?[1-9]|[1-9][0-9])$/" />
+                            
+                            <div class="custom-error" ng-show="myForm.age.$dirty && myForm.age.$invalid">Invalid: 
+                                <span ng-show="myForm.age.$error.required">Age is required.</span> 
+                                <span ng-show="myForm.age.$error.pattern">Age doesn't respect the pattern.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-col--padded slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--6-of-12">
+                        <label class="slds-m-top--medium slds-form-element__label" for="email">Email</label>
+                        <div class="slds-form-element__control">
+                            <input id="email" class="slds-input slds-form-element__control" type="text" name="email" ng-model="email" required = "true"
+                                   ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" />
+                            <div class="custom-error" ng-show="myForm.email.$dirty && myForm.email.$invalid">Invalid: 
+                                <span ng-show="myForm.email.$error.required">Email is required.</span> 
+                                <span ng-show="myForm.email.$error.pattern">Email doesn't respect the pattern.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="slds-m-top--medium slds-button slds-button--neutral" type="submit" value="submit"/>
+                        </div>
+                    </div>
+            </form>
+        </body>
+        <script>    
+        var app = angular.module("SLDSApp", []);      
+        // Prevent reload and back browsing
+        app.controller('myCtrl',["$scope",function($scope){
+            
+            $scope.submitForm = function() {
+                alert("Form submitted");
+            }
+        }]);
+        </script>
+        
+    </html>
+</apex:page>

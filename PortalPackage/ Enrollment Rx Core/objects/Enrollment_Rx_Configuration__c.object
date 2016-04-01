@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>This is the object that is used to configure the Enrollment Rx system. It should only be accessed by system administrators.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Advisor_Goal_10_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_10&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_10&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 10 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_11_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_11&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_11&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 11 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_12_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_12&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_12&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 12 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_13_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_13&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_13&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 13 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_1_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_1&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_1&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 1 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_2_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_2&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_2&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 2 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_3_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_3&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_3&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 3 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_4_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_4&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_4&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 4 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_5_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_5&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_5&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 5 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_6_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_6&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_6&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 6 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_7_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_7&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_7&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 7 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_8_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_8&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_8&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 8 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Advisor_Goal_9_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_9&quot; should be changed to reflect this status.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The name of the Enrollment Opportunity status that, when an EO moves into or past this status, gives the advisor credit against Advisor Goals. The label of the Advisor Goal field &quot;Goal_9&quot; should be changed to reflect this status.</inlineHelpText>
+        <label>Advisor Goal 9 Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Auto_close_Disposition__c</fullName>
+        <defaultValue>&quot;Interested in Different Term&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>What &quot;closed disposition&quot; should old open enrollment opportunities to be moved to when a new EO is auto-opened?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What &quot;closed disposition&quot; should old open enrollment opportunities to be moved to when a new EO is auto-opened?</inlineHelpText>
+        <label>Auto-close Disposition</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Auto_close_Enrollment_Opportunities_To__c</fullName>
+        <defaultValue>&quot;File Closed&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>What status should open enrollment opportunities to be moved to when a new EO is auto-opened? This should be an EO status value beginning with &quot;Closed&quot;. Leave blank if you do not wish to auto-close enrollment opportunities.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What status should open enrollment opportunities to be moved to when a new EO is auto-opened? This should be an EO status value beginning with &quot;Closed&quot;. Leave blank if you do not wish to auto-close enrollment opportunities.</inlineHelpText>
+        <label>Auto-close Application To</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Documents_at_Status__c</fullName>
+        <defaultValue>&quot;New&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Determines at which Enrollment Admissions Status required document records are automatically created. If this field is left blank, document records are never created.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines at which Enrollment Admissions Status required document records are automatically created. If this field is left blank, document records are never created.</inlineHelpText>
+        <label>Create Documents at Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Portal_User_at_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Create Portal User at Status</label>
+        <length>225</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Default_Term__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The school term that new contacts are assigned to if no term is specified when they are created. It should be the current school term that most are interested in; for instance, if it is currently April 2009, this would most likely be the Fall 2009 term.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The school term that new contacts are assigned to if no term is specified when they are created. It should be the current school term that most are interested in; for instance, if it is currently April 2009, this would most likely be the Fall 2009 term.</inlineHelpText>
+        <label>Current Default Term</label>
+        <referenceTo>Term__c</referenceTo>
+        <relationshipLabel>Enrollment Rx Configuration</relationshipLabel>
+        <relationshipName>Enrollment_Rx_Configuration</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Default__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Default</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>New_Document_Status__c</fullName>
+        <defaultValue>&quot;Required&quot;</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The &quot;Document Status&quot; value that should be used for document records that are auto-created for Enrollment Opportunities. This should match one of the valid picklist values for &quot;Document Status&quot;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The &quot;Document Status&quot; value that should be used for document records that are auto-created for Enrollment Opportunities. This should match one of the valid picklist values for &quot;Document Status&quot;.</inlineHelpText>
+        <label>New Document Status</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_of_Interest__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Program of Interest</label>
+        <referenceTo>Program_Offered__c</referenceTo>
+        <relationshipLabel>Enrollment Rx Configuration</relationshipLabel>
+        <relationshipName>Enrollment_Rx_Configuration</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>Enrollment Rx Configuration</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Current_Default_Term__c</columns>
+        <columns>Program_of_Interest__c</columns>
+        <columns>Default__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Enrollment Rx Configuration Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Enrollment Rx Configuration</pluralLabel>
+    <searchLayouts>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Make_Default</fullName>
+        <availability>online</availability>
+        <description>Makes the current config the default one</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Make Default</masterLabel>
+        <openType>sidebar</openType>
+        <page>MakeActive</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

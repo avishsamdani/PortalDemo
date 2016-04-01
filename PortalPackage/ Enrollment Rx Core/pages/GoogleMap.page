@@ -1,0 +1,50 @@
+<apex:page sidebar="false" controller="EnrollmentrxRx.GoogleViz" showHeader="false">
+  <!-- 
+    <script src="http://maps.google.com/maps?file=api&v=2&key={!GoogleMapKey}" type="text/javascript"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+   
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["map"]});
+      google.setOnLoadCallback(drawMap);
+  
+      function drawMap() {
+        var addressListSize={!addressListSize};
+        //alert(addressListSize);
+        if(addressListSize==0){
+            document.getElementById("map_div").innerHTML="<br/><center><table bgcolor=#C0C0C0><tr><td><font face=arial>No results found.</font></td></tr></center>";
+            return;
+        }
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Address');
+        data.addColumn('string', 'Name');
+        data.addRows(addressListSize);
+        <apex:repeat value="{!addresses}" var="a">
+        
+            data.setCell({!a.Index},0,'{!a.Address}');
+            data.setCell({!a.Index},1,'<table bgcolor="yellow" border="1"><a href="/{!a.Id}">{!a.Name}</a><br/>{!a.Address}</table>');
+        </apex:repeat>
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+      }
+      function drawMap2() {
+        var addressListSize={!addressListSize};
+        //alert(addressListSize);
+        if(addressListSize==0){
+            document.getElementById("map_div").innerHTML="<br/><center><table bgcolor=#C0C0C0><tr><td><font face=arial>No results found.</font></td></tr></center>";
+            return;
+        }
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Address');
+        data.addColumn('string', 'Name');
+        data.addRows(1);
+        data.setCell(0,0,'407 W Hackberry Arlington Heights IL 60004');
+        data.setCell(0,1,'Roman Lerman');
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+      }
+    </script>
+    <a href="#" onclick="drawMap2()">Test Link</a>
+    {!dbQuery}
+     <div id="map_div" style="width: 1000px; height: 450px"></div>
+     -->
+</apex:page>

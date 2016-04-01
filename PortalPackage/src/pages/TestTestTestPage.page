@@ -1,0 +1,21 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Lightning Design System -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS0121, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    
+    <!-- Bootstrap SF1 -->
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/bootstrap.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/docs.min.css')}" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" />
+    <apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" />
+    <apex:includeScript value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/js/docs.js')}" />
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/reset.css')}"/> <!-- CSS reset -->
+  <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/style.css')}"/> <!-- Resource style -->
+  </head>	<c:Portal_EnvPanel />
+</apex:page>

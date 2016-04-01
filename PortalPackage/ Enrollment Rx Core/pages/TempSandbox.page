@@ -1,0 +1,10 @@
+<apex:page controller="EnrollmentrxRx.TempSandbox">
+<!-- This is a temporary page used for testing and can be deleted after 7/1/2009. -Jeremy Kraybill -->
+<h1>Tests</h1>
+
+<!--  test: http://community.salesforce.com/sforce/board/message?board.id=Visualforce&message.id=9820#M9820 -->
+<apex:outputText value="string: {0,number,#.##}">
+    <apex:param value="{!value}" name="param1" id="id1" />
+</apex:outputText>
+
+</apex:page>

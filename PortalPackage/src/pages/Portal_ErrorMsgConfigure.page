@@ -1,0 +1,150 @@
+<apex:page showheader="false" sidebar="false"  applyhtmltag="false" applybodytag="false"  controller="Portal_ErrorMsgConfigureController">
+ 	<head>
+	    <apex:stylesheet value="{!URLFOR($Resource.SLDS0121, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+	    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/bootstrap.css')}" />
+	    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/docs.min.css')}" />
+	    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" />
+	    <apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" />
+	    <apex:includeScript value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/js/docs.js')}" />
+	    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'/>
+	    <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/reset.css')}"/> <!-- CSS reset -->
+	    <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/style.css')}"/> <!-- Resource style -->
+	</head>
+	<div style="margin: 0 auto; width:900px;">
+	<div class="slds">
+	<center><apex:pageMessages id="pageMsg" /></center>
+      <apex:form forceSSL="true" rendered="{!setting!=Null}">
+      <div class="slds-card">
+            <div class="slds-media__body">
+            <h1 class="slds-text-heading--small slds-truncate">Error Message Configuration</h1>
+            </div>
+            
+            <div class="slds-form--stacked">
+    		<div class="slds-form-element">
+            <label class="slds-form-element__label">Account Name:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Account_Name__c}"  html-placeholder="Account Name" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Activate Existing Contact Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Activate_Existing_Contact_Message__c}"  html-placeholder="Activate Existing Contact Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Incorrect Username Password Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Incorrect_Username_Password_Message__c}"  html-placeholder="Incorrect Username Password Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Login Field Missing Message</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Login_Field_Missing_Message__c}"  html-placeholder="Login Field Missing Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Login Non Portal User Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Login_Non_Portal_User_Message__c}"  html-placeholder="Login Non Portal User Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password Field Missing Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Password_Field_Missing_Message__c}"  html-placeholder="Password Field Missing Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password Non-Portal User Exists Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Password_Non_Portal_User_Exists_Message__c}"  html-placeholder="Password Non-Portal User Exists Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password Non-Portal User Exists Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Password_Non_Portal_User_Exists_Message__c}"  html-placeholder="Password Non-Portal User Exists Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password No Portal User Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Password_No_Portal_User_Message__c}"  html-placeholder="Password No Portal User Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password Reset Confirm Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Password_Reset_Confirm_Message__c}"  html-placeholder="Password Reset Confirm Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Email Format Error Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Email_Format_Error_Message__c}"  html-placeholder="Reg Email Format Error Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Field Missing Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Field_Missing_Message__c}"  html-placeholder="Reg Field Missing Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Non-Portal User Exists Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Non_Portal_User_Exists_Message__c}"  html-placeholder="Reg Non-Portal User Exists Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Password No Match Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Password_No_Match_Message__c}"  html-placeholder="Reg Password No Match Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Portal User Exists Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Portal_User_Exists_Message__c}"  html-placeholder="Reg Portal User Exists Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Reg Username Too Long Message:</label>
+            <div class="slds-form-element__control">
+            <apex:inputField value="{!setting.Reg_Username_Too_Long_Message__c}"  html-placeholder="Reg Username Too Long Message" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+<!--             <div class="slds-form-element"> -->
+<!--             <label class="slds-form-element__label">Update Existing Contact:</label> -->
+<!--             <div class="slds-form-element__control"> -->
+<!--             <apex:inputField value="{!setting.Update_Existing_Contact__c}"  html-placeholder="Account Name" styleClass="slds-input"/> -->
+<!--             </div> -->
+<!--             </div> -->
+            
+            </div>
+       </div>
+       
+       <center><apex:commandButton value="Save" styleClass="slds-button slds-button--neutral slds-not-selected" action="{!save}"/></center>
+      </apex:form>
+    </div>
+	  </div>
+</apex:page>

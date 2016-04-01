@@ -1,0 +1,51 @@
+<apex:component >
+   <!-- <apex:attribute name="multipicklist" required="required" type="String"  description="Attribute on the component." /> -->
+    <div class="slds" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div class="slds-picklist--draggable slds-grid">
+                    <div class="slds-form-element">
+                    	<span class="slds-form-element__label" aria-label="select-1">Available</span>
+                        <div class="slds-picklist slds-picklist--multi">
+                            <ul ui-sortable="sortableOptions"  name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}" ng-model="fieldInfo.availableValues[$parent.$parent.$index]" class="picklist slds-picklist__options slds-picklist__options--multi shown" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" >                                
+                                <div ng-repeat="item in fieldInfo.availableValues[$parent.$parent.$index]" class="app" ng-class="{active: isActive(item)}" >
+                                	<li id="po-0-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option" ng-click="addValue($index, item);" ng-mouseup="addValue($index,item);addToSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName);select(null)" ng-dblclick="addValue($index,item);addToSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName);select(null)" >
+                                        <span class="slds-truncate">
+                                            <span>{{item}}</span>
+                                        </span>
+                                    </li>
+                                </div> 
+                            </ul>
+                        </div>
+                      
+                    </div>
+                    <div class="slds-grid slds-grid--vertical">
+                        <button class="slds-button slds-button--icon-container" ng-click="removeFromSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName);select(null)">
+                            <svg aria-hidden="true" class="slds-button__icon" >
+                                <use xlink:href="{!URLFOR($Resource.SLDS0122, 'assets/icons/utility-sprite/svg/symbols.svg#left')}" ></use>
+                            </svg>
+                            <span class="slds-assistive-text" >Arrow left</span>
+                        </button>
+                        <button class="slds-button slds-button--icon-container" ng-click="addToSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName); select(null)">
+                            <svg aria-hidden="true" class="slds-button__icon">
+                                <use xlink:href="{!URLFOR($Resource.SLDS0122, 'assets/icons/utility-sprite/svg/symbols.svg#right')}" ></use>
+                            </svg>
+                            <span class="slds-assistive-text" >Arrow right</span>
+                        </button>
+                    </div>
+                    <div class="slds-form-element"> 
+                        <span class="slds-form-element__label" aria-label="select-2">Chosen</span>
+                        <div  class="slds-picklist slds-picklist--multi" >                          
+                            <ul ui-sortable="sortableOptions" ng-model="fieldInfo.selectedValues[$parent.$parent.$index]" class="picklist slds-picklist__options slds-picklist__options--multi shown">
+                                <div ng-repeat="item in fieldInfo.selectedValues[$parent.$parent.$index]" class="app" ng-class="{active: isActive(item)}">
+                                    <li id="po-0-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option" ng-click="removeVal(item, $index);select(item)" ng-mouseup="removeVal(item, $index);removeFromSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName);select(null)" ng-dblclick="removeVal(item, $index);removeFromSelectedValues(fieldInfo.availableValues[$parent.$parent.$parent.$index], fieldInfo.selectedValues[$parent.$parent.$parent.$index], section.modelName, $parent.$parent.$parent.$index, fieldInfo.fieldAPIName);select(null)">
+                                        <span class="slds-truncate">
+                                            <span class="items" >{{item}}</span>
+                                        </span>
+                                    </li>
+                                </div>
+                            </ul>                              
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+</apex:component>

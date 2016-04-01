@@ -1,0 +1,147 @@
+<apex:page controller="EnrollmentrxRx.GoogleViz" readonly="true">
+<!--
+<apex:form >
+<html>
+  <head> 
+      <script src="http://maps.google.com/maps?file=api&v=2&key={!GoogleMapKey}" type="text/javascript"></script>
+      <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+      <script type="text/javascript">
+              google.load("visualization", "1", {packages:["map"]});
+      </script>
+  </head>
+  <body>
+      <apex:actionStatus id="mapStatus" startText="">
+            <apex:facet name="start">&nbsp;&nbsp;<apex:image value="{!$Resource.StatusImage}" style="position:absolute;left:460px;top:6px;"/></apex:facet>
+            <apex:facet name="stop">
+            </apex:facet>
+      </apex:actionStatus>
+      <apex:actionFunction name="refreshPage" rerender="ObjectType" status="mapStatus" />
+            <apex:selectRadio value="{!selectedObject}" onclick="refreshPage()" style="position:absolute;"> 
+          <apex:selectOptions value="{!FilterObjects}"/>  
+      </apex:selectRadio>   
+      <table class="tab" width="240px">
+          <tr>
+              <td class="last">
+                  <div>
+                      &nbsp;
+                  </div>
+              </td>
+          </tr>
+      </table>
+      <apex:outputPanel id="ObjectType">
+        <table bgcolor="lightyellow" style="margin-bottom:0px;border:1px solid black;" width="1000" border="0">
+            <tr style="display: {!IF(SelectedObject=='Contact' || SelectedObject=='EnrollmentOpportunity', 'block', 'none')};">
+               <td width="175px" style="text-align:left;">
+                    {!stateLabel}&nbsp;&nbsp;<br/>
+                        <apex:inputText value="{!state}" style="width: 120px"/>
+               </td>
+               <td width="197px" style="text-align:left;">
+                    {!zipLabel}&nbsp;&nbsp;<br/>
+                        <apex:inputText value="{!zip}" style="width: 100px"/>
+               </td>
+               <td width="194px" style="text-align:left;">
+                    {!leadSourceLabel}&nbsp;&nbsp;<br/>
+                         <apex:selectList value="{!LeadSource}" size="1"> 
+                            <apex:selectOptions value="{!LeadSources}"/>               
+                        </apex:selectList>
+               </td>
+               <td width="184px" style="text-align:left;">
+                    Contact Owner&nbsp;&nbsp;<br/>
+                   
+                    <apex:selectList value="{!advisor}" multiselect="true" size="5"> 
+                        <apex:selectOptions value="{!Users}"/>               
+                    </apex:selectList>
+               </td>
+               <td width="80px" style="vertical-align:bottom;text-align:left;">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <apex:commandButton value="Submit" status="mapStatus" action="{!filterMap}" rendered="{!IF(SelectedObject=='Contact',true,false)}" reRender="drwMap" />
+                </td>
+            </tr>
+            <tr style="display: {!IF(SelectedObject=='EnrollmentOpportunity', 'block', 'none')};">
+                <td width="179px" style="text-align:left;vertical-align:bottom;">
+                    {!admissionLabel}&nbsp;&nbsp;<br/>
+                        <apex:selectList value="{!AdmissionStatus}" size="1"> 
+                            <apex:selectOptions value="{!AdmissionStatuses}"/>               
+                        </apex:selectList>
+                </td>
+                <td width="179px" style="text-align:left;vertical-align:bottom;">
+                    {!financialAidLabel}&nbsp;&nbsp;<br/>
+                        <apex:selectList value="{!FinancialAidStage}" size="1"> 
+                            <apex:selectOptions value="{!FinancialAidStages}"/>               
+                        </apex:selectList>
+               </td>
+               <td width="194px" style="text-align:left;vertical-align:bottom;">
+                    {!programLabel}&nbsp;&nbsp;<br/>
+                        <apex:inputField value="{!contactRecord.Program_of_Interest__c}" required="false"/><img src="/s.gif" height="20px" width="1px"/>
+               </td>
+               <td width="194px" style="text-align:left;">
+                    {!termLabel}&nbsp;&nbsp;<br/>
+                        <apex:inputField value="{!EnrollmentOpportunity.Term_Intended_to_Start__c}" required="false"/><img src="/s.gif" height="20px" width="1px"/>
+               </td>
+               <td width="184px" style="text-align:left;">
+                    {!marketingLabel}&nbsp;&nbsp;<br/>
+                        <apex:inputField value="{!EnrollmentOpportunity.Marketing_Initiative__c}" required="false"/><img src="/s.gif" height="20px" width="1px"/>
+                </td>
+                <td width="80px" style="vertical-align:bottom;text-align:left;">
+                    <apex:commandButton value="Submit" status="mapStatus" action="{!filterMap}" reRender="drwMap" />
+                </td>
+            </tr>
+        </table>
+        
+        </apex:outputPanel>
+        <b><div id="recordCount"></div></b>
+        <div id="map_div" style="width: 1000px; height: 450px"></div>
+        <script>
+            var check=false;
+        </script>
+        <apex:outputPanel id="drwMap">
+            <script>
+            function drawMap() {
+                var addressListSize={!addressListSize};
+                
+                //alert(addressListSize);
+                document.getElementById("recordCount").innerHTML="Record Count: {!addressListSize}";
+                if(addressListSize==0){
+                    document.getElementById("map_div").innerHTML="<br/><center><table bgcolor=#C0C0C0><tr><td><font face=arial>No results found.</font></td></tr></center>";
+                    return;
+                }
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Address');
+                data.addColumn('string', 'Name');
+                data.addRows(addressListSize);
+                //alert("{!addresses}");
+                <apex:repeat value="{!addresses}" var="a">
+                    data.setCell({!a.Index},0,'{!a.Address}');
+                    data.setCell({!a.Index},1,'<table bgcolor="yellow" border="1"><a href="/{!a.Id}">{!a.Name}</a><br/>{!a.Address}</table>');
+                </apex:repeat>
+                var map = new google.visualization.Map(document.getElementById('map_div'));
+                map.draw(data, {showTip: true});
+             }
+            
+                if(check){
+                    /*
+                    var filters = "{!filters}";
+                    filters = filters.replace(/null/,'');
+                    var objectType = "{!JSENCODE(selectedObject)}";
+                    objectType = objectType.replace(/null/,'');
+                    alert("/apex/GoogleMap?filters="+filters+"&objectType="+objectType);
+                    document.getElementById("frame").setAttribute("src", "/apex/GoogleMap?filters="+filters+"&objectType="+objectType);
+                    */
+                    drawMap();
+                }
+            </script>
+        </apex:outputPanel>
+        <script>
+            check=true;
+        </script>
+          
+  </body>
+</html>
+</apex:form> 
+-->
+</apex:page>

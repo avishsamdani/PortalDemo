@@ -1,0 +1,15 @@
+<apex:page controller="EnrollmentrxRx.ChangeStudentUsernameController">
+	<apex:form >
+		<apex:pageBlock title="Change Username/Email">
+		<apex:pageBlockButtons >
+			<apex:commandButton action="{!save}" value="Save"/>
+			<apex:commandButton action="{!cancel}" value="Cancel"/>
+		</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Change Username/Email">
+				<apex:inputField value="{!user.Username}"/>
+				<br/>
+				<apex:inputField value="{!user.Email}"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>	
+	</apex:form>
+</apex:page>

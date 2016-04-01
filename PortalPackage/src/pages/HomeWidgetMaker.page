@@ -1,0 +1,138 @@
+<apex:page controller="HomeWidgetMakerController" action="{!initPageLoad}" showHeader="false" standardStylesheets="false" docType="html-5.0"> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />     
+    
+    <!--Stylesheets -->
+    <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+     
+    <!--Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+    
+    <style> 
+        .main-container {
+            overflow-y:auto;
+        }
+        .row.no-margin {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+        .header-logo-div img, .footer-logo-div img {
+            height:50px;
+            width:250px;
+            position:relative;
+            left:1%;
+            top:10px;
+        }
+        .logout-button-div {
+            margin-right: 10px;
+            position:relative;
+            top:-25px;
+        }
+        ul.navigation-progess-bar li {
+            list-style: none;
+        }
+        
+        .see-progress-bar-button {
+            width: 100%;
+            border: none;
+            background:#ddd;
+        }
+        
+        .navigation-progess-bar-div .navbar-toggle, .menu-bar-div .navbar-toggle {
+            margin-left:0px;
+            margin-right:0px;
+        }
+        
+        .navigation-progess-bar-div ul .menu-bar-div ul {
+            padding:0px;
+        }
+        
+        .navigation-progess-bar-div .navbar-header, .menu-bar-div .navbar-header {
+            padding-left:1%;
+            padding-right:1%;
+        }
+        .navigation-progess-bar-div .navigation-progess-bar {
+            padding-left: 0px;
+        }
+        
+        .footer {
+            position:fixed;
+            bottom: 0%;
+            background: #FFF;
+            width:100%;
+        }
+        
+        .footer .footer-logo-div {
+            margin-bottom:2%;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .navigation-progess-bar-div, .menu-bar-div {
+                width:100%;
+                padding-right: 0px;
+                padding-left: 0px
+            }
+        }
+        
+        .header {
+            padding:10px;
+        }
+        
+        .main-form-div {
+            padding-left:0px;
+            padding-right:0px;
+        }
+    </style>
+    
+    <!--Header Area START-->
+    <div class="row no-margin header">
+        <apex:outputText escape="false" value="{!objPage.pageHeader}" />
+        <div class="clear-fix">
+        </div>
+    </div>
+    <!--Header Area END-->
+    
+    <!--Template Area START-->
+    <style>
+        <apex:outputText escape="false" value="{!objPage.pageCSS}" />
+    </style>
+    <div id="tabs" class="row no-margin">
+        <div class="menu-bar-div">
+            <apex:outputText escape="false" value="{!objPage.pageTabs}" />
+        </div> 
+    </div>
+    <!--Template Area END-->
+    
+    <!--Body Area START-->
+    <apex:outputPanel layout="block" style="width:100%" rendered="{!!objPage.isAuthorized}">
+        {!objPage.errorMessage}
+    </apex:outputPanel>
+    
+    <apex:outputPanel layout="block" rendered="{!objPage.isAuthorized}" styleClass="row no-margin main-body-container"> 
+<!--         <c:SideBarComponent pageList="{!objPage.pageList}" /> -->
+        
+        <div class="col-md-10 slds main-form-div">
+            <div class="main-form-container">
+            	<c:HomePageBody pageRedirectionId="{!objPage.pageList[0].Id}"/>  
+            </div>
+        </div>
+        <div class="clear-fix">
+        </div>   
+    </apex:outputPanel>    
+    <!--Body Area END-->
+    
+    <!--Footer Area START-->
+    <div class="row no-margin footer">
+        <div class="footer-logo-div">
+            <apex:outputText escape="false" value="{!objPage.pageFooter}" />
+        </div>
+    </div>
+    <!--Footer Area END-->
+</apex:page>

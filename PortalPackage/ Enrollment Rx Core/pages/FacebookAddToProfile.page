@@ -1,0 +1,32 @@
+<apex:page showHeader="false" controller="EnrollmentrxRx.FacebookAddToProfileController">
+    <!-- action="{!init}" -->
+    <!-- <div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+
+        <apex:composition template="FacebookTempate">
+            <apex:define name="body">
+            
+                <apex:outputPanel rendered="{!userAuthorized = FALSE}">
+                    <fb:redirect url="http://www.facebook.com/login.php?v=1.0&api_key=cf1c352aa2f1705a6d1fde2a26840341&next=&canvas="/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!userAuthorized}">
+                    <div width="100%" style="background-color: #1a2d6b;margin-bottom:20px;">
+                        <img src="http://demoerx-developer-edition.na6.force.com/resource/1241803055000/SiteAdmissions" />
+                    </div>
+                    
+                    <h1>Let your friends know you applied to College University!</h1>
+                    <p>Here is the text of the profile box you will be adding. Click "Add to Profile" to add the box,
+                    or "Change" to change the box.</p>
+                    <form action="http://apps.facebook.com/enrollmentrx/Page1">
+                        <textarea name="messagedisplay" disabled="true" rows="3" cols="120">{!message}</textarea><br/>
+                        <input type="hidden" name="message" value="{!message}" />
+                        <table border="0" cellpadding="0" cellspacing="3">
+                            <tr><td><fb:add-section-button section="profile" /></td><td><input type="submit" value="Change" /></td></tr></table>
+                    </form>
+                </apex:outputPanel>
+
+            </apex:define>
+        </apex:composition>
+
+    </div> -->
+</apex:page>

@@ -1,0 +1,340 @@
+<apex:page controller="TM_TemplateContentController" id="page" showheader="false" standardstylesheets="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0" >
+<html ng-app="AngularApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<script>
+
+    var newWin=null;
+    function openLookupPopup(tmpId)
+    {
+        var url="/apex/TM_Template?previewMode=tmpReview&tmpId="+tmpId;
+        newWin=window.open(url, "_blank",'height=750,width=1000,left=10,top=10,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        return false;
+    }
+</script>
+
+<style>
+textarea {
+    font-family: "Arial","Helvetica",sans-serif;
+    font-size: 100%;
+    width: 80%;
+    height: 230px;
+}
+</style>
+
+<apex:composition template="Portal_Config_Main_Template">
+<apex:define name="body">
+<div class="slds">
+<apex:pageMessages id="messageVal"/>
+
+
+<apex:form id="theForm">
+
+    <apex:actionFunction name="editContent" rerender="theForm" immediate="true" action="{!editRecord}">
+          <apex:param name="frontEndObjectId" value="" assignTo="{!frontEndObjectId}"/>
+    </apex:actionFunction>
+
+
+    <apex:actionFunction name="deleteTemp" rerender="theForm" immediate="true" action="{!deleteField}">
+          <apex:param name="frontEndObjectId" value="" assignTo="{!frontEndObjectId}"/>
+    </apex:actionFunction>
+
+    <apex:actionFunction name="cloneTemp" rerender="theForm" immediate="true" action="{!cloneRecord}">
+          <apex:param name="frontEndObjectId" value="" assignTo="{!frontEndObjectId}"/>
+    </apex:actionFunction>
+
+<div class="slds-card">
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Templates</h3>{!pageURL}
+              </div>
+            </div>
+            <div class="slds-no-flex">
+              <div class="slds-button-group">
+                <apex:commandButton value="New Template" action="{!addNewTmp}" rerender="newTPsectionId" styleClass="slds-button slds-button--neutral" />
+              </div>
+            </div>
+          </header>
+
+
+        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+          <thead>
+            <tr class="slds-text-heading--label">
+              <th scope="col">
+                <span class="slds-truncate">Template Name</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Description</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Last Modified</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Action</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <apex:repeat value="{!templateList}" var="t">
+            <tr class="slds-hint-parent {!IF( curTmp.Id = t.Id, 'selectedRowCus', '')}">
+              <td data-label="Template Name">
+                <span class="slds-truncate"><a href="#" onclick="window.open('/{!t.Id}')">{!t.SiteTemplateName__c}</a></span>
+              </td>
+              <td data-label="Description">
+                <span class="slds-truncate">{!t.Description__c}</span>
+              </td>
+              <td data-label="Last Modified">
+                <span class="slds-truncate">{!t.LastModifiedBy.Name} &nbsp; <apex:outputField value="{!t.LastModifiedDate}" /></span>
+              </td>
+              <td data-label="Action">
+                <span class="slds-truncate">
+                    <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="editContent('{!t.Id}')" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/edit_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Edit</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="openLookupPopup('{!t.Id}');" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/preview_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Preview</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="cloneTemp('{!t.Id}')" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/copy_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Clone</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="deleteTemp('{!t.Id}')" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/delete_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Delete</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                </span>     
+
+              </td>
+            </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+  </div>
+
+
+
+        <br/>
+
+
+    <apex:outputpanel id="newTPsectionId">
+    <apex:outputpanel rendered="{!curTmp != null}">
+
+
+
+<div>
+  <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--large slds-fade-in-open">
+    <div class="slds-modal__container">
+      <div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">{!IF(curTmp.Id != null, curTmp.SiteTemplateName__c, 'New Template')}</h2>
+        
+      </div>
+      <div class="slds-modal__content">
+    <div class="slds-card">
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">{!IF(curTmp.Id != null, 'Edit', 'Add New')} Template</h3>
+              </div>
+            </div>
+            <div class="slds-no-flex">
+              <div class="slds-button-group">
+                    <apex:commandButton value="Save" action="{!save}" styleClass="slds-button slds-button--neutral" reRender="theForm,newTPsectionId"/>
+                    <apex:commandButton value="Quick Save" action="{!quickSave}" styleClass="slds-button slds-button--neutral"  reRender="newTPsectionId"/>
+                    <apex:commandButton value="Cancel" action="{!cancel}" styleClass="slds-button slds-button--neutral" reRender="theForm,newTPsectionId"/>
+    
+
+              </div>
+            </div>
+          </header>
+
+
+    <!-- <div class="section-header">
+    <h1 class="slds-text-heading--medium slds-truncate" >{!IF(curTmp.Id != null, 'Edit', 'Add New')} Template{!IF(curTmp.Id != null, ': '+curTmp.SiteTemplateName__c, '')} </h1>
+    </div> -->
+    <!-- <div class="slds-text-heading--medium"><br/>Here are some instruction about how to use this tool.</div> -->
+<section class="slds-card__body">
+<div class="col-Padding">
+
+
+  <div class="slds-form-element">
+    <label class="slds-form-element__label" for="Template_Name">Template Name</label>
+    <div class="slds-form-element__control">
+      <apex:inputText id="Template_Name" styleClass="slds-input" value="{!curTmp.SiteTemplateName__c}"/>
+    </div>
+  </div>
+
+  <div class="slds-form-element">
+    <label class="slds-form-element__label" for="Description">Description</label>
+    <div class="slds-form-element__control">
+      <apex:inputText id="Description" styleClass="slds-input" value="{!curTmp.Description__c}"/>
+    </div>
+  </div>
+
+  <div class="slds-form-element">
+    <label class="slds-form-element__label" for="Template_Header">Template Header</label>
+    <div class="slds-form-element__control">
+      <apex:inputTextarea id="Template_Header" styleClass="slds-textarea" value="{!curTmp.SiteTemplateHeader__c}"/>
+    </div>
+  </div>
+
+  <div class="slds-form-element">
+    <label class="slds-form-element__label" for="Template_Footer">Template Footer</label>
+    <div class="slds-form-element__control">
+      <apex:inputTextarea id="Template_Footer" styleClass="slds-textarea" value="{!curTmp.SiteTemplateFooter__c}"/>
+    </div>
+  </div>
+
+
+
+
+  <apex:outputpanel id="addButonSection">
+      <apex:commandButton value="Add Resource" disabled="{!!readyToIsertNew}" action="{!addNewResourceItem}" styleClass="slds-button slds-button--brand" reRender="addButonSection,resourceSection"/>
+      <br/><br/>
+  </apex:outputpanel>
+
+  <apex:outputpanel id="resourceSection">
+        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+          <thead>
+            <tr class="slds-text-heading--label">
+              <th scope="col">
+                <span class="slds-truncate">Resource Name</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Subpath</span>
+              </th>
+
+              <th scope="col">
+                <span class="slds-truncate">Resource Type</span>
+              </th>
+
+              <th scope="col">
+                <span class="slds-truncate">Alias</span>
+              </th>
+
+              <th scope="col">
+                <span class="slds-truncate">Action</span>
+              </th>
+
+            </tr>
+          </thead>
+          <tbody>
+          <apex:repeat value="{!resourceList}" var="t">
+            <tr class="slds-hint-parent">
+              
+              <td data-label="Resource Name">
+                <span class="slds-truncate">
+                <apex:selectList value="{!t.name}" styleClass="slds-select"  size="1" multiselect="false" onchange="allResourceFilled();">
+                  <apex:selectOptions value="{!staticResources}" />
+                </apex:selectList>
+                </span>
+              </td>
+              <td data-label="Subpath">
+                <span class="slds-truncate">
+                <apex:inputText value="{!t.subPath}" styleClass="slds-input" onkeyup="allResourceFilled();" >
+                </apex:inputText>
+                </span>
+              </td>
+              <td data-label="Resource Type">
+                <span class="slds-truncate">
+                <apex:selectList value="{!t.type}" styleClass="slds-select"  size="1" multiselect="false">
+                  <apex:selectOption itemValue="" itemLabel="-- Please Select --"/>
+                  <apex:selectOption itemValue="Image" itemLabel="Image"/>
+                  <apex:selectOption itemValue="JavaScript" itemLabel="JavaScript"/>
+                  <apex:selectOption itemValue="CSS" itemLabel="CSS"/>
+
+                </apex:selectList>
+                </span>
+              </td>
+              <td data-label="Alias">
+                <span class="slds-truncate">
+                <apex:inputText value="{!t.alias}" styleClass="slds-input">
+                </apex:inputText>
+                </span>
+              </td>
+              <td data-label="Action">
+                <!-- {!t.idTime} -->
+                <span class="slds-truncate">
+                <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="deleteResourceItem('{!t.idTime}')" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/delete_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Delete</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                  </span>
+              </td>
+            </tr>
+          </apex:repeat>  
+          </tbody>
+          </table>
+
+<apex:actionFunction reRender="addButonSection" name="allResourceFilled"/>
+<apex:actionFunction reRender="addButonSection,resourceSection" action="{!deleteResourceItem}" name="deleteResourceItem">
+  <apex:param name="frontEndTimeId" value="" assignTo="{!frontEndTimeId}"/>
+</apex:actionFunction>
+
+  </apex:outputpanel>
+
+  </div>
+
+
+    </section>
+
+    </div>    
+    </div>    
+     </div>    
+    </div>    
+<div class="slds-backdrop slds-backdrop--open"></div>
+    </div>
+    </apex:outputpanel>
+    </apex:outputpanel>
+
+</apex:form>
+
+</div>
+</apex:define>
+</apex:composition>
+</html>
+</apex:page>

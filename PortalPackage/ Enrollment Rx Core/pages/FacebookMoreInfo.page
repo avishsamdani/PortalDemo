@@ -1,0 +1,16 @@
+<apex:page showHeader="false" controller="EnrollmentrxRx.FacebookMoreInfoController" >
+    <!--action="{!init}"> -->
+    <!-- <div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
+        <apex:composition template="FacebookTempate">
+            <apex:define name="body">
+                <apex:outputPanel rendered="{!userAuthorized = FALSE}">
+                    <fb:redirect url="http://www.facebook.com/login.php?v=1.0&api_key=cf1c352aa2f1705a6d1fde2a26840341&next=MoreInfo?{!referrerString}"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!userAuthorized}">
+                    <fb:redirect url="http://www.facebook.com/authorize.php?api_key=cf1c352aa2f1705a6d1fde2a26840341&v=1.0&ext_perm=email&next=http://apps.facebook.com/enrollmentrx/MoreInfoSuccess?{!referrerString}"/>
+                </apex:outputPanel>
+            </apex:define>
+        </apex:composition>
+    </div> -->
+</apex:page>

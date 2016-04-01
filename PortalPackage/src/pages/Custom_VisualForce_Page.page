@@ -1,0 +1,56 @@
+<apex:page controller="Custom_VisualForce_PageController" sidebar="false" showHeader="false">
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <apex:pageMessages id="msg" />
+    <apex:form >
+        <apex:actionfunction action="{!save}" name="save" oncomplete="next()" rerender="msg" />
+        <div class="slds"> 
+           <div class="slds-grid slds-wrap ">
+              <div class="slds-col  slds-size--1-of-12">  
+                    <div class="slds-form-element">
+                        <div class='slds-form-element__label'>
+                            <label class="slds-form-element__label" for="text-input-01">First Name</label>
+                        </div>
+                        <div class="slds-form-element__control" >
+                            <apex:inputText id="text-input-01" value="{!student.FirstName}" styleclass="slds-input" />     
+                        </div>
+                    </div>
+              </div>
+            </div>  
+            <div class="slds-grid slds-wrap ">
+              <div class="slds-col  slds-size--1-of-12"> 
+                    <div class="slds-form-element">
+                        <div class='slds-form-element__label'>
+                            <apex:outputLabel value="Last Name" for="text-input-02"/>
+                        </div>
+                        <div class="slds-form-element__control" >
+                            <apex:inputText value="{!student.LastName}" id="text-input-02" styleclass="slds-input"/>     
+                        </div>
+                    </div>
+              </div>                
+           </div>
+           <br/>
+           <div class="slds-grid slds-wrap ">
+              <div class="slds-col  slds-medium-size--3-of-6 slds-large-size--6-of-12">                 
+                <button class="slds-button slds-button--brand" onclick="prev()()">Previous</button>
+              </div>
+              <div class="slds-col  slds-medium-size--3-of-6 slds-large-size--6-of-12" style="text-align:right;padding-right: 1%;">                 
+                <button class="slds-button slds-button--brand" onclick="save()">Next</button>
+              </div>
+           </div>
+        </div>
+    </apex:form>
+    
+    <script>
+        function prev() {
+            if('{!prevPageId}') {
+                window.top.location = '/PageMaker?pageId=' + '{!prevPageId}'; 
+            }
+        }
+        
+        function next() {
+            if('{!nextPageId}') {
+                window.top.location = '/PageMaker?pageId=' + '{!nextPageId}'; 
+            }
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,99 @@
+<apex:page id="page" showheader="false" standardstylesheets="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0">
+    <!--<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">-->
+    <!--<head>
+        <title></title>-->
+    <c:ERx_Common_Utility />
+    <apex:stylesheet value="{!URLFOR($Resource.SLDSTemplateAssets, '/css/frame.css')}" />
+    <apex:includescript value="{!URLFOR($Resource.SLDSTemplateAssets, '/js/frame.js')}"></apex:includescript>
+    <!--</head>-->
+    <!--<body>-->
+    <div class="slds">
+        <div class="slds-backdrop">
+            <img id="loading-image" src="/resource/SLDS/assets/images/spinners/slds_spinner_brand.gif" alt="Loading..." />
+        </div>
+        <div class="slds-grid slds-grid--frame slds-grid--vertical">
+            <!-- Header -->
+            <header class="header slds-size--1-of-1" role="banner">
+                <div class="slds-grid">
+                    <div class="stage-left slds-shrink-none slds-grid slds-size--2-of-12 slds-theme--alt-inverse slds-p-vertical--medium slds-p-horizontal--x-small js-nav-toggle">
+                        <a href="#" class="erx-toggle-button">
+                            <span class="slds-icon__container slds-align-middle">
+                                <img class="slds-icon--small" src="/resource/Utilities/icon/rows_120.png" alt="Toggle Menu" />
+                            </span>
+                        </a>
+                    </div>
+                    <div class="slds-grid slds-grow">
+                        <div class="slds-p-vertical--x-small slds-p-horizontal--medium">
+                            <img alt="Logo" src="/resource/SLDSTemplateAssets/img/enrollmentrx-logo.png" style="height: 44px;" />
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Stage Container -->
+            <div class="stage-container slds-grid slds-nowrap ">
+                <!-- Stage Left - Navigation -->
+                <nav class="stage-left slds-size--2-of-12 slds-shrink-none slds-theme--alt-inverse slds-p-around--xx-small">
+                    <ul role="navigation" class="slds-has-block-links">
+                        <li>
+                            <a href="/home/home.jsp">
+                                <span class="slds-icon__container slds-icon-standard-today slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/home_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="slds-icon__container slds-icon-standard-opportunity slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/opportunity_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Link 1</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="slds-icon__container slds-icon-standard-lead slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/lead_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Link 2</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="slds-icon__container slds-icon-standard-task slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/task_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Link 3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="slds-icon__container slds-icon-standard-file slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/file_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Link 4</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="slds-icon__container slds-icon-standard-account slds-m-right--small">
+                                    <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/standard/account_120.png" />
+                                </span>
+                                <span class="stage-left__text ">Link 5</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Stage Start-->
+                <section class="stage slds-grid slds-grid--vertical slds-nowrap slds-scrollable--y">
+                    <!-- Stage Main Start-->
+                    <apex:insert name="body" />
+                    <!-- Stage Main End-->
+                </section>
+                <!-- Stage End-->
+            </div>
+        </div>
+    </div>
+    <!--</body>-->
+    <!--</html>-->
+</apex:page>

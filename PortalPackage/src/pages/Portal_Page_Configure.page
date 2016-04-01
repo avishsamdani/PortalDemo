@@ -1,0 +1,331 @@
+<apex:page controller="PortalPageConfigureController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+           <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" /> 
+        </head>
+        <style>
+            .blank-span {
+                margin-left:5px;
+                margin-right:5px;
+            }
+            .slds .section-header h1.slds-text-heading--medium.slds-truncate.page-heading {
+                font-size:20px;
+                font-weight:bold;
+                color:#000;
+            }
+            .slds-table.slds-table--bordered a:hover, .slds-table.slds-table--bordered a:focus{
+                text-decoration:none;
+            }
+            
+            .slds h6.slds-text-heading--small.error-meesage {
+                font-size:14px;
+            } 
+        </style>
+        <apex:composition template="Portal_Config_Main_Template">
+            <apex:define name="body">
+            	<!-- Main Body Starts -->
+                <div class="slds" ng-app="createPortalPageApp" ng-controller="CreatePortalPageController">
+                	<!-- Alert Message When No Environment is Selected -->
+                	<div class="alert alert-warning" role="alert" ng-if="!currentEnvId"><span class="glyphicon glyphicon-warning-sign"></span> No environment selected. Please select an environment to create pages.</div>
+                    <!-- Create New Page Button Div -->
+                    <div class="section-header">
+                        <div>
+                            <button type="button" class="slds-button slds-button--brand" ng-click="showCreateNewPage();" ng-if="currentEnvId"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Page</button>
+                        </div>
+                    </div>
+                    <!-- Page List Table -->
+                    <div class="slds-scrollable--x" ng-if="records.length > 0">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <tr class="slds-text-heading--label">
+                                    <th></th>
+                                    <th ng-repeat="filterFieldsDisplay in filterFieldsDisplayList">
+                                        {{filterFieldsDisplayMapString[filterFieldsDisplay]}}
+                                    </th>                                                                       
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="slds-hint-parent" ng-repeat="record in records">
+                                    <td>
+                                        <a ng-if="!record.is_Custom_Page__c" href="/apex/Portal_New_Page_Configure?pageId={{record.Id}}" title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </a>
+                                        <a ng-if="record.is_Custom_Page__c" ng-click="updatePage(record);" title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </a>
+                                        <span class="blank-span"></span>
+                                        <a href="#!"  title="Delete" ng-click="deletePage(record.Id);">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                    <td ng-repeat="filterFieldsDisplay in filterFieldsDisplayList">
+                                        {{record[filterFieldsDisplay]}}
+                                    </td>                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Create New Page Popup Div -->
+                    <div id="createNewPage" ng-show="isCreateNewPage || isUpdatePage" class="hide">
+                        <div aria-hidden="false" role="dialog" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <div class="slds-modal__header">
+                                    <h2 class="slds-text-heading--medium">Create New Page</h2>
+                                    <button class="slds-button slds-button--icon-inverse slds-modal__close" ng-click="hideCreateNewPage();">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </div>
+                                <div class="slds-modal__content">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    	<div class="slds-form-element">
+                                            <label class="slds-form-element__label" for="pageType">Select Page Type :</label>
+                                            <div class="slds-form-element__control">
+                                                <select class="slds-select" name="pageType" ng-model="page.pageType" ng-options="type as type for type in ['New', 'Custom']">
+								                </select>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element" ng-if="page.pageType == 'Custom'">
+                                            <label class="slds-form-element__label" for="customPageName">Select Page : {{page.customPageName}}</label>
+                                            <div class="slds-form-element__control">
+                                                <select class="slds-select" name="customPageName" ng-model="page.customPageName" ng-options="type as type for type in visualForcePages">
+								                </select>
+                                            </div>
+                                        </div>
+                                        <fieldset class="slds-form-element" ng-if="page.pageType == 'Custom'">
+                                            <span class="slds-form-element__label slds-form-element__label--top">
+                                                <legend>Are you using custom header/footer in selected custom page?</legend>
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <label class="slds-checkbox">
+	                                                <input type="checkbox" id="isCustomHeaderFooter" name="isCustomHeaderFooter" ng-model="page.isCustomHeaderFooter"/>
+	                                                <span class="slds-checkbox--faux"></span>
+	                                                <span class="slds-form-element__label"></span>
+                                                </label> 
+                                            </div>
+                                        </fieldset>
+                                        <div class="slds-form-element" ng-if="page.pageType == 'New'">
+                                            <label class="slds-form-element__label" for="pageName">Page Name :</label>
+                                            <div class="slds-form-element__control">
+                                                <input type="text" ng-model="page.pageName" class="slds-input" id="pageName" name="pageName" />
+                                            </div>
+                                        </div>
+                                        <fieldset class="slds-form-element">
+                                            <span class="slds-form-element__label slds-form-element__label--top">
+                                                <legend>Active</legend>
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <label class="slds-checkbox">
+                                                <input type="checkbox" id="isActive" name="isActive" ng-model="page.isActive"/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label"></span>
+                                                </label> 
+                                            </div>
+                                        </fieldset>
+                                       <!--  <div class="slds-form-element">
+                                            <label class="slds-form-element__label">Environment :</label>
+                                        </div>
+                                        <div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="true">
+                                            <div class="slds-form-element" ng-if="page.envId == ''">
+                                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                                                    <svg aria-hidden="true" class="slds-input__icon">
+                                                        <use xlink:href="{!URLFOR($Resource.SLDS0121, '/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+                                                    </svg>
+                                                    <input class="slds-input" type="text" ng-model="lookupstring" ng-keyup="getEnvs(lookupstring);"/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-pill__container no-border slds-show" ng-if="page.envId != ''">
+                                                <a href="#" class="slds-pill">
+                                                    <span class="slds-pill__label">{{displayValue}}</span>
+                                                    <button class="slds-button slds-button--icon-bare slds-pill__remove" ng-click="removeSelectedEnv()">
+                                                        <svg aria-hidden="true" class="slds-button__icon">
+                                                            <use xlink:href="{!URLFOR($Resource.SLDS0121, '/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                                                        </svg>
+                                                        <span class="slds-assistive-text">Remove</span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="slds-lookup__menu" role="listbox" id="envRecordList" ng-if="isShow">
+                                                <ul class="slds-lookup__list" role="presentation">
+                                                    <li class="slds-lookup__item" ng-repeat="envRecord in envRecordList">
+                                                        <a href="#" role="option" ng-click="selectEnv(envRecord.Id, envRecord.name)">
+                                                            {{envRecord.name}}
+                                                        </a>
+                                                    </li>
+                                                    <li class="slds-lookup__item" ng-if="envRecordList.length == 0">
+                                                        No Records Found
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="slds-modal__footer">
+                                    <div class="slds-x-small-buttons--horizontal">
+                                        <button class="slds-button slds-button--neutral" ng-click="hideCreateNewPage();">Cancel</button>
+                                        <button class="slds-button slds-button--neutral slds-button--brand" ng-click="createNewPage();">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-backdrop slds-backdrop--open"></div>
+                    </div>
+                </div>
+            </apex:define>
+        </apex:composition>
+        
+        <script>           
+            $(document).ready(function() {
+                $('#createNewPage').removeClass('hide');
+            });
+        </script>
+        <script>
+        
+            var createPortalPageApp = angular.module("createPortalPageApp", []);
+            
+            // CreatePortalPageController Page Controller (Main Controller)
+            createPortalPageApp.controller('CreatePortalPageController', function($scope, $sce, $q, $timeout, $window) {
+            	// Page Variables (Angular Variable)
+                $scope.records = {!records};
+                $scope.filterFieldsDisplayList = {!filterFieldsDisplayListString};
+                $scope.filterFieldsDisplayMapString = {!filterFieldsDisplayMapString};
+                $scope.isCreateNewPage = false;
+                $scope.packageName = '{!packageName}';
+                $scope.currentEnvId = '{!envId}';
+                $scope.visualForcePages = {!visualForcePagesJson};
+                $scope.isUpdatePage = false; //added by sandeep
+                
+                // Method to hide Popup div
+                $scope.hideCreateNewPage = function() {
+                    $scope.isCreateNewPage = false;
+                    //added by sandeep
+                    $scope.isUpdatePage = false;
+                }
+                
+                // Method to show create new page popup
+                $scope.showCreateNewPage = function() {
+                    $scope.isCreateNewPage = true;
+                    var tempPage = {};
+                    tempPage.pageName = '';
+                    tempPage.isActive = false;
+                    tempPage.envId = $scope.currentEnvId;
+                    tempPage.pageType = 'New';
+                    tempPage.isCustomHeaderFooter = false;
+                    tempPage.customPageName = '';
+                    $scope.page = tempPage;
+                    
+                }
+                
+                // Method is used to create new page.
+                $scope.createNewPage = function() {
+                    var errorString = '';
+                    // Validation Check
+                    if(undefined == $scope.page.pageType || $scope.page.pageType.trim() == '') {
+                        errorString += 'Page type must be selected. \n';
+                    } else {
+	                    if($scope.page.pageType == 'New' && (undefined == $scope.page.pageName || $scope.page.pageName.trim() == '')) {
+	                        errorString += 'Page Name can not be left blank. \n';
+	                    }
+	                    
+	                    if($scope.page.pageType == 'Custom' && (undefined == $scope.page.customPageName || $scope.page.customPageName.trim() == '')) {
+	                        errorString += 'Page must be selected. \n';
+	                    }
+                    }
+                    
+                    if(undefined == $scope.page.envId || $scope.page.envId.trim() == '') {
+                        errorString += 'Environment can not be left blank. \n';
+                    }
+                    
+                    // If any error on page show a alert and return.
+                    if(errorString != '') {
+                        alert(errorString);
+                        return;
+                    }
+                    
+                    //updated by sandeep
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.PortalPageConfigureController.createNewPage}',
+                        angular.toJson($scope.page), 
+                        $scope.isUpdatePage,
+                        function(result, event){
+                            if (event.status) {
+                                if(result['Success'] != null) {
+                                	if($scope.page.pageType == 'Custom') {
+                                		$window.location.href = '/apex/' + $scope.packageName + 'Portal_Page_Configure';
+                                	} else {
+                                   	 	$window.location.href = '/apex/' + $scope.packageName + 'Portal_New_Page_Configure?pageId=' + result['Success'];
+                               	 	}
+                                } else {
+                                    var displayKey = '';
+                                    angular.forEach(result, function(value, key) {
+                                        displayKey = key; 
+                                    });
+                                    alert(JSON.stringify(result));
+                                    alert(displayKey);
+                                }
+                            } else if (event.type === 'exception') {
+                                alert('Some thing went wrong. Please try after some time.')
+                            }
+                        }, 
+                        {escape: true}
+                    );
+                }
+                
+                //Added by Sandeep
+                $scope.updatePage = function(pageInst) {
+                	$scope.isUpdatePage = true;
+                	var page = $scope.page = {};
+                	$scope.page.pageName = pageInst.Page_Name__c;
+                	page.customPageName = pageInst.Custom_Page_Name__c;
+                	page.isActive = pageInst.IsActive__c;
+                	page.envId = pageInst.Env__c;
+                	if(pageInst.is_Custom_Page__c) {
+                		page.pageType = 'Custom';
+               		} else {
+               			page.pageType = 'New';
+               		}
+                	page.isCustomHeaderFooter = pageInst.is_Custom_Header_Footer__c;
+                	page.pageId = pageInst.Id;
+                	//alert(JSON.stringify($scope.page));
+                	//$scope.showCreateNewPage();
+                }
+                
+                // Method to delete page.
+                $scope.deletePage = function(pageId) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.PortalPageConfigureController.deletePage}',
+                        pageId,
+                        function(result, event){
+                            if (event.status) {
+                                if(result) {
+                                	// If Page if deleted successfully.
+                                    var indexToDelete = -1;
+                                    var tempList = angular.copy($scope.records);
+                                    angular.forEach(tempList, function(value, index) {
+                                        if(value.Id == pageId) {
+                                            indexToDelete = index;
+                                            return;
+                                        }
+                                    });                                 
+                                    if(indexToDelete != -1) {
+                                        tempList.splice(indexToDelete, 1);
+                                    }                                   
+                                    $scope.$apply(function() {
+                                        $scope.records = tempList;
+                                    });
+                                } else {
+                                    alert('Page is belong to live enviroment. You can not delete.');
+                                }
+                                // Assigning Mapping field list to the Map.
+                                console.log(result);                                
+                            } else if (event.type === 'exception') {
+                                alert('Some thing went wrong. Please try after some time.')
+                            }
+                        }, 
+                        {escape: true}
+                    );
+                }
+            });
+        </script>
+    </html>
+</apex:page>

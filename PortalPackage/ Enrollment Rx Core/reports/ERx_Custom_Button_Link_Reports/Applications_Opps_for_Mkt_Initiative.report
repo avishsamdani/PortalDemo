@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Enrollment_Opportunity__c.Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Admissions_Status__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Financial_Aid_Stage__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <description>Show me all Closed Applications related to this Marketing Initiative</description>
+    <filter>
+        <criteriaItems>
+            <column>FK_CUSTENT_ID</column>
+            <operator>equals</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Enrollment_Opportunity__c.Admissions_Status__c</column>
+            <operator>equals</operator>
+            <value>Active Student</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Closed Application for Mkt Initiative</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Enrollment_Opportunity__c@Enrollment_Opportunity__c.Marketing_Initiative__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

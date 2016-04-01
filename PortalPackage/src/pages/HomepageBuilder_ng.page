@@ -1,0 +1,185 @@
+<apex:page id="page" showheader="false" standardstylesheets="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0" controller="ngForceController" extensions="HomepageBuilderController_ng">
+    <html ng-app="AngularApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="{!URLFOR($Resource.HomepageBuilderAssets, '/style/HomepageBuilder_ng.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/controllers/HomepageBuilderCtrl.js')}"></script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/controllers/HWLModalCtrl.js')}"></script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/controllers/EnvModalCtrl.js')}"></script>
+        <script type="text/javascript">
+        var hwlDescribeJSON='{!hwlDescribeJSON}';
+        </script>
+        <c:ERx_Common_Utility />
+    </head>
+    <body ng-controller="HomepageBuilderCtrl as con" >
+        <div class="slds">
+            <apex:composition template="Portal_Config_Main_Template">
+                <apex:define name="body">
+                    <!-- <div class="slds-p-around--medium slds-shrink-none" style="padding-bottom:0">
+                        <div style="padding-right: .5rem; display: inline-block; vertical-align: top; ">
+                            <svg aria-hidden="true" class="slds-icon" style="background-color: #EDB566; font-size: 2rem; padding: 7px; width: 2.75rem; height: 2.75rem;">
+                                <use xlink:href="{!URLFOR($Resource.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#settings')}" />
+                            </svg>
+                        </div>
+                        <div class="slds-tile" style="padding-right: .5rem; display: inline-block; vertical-align: top; ">
+                            <p class="slds-tile__title" style="color: rgb(0, 112, 210); font-size: 0.75rem; ">
+                                <a href="/home/home.jsp">HOMEPAGE WIDGET LAYOUTS SETUP</a>
+                            </p>
+                            <div class="slds-tile__detail slds-text-heading--small">
+                                <p style="font-size: 1.5rem; color: rgb(22, 50, 92)">Manage Homepage Widget Layout(Draggable and Resizable)</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--slds-scrollable--y-->
+                    <div class=" stage-main slds-grid slds-wrap slds-grow" role="main">
+                        <div class="slds-grow slds-max-medium-size--1-of-1">
+                            <!-- <section >
+                                <span style="color: #5C2FDA; font-size: 1.75rem; font-weight: 400; line-height: 1.25; ">Environment</span>
+                                <span class="slds-badge slds-m-left--medium slds-shrink-none slds-align-middle" ng-style="envBadgeStyle">
+                                    {{env.Env_Status__c ? env.Name+' ('+env.Env_Status__c+')' : 'Not Selected'}}
+                                </span>
+                                <p class="slds-p-top--xx-small">
+                                    *Plese select environment first
+                                </p>
+                                <div class="slds-grid slds-p-top--xx-small slds-p-bottom--large">
+                                    <div class="slds-grow slds-shrink-none">
+                                        <button class="slds-button slds-button--neutral">
+                                            <span class="slds-text-not-selected">
+                                                <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left" style="width: 20px; height: 20px; fill: rgb(84, 105, 141)">
+                                                    <use xlink:href="/resource/SLDS/assets/icons/utility-sprite/svg/symbols.svg#settings"></use>
+                                                </svg>Select Environment
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div ng-if="env.Id">
+                                        <button class="slds-button slds-button--neutral" title="Refresh" ng-click="loadTableData('Env__c=\'' + env.Id + '\'');setRefreshStyle($event);">
+                                            
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                        <button class="slds-button slds-button--neutral" ng-click="newRow()">New</button>
+                                    </div>
+                                </div>
+                            </section> -->
+                            
+                            <section class="erx-border" st-table="displayedCollection" st-safe-src="hwlList"  ng-init="popEnv('{!envId}');">
+                                <div class="erx-table-search">
+                                    <span class="slds-input-has-icon slds-input-has-icon--right">
+                                        <img src="/resource/SLDS/assets/icons/utility/search_120.png" class="slds-input__icon" />
+                                        <input st-search="Name" placeholder="Search ..." class="slds-input" type="search" />
+                                    </span>
+                                </div>
+                                <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+                                    <thead>
+                                        <tr class="slds-text-heading--label">
+                                            <th st-sort-default="true" st-sort="Name" scope="col" class="erx-column-sortable">
+                                                <span class="slds-truncate">Homepage Widget Layout Name</span>
+                                            </th>
+                                            <th st-sort="Env__c" scope="col" class="erx-column-sortable">
+                                                <span class="slds-truncate">Environment</span>
+                                            </th>
+                                            <!--<th scope="col" st-sort="Program_Catalog__r.Name" class="erx-column-sortable">
+                                                <span class="slds-truncate">Assigned To Program Catalog</span>
+                                            </th>-->
+                                            <th scope="col" st-sort="Displaying_Application_Status__c" class="erx-column-sortable">
+                                                <span class="slds-truncate">Displaying Application Status</span>
+                                            </th>
+                                            <th scope="col" st-sort="Is_Active__c" class="erx-column-sortable">
+                                                <span class="slds-truncate">Active</span>
+                                            </th>
+                                            <th scope="col">
+                                                <span class="slds-truncate">Action</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr st-select-row="hwl" ng-repeat="hwl in displayedCollection">
+                                            <td data-label="Name">
+                                                <a class="slds-truncate" ng-click="editRow(hwl)" style="cursor:pointer">
+                                                    {{hwl.Name}}
+                                                </a>
+                                            </td>
+                                            <td data-label="Environment">
+                                                <span class="slds-truncate">{{hwl.Env__r.Name}} ({{hwl.Env__r.Env_Status__c}})</span>
+                                            </td>
+                                            <!--<td data-label="Assigned To Program Catalog">
+                                                <span class="slds-truncate">{{hwl.Program_Catalog__r.Name}}</span>
+                                            </td>-->
+                                            <td data-label="Displaying Application Status">
+                                                <span class="slds-truncate" style="white-space: normal;">{{hwl.Displaying_Application_Status__c}}</span>
+                                            </td>
+                                            <td data-label="Active">
+                                                <span class="slds-truncate">
+                                                    <div class="slds-checkbox">
+                                                        <input type="checkbox" ng-model="hwl.Is_Active__c" />
+                                                        <span class="slds-checkbox--faux"></span>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                            <td data-label="Action">
+                                                <div class="slds-dropdown-trigger">
+                                                    <button type="button" ng-click="editRow(hwl)" class="slds-button slds-button--neutral action-button">
+                                                        <img src="/resource/SLDS/assets/icons/utility/edit_120.png" class="action-img" />
+                                                    </button>
+                                                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                                                        <ul class="slds-dropdown__list">
+                                                            <li class="slds-dropdown__item">
+                                                                <p class="slds-truncate">Edit</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-dropdown-trigger">
+                                                    <button type="button" ng-click="manageRow(hwl)" class="slds-button slds-button--neutral action-button">
+                                                        <img src="/resource/SLDS/assets/icons/utility/builder_120.png" class="action-img" />
+                                                    </button>
+                                                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                                                        <ul class="slds-dropdown__list">
+                                                            <li class="slds-dropdown__item">
+                                                                <p class="slds-truncate">Manage</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-dropdown-trigger">
+                                                    <button type="button" ng-click="copyRow(hwl)" class="slds-button slds-button--neutral action-button">
+                                                        <img src="/resource/SLDS/assets/icons/utility/copy_120.png" class="action-img" />
+                                                    </button>
+                                                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                                                        <ul class="slds-dropdown__list">
+                                                            <li class="slds-dropdown__item">
+                                                                <p class="slds-truncate">Copy</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-dropdown-trigger">
+                                                    <button type="button" ng-click="removeRow(hwl)" class="slds-button slds-button--neutral action-button">
+                                                        <img src="/resource/SLDS/assets/icons/utility/delete_120.png" class="action-img" />
+                                                    </button>
+                                                    <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                                                        <ul class="slds-dropdown__list">
+                                                            <li class="slds-dropdown__item">
+                                                                <p class="slds-truncate">Delete</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5" st-pagination="''" st-items-by-page="8" st-displayed-pages="5"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </apex:define>
+            </apex:composition>
+        </div>
+    </body>
+</html>
+</apex:page>

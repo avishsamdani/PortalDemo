@@ -1,0 +1,131 @@
+<apex:component >
+   <!-- <apex:attribute name="multipicklist" required="required" type="String"  description="Attribute on the component." /> -->
+    <div class="slds" ng-app="mainApp" ng-controller="mainAppController" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div class="slds-picklist--draggable slds-grid">
+                    <div class="slds-form-element">
+                        <span class="slds-form-element__label" aria-label="select-1">Available</span>
+                        <div class="slds-picklist slds-picklist--multi">
+                            <ul ui-sortable="sortableOptions" ng-model="availableValues" class="picklist slds-picklist__options slds-picklist__options--multi shown">                                
+                                <div ng-repeat="item in availableValues" class="app" ng-class="{active: isActive(item)}" >
+                                    <li id="po-0-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option" ng-click="add1($index);select(item)" ng-dblclick="add1($index);addToSelectedValues();select(null)" >
+                                        <span class="slds-truncate">
+                                            <span>{{item}}</span>
+                                        </span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-grid--vertical">
+                        <button class="slds-button slds-button--icon-container" ng-click="deleteFromSelectedValues();select(null)">
+                            <svg aria-hidden="true" class="slds-button__icon" >
+                                <use xlink:href="{!URLFOR($Resource.SLDS0122, 'assets/icons/utility-sprite/svg/symbols.svg#left')}" ></use>
+                            </svg>
+                            <span class="slds-assistive-text" >Arrow left</span>
+                        </button>
+                        <button class="slds-button slds-button--icon-container" ng-click="addToSelectedValues();select(null)">
+                            <svg aria-hidden="true" class="slds-button__icon">
+                                <use xlink:href="{!URLFOR($Resource.SLDS0122, 'assets/icons/utility-sprite/svg/symbols.svg#right')}" ></use>
+                            </svg>
+                            <span class="slds-assistive-text" >Arrow right</span>
+                        </button>
+                    </div>
+                    <div class="slds-form-element">
+                        <span class="slds-form-element__label" aria-label="select-2">Chosen</span>
+                        <div  class="slds-picklist slds-picklist--multi" >                          
+                            <ul ui-sortable="sortableOptions" ng-model="selectedValues" class="picklist slds-picklist__options slds-picklist__options--multi shown">
+                                <div ng-repeat="item in selectedValues" class="app" ng-class="{active: isActive(item)}">
+                                    <li id="po-0-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option" ng-click="delete1($index);select(item)" ng-dblclick="delete1($index);deleteFromSelectedValues();select(null)">
+                                        <span class="slds-truncate">
+                                            <span class="items" >{{item}}</span>
+                                        </span>
+                                    </li>
+                                </div>
+                            </ul>                              
+                        </div>
+                    </div>
+                </div>
+            </div> 
+    <script> 
+   var mainApp = angular.module("mainApp", ['ui.sortable']); 
+    mainApp.controller('mainAppController', ['$scope', function($scope) { 
+            $scope.availableValues = ['Option-1','Option-2','Option-3','Option-4','Option-5','Option-6','Option-7'];
+            $scope.selectedValues = [];
+            var deleted = null;
+            var selected = null;
+            var selectedValueFromSelectedValues = null;
+            var selectedValueFromAvailableValues = null;
+            var countForAdd = null;
+            var countForDelete = null;
+
+        
+        $scope.sortableOptions = {
+            update: function(e, ui) {
+            },
+            receive: function(e, ui) {
+                
+            },
+            connectWith: ".picklist" 
+        };
+        
+        $scope.add1 = function(val) {
+            countForAdd = 1;
+            selected = $scope.availableValues[val];
+            selectedValueFromAvailableValues = val;    
+        }
+                
+                $scope.addToSelectedValues = function() { 
+                if(countForAdd == 1) {
+                    $scope.selectedValues.push(selected);
+                    $scope.availableValues.splice(selectedValueFromAvailableValues, 1);                 
+                    selected = '';
+                    selectedValueFromAvailableValues = null;
+                    countForAdd--;
+                }
+            }
+            
+            $scope.delete1 = function(val) {
+                countForDelete = 1;
+                selectedValueFromSelectedValues = $scope.selectedValues[val];          
+                deleted = val; 
+            }
+        
+        $scope.deleteFromSelectedValues = function() { 
+            if(countForDelete == 1) {
+                $scope.selectedValues.splice(deleted, 1); 
+                $scope.availableValues.push(selectedValueFromSelectedValues);
+                selectedValueFromSelectedValues = '';
+                deleted=null;
+                countForDelete--;
+            }
+        }
+        
+        $scope.select= function(item) {
+            $scope.selectedVal = item; 
+        } 
+        
+        $scope.isActive = function(item) {
+            return $scope.selectedVal === item;
+        }
+        
+        
+        
+        $scope.save1 = function() { 
+            var str='';
+            var c = new sforce.SObject("Contact");
+            var query = "SELECT Id,Multi__c from Contact Where Id = '0032800000CNC4H' "; 
+            var records = sforce.connection.query(query); 
+            var records1 = records.getArray('records'); 
+            alert(c);            
+            angular.forEach($scope.availableValues,function(val){
+                str = str + val +';';    
+            })
+            c.Id = '0032800000CNC4H';
+            c.Multi__c = str;
+            alert(c.Multi__c);            
+            r=sforce.connection.update([c]);           
+            alert(r);
+        }        
+    }]);
+    </script>
+</apex:component>

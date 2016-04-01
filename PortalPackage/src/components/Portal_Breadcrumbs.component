@@ -1,0 +1,76 @@
+<apex:component >
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />   
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/svg4everybody/2.0.0/svg4everybody.js"></apex:includescript>
+    <script>svg4everybody();</script>   
+		<script type="text/javascript">
+			
+			$(document).ready(function() { 
+				if('{!$CurrentPage.Name}'=='TM_TemplateAssignment'){
+                	$("#functionLink").attr('href','/apex/TM_TemplateAssignment');
+                	$("#functionLink").text('TEMPLATE MANAGER');
+                    $("#pageContent").text('Template Assignment');
+                    // $(".item1").addClass('slds-active');
+                }else if('{!$CurrentPage.Name}'=='TM_TemplateContent'){
+                    $("#functionLink").attr('href','/apex/TM_TemplateAssignment');
+                    $("#functionLink").text('TEMPLATE MANAGER');
+                    $("#pageContent").text('Template Content');
+                    // $(".item2").addClass('slds-active');
+                }else if('{!$CurrentPage.Name}'=='Portal_RegistrationSetting'){
+                    $("#functionLink").attr('href','/apex/Portal_RegistrationSetting');
+                    $("#functionLink").text('PORTAL LOGIN CONFIGURATION');
+                    $("#pageContent").text('Self Registration Setting');
+                    // $(".item3").addClass('slds-active');
+                }else if('{!$CurrentPage.Name}'=='Portal_Page_Configure'){
+                    $("#functionLink").attr('href','/apex/Portal_Page_Configure');
+                    $("#functionLink").text('FORM BUILDER');
+                    $("#pageContent").text('Form Builder For Portal');
+                    // $(".item4").addClass('slds-active');
+                }else if('{!$CurrentPage.Name}'=='HomepageBuilder_ng'){
+                    $("#functionLink").attr('href','/apex/HomepageBuilder_ng');
+                    $("#functionLink").text('HOMEPAGE WIDGET LAYOUTS SETUP');
+                    $("#pageContent").text('Manage Homepage Widget Layout');
+                    // $(".item5").addClass('slds-active');
+                }else if('{!$CurrentPage.Name}'=='Portal_Home'){
+                    $("#bcHeader").hide();
+                }
+            });
+		</script>
+</head>
+       
+
+
+        <div class="slds-p-around--large slds-shrink-none" style="padding-left:0" id="bcHeader">
+
+          <!-- <nav role="navigation">
+            <p id="bread-crumb-label" class="slds-assistive-text">You are here:</p>
+            <ol class="slds-breadcrumb slds-list--horizontal" aria-labelledby="bread-crumb-label">
+              <li class="slds-list__item slds-text-heading--label"><a href="#">Parent Entity</a></li>
+              <li class="slds-list__item slds-text-heading--label"><a href="#">Parent Record Name</a></li>
+            </ol>
+          </nav> -->
+            
+            <div style="padding-right: .5rem; display: inline-block; vertical-align: top; ">
+            <!-- <img title="" alt="" class="slds-icon " src="/img/icon/t4v35/utility/settings_120.png" style="background-color: #EDB566; font-size: 2rem; padding: 7px; width: 5rem; height: 5rem;" /> -->
+            <span class="slds-icon__container slds-icon-standard-case">
+            <svg aria-hidden="true" class="slds-icon slds-icon--large">
+              <use xlink:href="{!URLFOR($Resource.SLDS0121, 'assets/icons/utility-sprite/svg/symbols.svg#settings')}"></use>
+            </svg>
+            </span>
+            </div>
+            <div class="slds-tile" style="padding-right: .5rem; display: inline-block; vertical-align: top; ">
+                <p class="slds-tile__title" style="color: rgb(0, 112, 210); font-size: 1.5rem; ">
+                    <a href="/home/home.jsp" Id="functionLink">TEMPLATE MANAGER</a>
+                </p>
+                <div class="slds-tile__detail slds-text-heading--small">
+                    <p style="font-size: 2.5rem; color: rgb(22, 50, 92)" Id="pageContent">Template Assignment</p>
+                </div>
+            </div>
+        </div>
+
+    
+</html>
+
+</apex:component>

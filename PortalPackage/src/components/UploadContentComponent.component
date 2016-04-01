@@ -1,0 +1,262 @@
+<apex:component >
+	<div ng-init="parentId = fieldInfo.parentId" ng-if="fieldInfo.parentIdSource == 'STATIC'">
+		<div ng-if="((attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && fieldInfo.multiple == false) || (fieldInfo.multiple == true)">
+			<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<div class="slds-form-element__label slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--5-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'">
+							<div class='instructionText'  ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+						</div>
+					</div>
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--7-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD' ">
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class=" slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+						<img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+						<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'">
+							<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+										<input id='document{{$index}}' name='document{{$parent}}' type='file' multiple="multiple" class='slds-input' ng-if="fieldInfo.multiple == true" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+										<input id='document{{$index}}' name='document{{$parent}}' type='file' class='slds-input' ng-if="fieldInfo.multiple == false" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+									</div>
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" style='text-align:center;'>
+										<input ng-click="uploadDocument('document'+$index, parentId, fieldInfo.allowedContentType, fieldInfo.maximumsize)" type='button' value='Upload Document' class='slds-button slds-button--brand slds-button--small' />
+									</div>
+									<div ng-show="execForm.$submitted ">
+										<div class ="errorLabel" ng-show='(attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && {{fieldInfo.requiredExpressionFinal}}' >{{fieldInfo.requiredErrorMessage}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'">
+								<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+									<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-heading" style="min-height: 35px;" ng-if="attachmentMap[parentId].length > 0">
+			<div style="text-align:center; margin-top: 5px;">
+				<label style="color: #777;">Existing Attachments</label> 
+			</div>
+			<div class="slds-scrollable--x">
+				<table class="table table-hover" id="j_id0:j_id1:j_id2:j_id7:j_id18" border="0" cellpadding="0" cellspacing="0" >
+					<colgroup span="5"></colgroup>
+					<thead class="">
+						<tr>
+							<th scope="col" colspan="1">
+								<div>Attachment Name</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Last CreatedDate</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Remove</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="tb" ng-repeat="attach in attachmentMap[parentId]">
+						<tr>
+							<td colspan="1"><a href="/servlet/servlet.FileDownload?file={{attach.fileId}}" target="_blank">{{attach.attachmentName}}</a></td>
+							<td colspan="1"><span>{{attach.createdDate}}</span></td>
+							<td colspan="1"><button class="slds-button slds-button--brand slds-button--small" ng-click='removeAttachment(attach.fileId, parentId, $index)'>Remove</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div ng-init="parentId = obj.Id" ng-if="fieldInfo.parentIdSource == 'MODEL' && section.modelName == fieldInfo.parentId">
+		<div ng-if="((attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && fieldInfo.multiple == false) || (fieldInfo.multiple == true)">
+			<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<div class="slds-form-element__label slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--5-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'">
+							<div class='instructionText'  ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+						</div>
+					</div>
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--7-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD' ">
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class=" slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+						<img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+						<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'">
+							<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+										<input id='document{{$parent.$parent.$parent.$parent.$parent.$parent.$index}}{{$index}}' name='document{{$parent.$parent.$parent.$parent.$parent.$parent.$index}}{{$index}}' type='file' multiple="multiple" class='slds-input' ng-if="fieldInfo.multiple == true" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+										<input id='document{{$parent.$parent.$parent.$parent.$parent.$parent.$index}}{{$index}}' name='document{{$parent.$parent.$parent.$parent.$parent.$parent.$index}}{{$index}}' type='file' class='slds-input' ng-if="fieldInfo.multiple == false" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+									</div>
+									
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" style='text-align:center;'>
+										<input ng-click="uploadModelDocument('document'+ $parent.$parent.$parent.$parent.$parent.$index + $index, parentId, fieldInfo.allowedContentType, fieldInfo.maximumsize, $parent.$parent.$parent.$parent.$index, section.modelName)" type='button' value='Upload Document' class='slds-button slds-button--brand slds-button--small' />
+									</div>
+									<div ng-show="execForm.$submitted ">
+										<div class ="errorLabel" ng-show='(attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && {{fieldInfo.requiredExpressionFinal}}' >{{fieldInfo.requiredErrorMessage}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'">
+								<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+									<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-heading" style="min-height: 35px;" ng-if="attachmentMap[parentId].length > 0">
+			<div style="text-align:center; margin-top: 5px;">
+				<label style="color: #777;">Existing Attachments</label> 
+			</div>
+			<div class="slds-scrollable--x">
+				<table class="table table-hover" id="j_id0:j_id1:j_id2:j_id7:j_id18" border="0" cellpadding="0" cellspacing="0" >
+					<colgroup span="5"></colgroup>
+					<thead class="">
+						<tr>
+							<th scope="col" colspan="1">
+								<div>Attachment Name</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Last CreatedDate</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Remove</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="tb" ng-repeat="attach in attachmentMap[parentId]">
+						<tr>
+							<td colspan="1"><a href="/servlet/servlet.FileDownload?file={{attach.fileId}}" target="_blank">{{attach.attachmentName}}</a></td>
+							<td colspan="1"><span>{{attach.createdDate}}</span></td>
+							<td colspan="1"><button class="slds-button slds-button--brand slds-button--small" ng-click='removeAttachment(attach.fileId, parentId, $index)'>Remove</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div ng-init="parentId = paramMap[fieldInfo.parentId]" ng-if="fieldInfo.parentIdSource == 'PARAM' && paramMap[fieldInfo.parentId] != null">
+		<div ng-if="((attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && fieldInfo.multiple == false) || (fieldInfo.multiple == true)">
+			<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<div class="slds-form-element__label slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--5-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'">
+							<div class='instructionText'  ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+						</div>
+					</div>
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--7-of-12"  ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD' ">
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class=" slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 ng-scope" >
+				<div class="slds-grid slds-wrap slds-grid--pull-padded">
+					<div class="slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-5">
+						<label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+						<img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+						<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'">
+							<div class="slds-form-element__label slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+								<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+							</div>
+						</div>
+					</div>
+					<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+						<div class="slds-col" >
+							<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+								<div class="slds-grid slds-wrap">
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+										<input id='document{{$index}}' name='document{{$parent}}' type='file' multiple="multiple" class='slds-input' ng-if="fieldInfo.multiple == true" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+										<input id='document{{$index}}' name='document{{$parent}}' type='file' class='slds-input' ng-if="fieldInfo.multiple == false" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" />
+									</div>
+									<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" style='text-align:center;'>
+										<input ng-click="uploadDocument('document'+$index, parentId, fieldInfo.allowedContentType, fieldInfo.maximumsize)" type='button' value='Upload Document' class='slds-button slds-button--brand slds-button--small' />
+									</div>
+									<div ng-show="execForm.$submitted ">
+										<div class ="errorLabel" ng-show='(attachmentMap[parentId] == null || attachmentMap[parentId].length == 0) && {{fieldInfo.requiredExpressionFinal}}' >{{fieldInfo.requiredErrorMessage}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="slds-col"  ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'">
+								<div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" >
+									<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-heading" style="min-height: 35px;" ng-if="attachmentMap[parentId].length > 0">
+			<div style="text-align:center; margin-top: 5px;">
+				<label style="color: #777;">Existing Attachments</label> 
+			</div>
+			<div class="slds-scrollable--x">
+				<table class="table table-hover" id="j_id0:j_id1:j_id2:j_id7:j_id18" border="0" cellpadding="0" cellspacing="0" >
+					<colgroup span="5"></colgroup>
+					<thead class="">
+						<tr>
+							<th scope="col" colspan="1">
+								<div>Attachment Name</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Last CreatedDate</div>
+							</th>
+							<th scope="col" colspan="1">
+								<div>Remove</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="tb" ng-repeat="attach in attachmentMap[parentId]">
+						<tr>
+							<td colspan="1"><a href="/servlet/servlet.FileDownload?file={{attach.fileId}}" target="_blank">{{attach.attachmentName}}</a></td>
+							<td colspan="1"><span>{{attach.createdDate}}</span></td>
+							<td colspan="1"><button class="slds-button slds-button--brand slds-button--small" ng-click='removeAttachment(attach.fileId, parentId, $index)'>Remove</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</apex:component>

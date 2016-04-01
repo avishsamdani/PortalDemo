@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>A configuration object which controls what document records are created on an enrollment opportunity when the enrollment status enters the &quot;Create Documents At&quot; status specified on Enrollment Rx Configuration. One Admissions Document or Financial Aid Document is created on an Enrollment Opportunity for every active Enrollment Rx Required Document.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If checked, this record will spawn a new Admissions Document or Financial Aid Document on Enrollment Opportunities. If unchecked, it will be ignored.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, this record will spawn a new Admissions Document or Financial Aid Document on Enrollment Opportunities. If unchecked, it will be ignored.</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Blocks_Admissions_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If this document is required to be supplied before the Enrollment Opportunity can enter or pass a certain Admissions Status, fill this field out with the Status it should block.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If this document is required to be supplied before the Enrollment Opportunity can enter or pass a certain Admissions Status, fill this field out with the Status it should block.</inlineHelpText>
+        <label>Blocks Admissions Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blocks_Financial_Aid_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If this document is required to be supplied before the Enrollment Opportunity can enter or pass a certain Financial Aid Status, fill this field out with the Status it should block.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If this document is required to be supplied before the Enrollment Opportunity can enter or pass a certain Financial Aid Status, fill this field out with the Status it should block.</inlineHelpText>
+        <label>Blocks Financial Aid Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Document_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Determines what type of document will be created on the Enrollment Opportunity.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Determines what type of document will be created on the Enrollment Opportunity.</inlineHelpText>
+        <label>Document Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Admissions Document</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Aid Document</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Controls how the &quot;Due (Days)&quot; field value is used. Due dates are calculated either as number of days after the document record is created, or number of days before the target school term starts.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Controls how the &quot;Due (Days)&quot; field value is used. Due dates are calculated either as number of days after the document record is created, or number of days before the target school term starts.</inlineHelpText>
+        <label>Due Date Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Number of days after creation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number of days before school term begins</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Due_Days__c</fullName>
+        <defaultValue>30</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Number of days to use for the initial due date. The &quot;Due Date Type&quot; controls whether this due date is number of days after the document record is created, or number of days before the school term starts.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of days to use for the initial due date. The &quot;Due Date Type&quot; controls whether this due date is number of days after the document record is created, or number of days before the school term starts.</inlineHelpText>
+        <label>Due (Days)</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enrollment_Rx_Configuration__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The configuration this document specification belongs to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The configuration this document specification belongs to.</inlineHelpText>
+        <label>Enrollment Rx Configuration</label>
+        <referenceTo>Enrollment_Rx_Configuration__c</referenceTo>
+        <relationshipLabel>Enrollment Rx Required Documents</relationshipLabel>
+        <relationshipName>Enrollment_Rx_Required_Documents</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Enrollment Rx Required Document</label>
+    <nameField>
+        <label>Enrollment Rx Required Document Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Enrollment Rx Required Documents</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Highest_Level_of_Education__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_be_a_Full_Time_Student__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_Earn_a_Degree__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_live_in_College_Housing__c</field>
+    </columns>
+    <description>Show me all Appicantions by Status and by Marketing Initiatives Type</description>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$Marketing_Initiatives__c.Initiative_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Enrollment_Opportunity__c.Admissions_Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Application Status/Initiative Type</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Enrollment_Opportunity__c@Enrollment_Opportunity__c.Marketing_Initiative__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Enrollment_Opportunity__c.ACT_Date_Test_Taken__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,35 @@
+<apex:page controller="EnrollmentrxRx.DemoSiteMoreInfoController" standardStylesheets="true" showHeader="false" sidebar="false">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <div id="mainwide">
+                <div id="bar">
+            
+                    <h1>College Admissions<br/>Request More Information</h1>
+                    <br/>
+                    <b>Thanks for your interest in our school! Please fill out the below form and an Admissions Advisor will contact you shortly.</b>
+                    <br/><br/>
+                    <apex:form >
+                    <apex:pageBlock >
+                        <apex:pageBlockButtons >
+                            <apex:commandButton action="{!saveContact}" value="Save" />
+                        </apex:pageBlockButtons>
+                        <apex:pageBlockSection columns="1">
+                            <apex:inputField value="{!contact.Salutation}" />
+                            <apex:inputField value="{!contact.FirstName}" required="true"/>
+                            <apex:inputField value="{!contact.LastName}" required="true"/>
+                            <apex:inputField value="{!contact.HomePhone}" />
+                            <apex:inputField value="{!contact.Email}" required="true"/>
+                            <apex:inputField value="{!contact.MailingStreet}" />
+                            <apex:inputField value="{!contact.MailingCity}" />
+                            <apex:inputField value="{!contact.MailingState}" />
+                            <apex:inputField value="{!contact.MailingPostalCode}" />
+                            <apex:inputField value="{!contact.MailingCountry}" />
+                            <apex:inputField value="{!contact.EnrollmentrxRx__How_did_you_hear_about_us__c}" />
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                    </apex:form>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

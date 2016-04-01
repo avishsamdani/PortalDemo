@@ -1,0 +1,4 @@
+<apex:component >
+	<apex:attribute name="pageRedirectionId" description="Id of the page to which we are redirected when click on the button which use this id" type="String" />
+	<a href='apex/PageMaker?pageId={!pageRedirectionId}' class='btn btn-default' style='position: fixed; top:50%;left: 44%;' >Click here to start application</a>
+</apex:component>

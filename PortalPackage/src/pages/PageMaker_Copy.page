@@ -1,0 +1,897 @@
+<apex:page controller="PageBuildDirector" action="{!initPageLoad}" showHeader="false" standardStylesheets="false" docType="html-5.0"> 
+     {!objPage.environmentErrorMessage}*************
+    <meta name="viewport" content="width=device-width, initial-scale=1" />     
+     <!--
+    <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+      
+   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
+   <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>     
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <apex:includeScript value="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js" />
+    -->
+    
+     <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <apex:stylesheet value="{!URLFOR($Resource.Erx_Portal_Css, 'jquery-ui.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Erx_Portal_Css, 'bootstrap.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Erx_Portal_Css, 'bootstrap-theme.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Erx_Portal_Css, 'font-awesome.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Erx_Portal_Css, 'jquery-ui.css')}" />
+     
+    <!-- <apex:stylesheet value="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> -->
+    
+    <apex:stylesheet value="{!URLFOR($Resource.ERx_Portal_DateTime_Picker, 'jquery.datetimepicker.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.RichTextEditor, 'angular-wysiwyg-master/dist/style.css')}" />
+    <!--Scripts -->
+    <apex:includeScript value="{!$Resource.standardjquery}" />
+    <apex:includeScript value="https://code.jquery.com/ui/1.11.4/jquery-ui.js" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js" />
+    <apex:includeScript value="{!URLFOR($Resource.Erx_Portal_SortTable, 'sortable.js') }" />
+    <apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
+    <apex:includeScript value="{!URLFOR($Resource.ERx_Portal_DateTime_Picker, 'build/jquery.datetimepicker.full.min.js') }" />
+    <apex:includeScript value="{!URLFOR($Resource.RichTextEditor, 'angular-wysiwyg-master/dist/bootstrap-colorpicker-module.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.RichTextEditor, 'angular-wysiwyg-master/dist/angular-wysiwyg.js')}" />
+    <style> 
+        .slds .slds-form-element {
+            margin-bottom: 1%;
+        }
+        div.loading-image-div {
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            z-index:10000;
+            background: #FFF;
+            opacity: 1;
+        }
+        div.loading-image-div div.slds-spinner--medium {
+            margin: 5% auto;
+            width: 5%;
+        }
+             
+        .active{
+          background-color:#F2F2F2; 
+       }
+       .main-container { 
+           overflow-y:auto;
+       }
+       .row.no-margin {
+           margin-right: 0px;
+           margin-left: 0px;
+       }
+       .header-logo-div img, .footer-logo-div img {
+            height:50px;
+            width:250px;
+            position:relative;
+            left:1%;
+            top:10px;
+        }
+        .logout-button-div {
+            margin-right: 10px;
+            position:relative;
+            top:-25px;
+        }
+        ul.navigation-progess-bar li {
+            list-style: none;
+        }
+        
+        .see-progress-bar-button {
+            width: 100%;
+            border: none;
+            background:#ddd;
+        }
+        
+        .navigation-progess-bar-div .navbar-toggle, .menu-bar-div .navbar-toggle {
+            margin-left:0px;
+            margin-right:0px;
+        }
+        
+        .navigation-progess-bar-div ul .menu-bar-div ul {
+            padding:0px;
+        }
+        
+        .navigation-progess-bar-div .navbar-header, .menu-bar-div .navbar-header {
+            padding-left:1%;
+            padding-right:1%;
+        }
+        .navigation-progess-bar-div .navigation-progess-bar {
+            padding-left: 0px;
+        }
+        
+        .footer {
+            position:fixed;
+            bottom: 0%;
+            background: #FFF;
+            width:100%;
+        }
+        
+        .footer .footer-logo-div {
+            margin-bottom:2%;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            .navigation-progess-bar-div, .menu-bar-div {
+                width:100%;
+                padding-right: 0px;
+                padding-left: 0px
+            }
+        }
+        
+        .header {
+            padding:10px;
+        }
+        
+        .main-form-div {
+            padding-left:0px;
+            padding-right:0px;
+        }
+        
+        .helpIcon {
+          vertical-align: middle !important;
+          width:15px;
+          height:15px;
+        }
+        
+        .loadingImageCss {
+            width:60px;
+        } 
+         .astersikRequired{
+            color:red;
+        }
+        .errorLabel {
+            color: red;
+        }  
+        .lookupfield {
+            width:158%;
+        } 
+        iframe  {width:100%;}
+       
+        @media (min-width: 64em){}
+			.slds .slds-large-size--1-of-2 {
+			    padding-left: 5px;
+			}
+		}
+    </style> 
+    <!--Header Area START-->
+    <div class="row no-margin header">
+        <apex:outputPanel rendered="{!OR(not(objPage.isCustomPage), not(objPage.isCustomHeaderFooter))}">
+            <apex:outputText escape="false" value="{!objPage.pageHeader}" />
+        </apex:outputPanel>
+        <div class="clear-fix">
+        </div>
+    </div>
+    <!--Header Area END-->
+    
+    <!--Template Area START-->
+    <style>
+        <apex:outputText escape="false" value="{!objPage.pageCSS}" />
+    </style>
+    <div id="tabs" class="row no-margin"> 
+        <div class="menu-bar-div">
+            <apex:outputText escape="false" value="{!objPage.pageTabs}" />
+        </div> 
+    </div>
+    <!--Template Area END-->
+    
+    <!--Body Area START-->
+    <apex:outputPanel layout="block" style="width:100%" rendered="{!!objPage.isAuthorized}">
+        {!objPage.errorMessage}
+    </apex:outputPanel>
+    
+    <apex:outputPanel layout="block" rendered="{!objPage.isAuthorized}" styleClass="row no-margin main-body-container"> 
+        <c:SideBarComponent pageList="{!objPage.pageList}" />
+        
+        <div class="col-md-10 slds main-form-div">
+            <div class="main-form-container">
+                <apex:outputPanel rendered="{!objPage.isCustomPage}">
+                    <iframe frameborder="0" src="/apex/{!objPage.customPageName}?pageId={!objPage.currentPageId}" scrolling='no' onload="resizeIframe(this)"></iframe>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!not(objPage.isCustomPage)}">
+                    <c:ERx_PageBody />
+                </apex:outputPanel>
+            </div>
+           
+        </div>
+        <div class="clear-fix">
+        </div>   
+    </apex:outputPanel>    
+    <!--Body Area END-->
+    <!--  <div id="overlay">
+    <img src="{!URLFOR($Resource.SLDS0122, '/assets/images/spinners/slds_spinner.gif')}" alt="Loading..." align="middle" />
+    </div> -->    
+    <div class="loading-image-div" id="loadingImageDiv">
+        <div class="slds-spinner--medium">
+           
+            <img src="{!$Resource.slds_spinner_brand}" alt="Loading..." class = "loadingImageCss"/>
+
+        </div>
+    </div>
+    <!--Footer Area START-->
+    <div class="row no-margin footer">
+        <div class="footer-logo-div">
+            <apex:outputPanel rendered="{!OR(not(objPage.isCustomPage), not(objPage.isCustomHeaderFooter))}">
+                <apex:outputText escape="false" value="{!objPage.pageFooter}" />
+            </apex:outputPanel>
+        </div>
+    </div>
+    <!--Footer Area END-->
+    <!--Angular Controller -->
+   <script>
+      function resizeIframe(obj) {
+      obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+    
+    jQuery(window).load(function(){
+     jQuery('#loadingImageDiv').fadeOut();
+       });
+	   
+       $( document ).ready(function() {
+             initDatePicker();
+             checkDate();
+             $('input').each(function(){
+                $(this).attr('autocomplete', 'off');
+             });          
+       });       
+        
+       function initDatePicker(){
+            $( ".customDatePicker" ).each(function( ) {         
+                $(this).datetimepicker({timepicker:false, format:'Y-m-d'}); 
+            });
+            $( ".customDateTimePicker" ).each(function( ) {
+                $(this).datetimepicker({timepicker:true, format:'Y-m-d H:i'});
+            });
+        }
+        
+      function checkDate() {
+        	$(".customDatePicker").on("change",function(){
+		        var selected = $(this).val();
+		        var d = new Date(0000-00-00);
+		        if(selected == ""){   
+		          $(this).val(null);     
+		      		        
+		        }
+		    });
+      }
+        
+        function clearInputFile(f){
+            if(f.value){
+                try{
+                    f.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+                }catch(err){ }
+                if(f.value){ //for IE5 ~ IE10
+                    var form = document.createElement('form'),
+                        parentNode = f.parentNode, ref = f.nextSibling;
+                    form.appendChild(f);
+                    form.reset();
+                    parentNode.insertBefore(f,ref);
+                }
+            }
+        } 
+			
+		
+        var mainApp = angular.module("mainApp", ['ui.sortable']);     
+           
+        mainApp.controller('mainAppController', function($scope, $http, $sce, DataService, DependentPicklistValuePopulation, $q,$timeout,$parse){
+            $scope.loading = false;
+            $scope.test = 'test';
+            $scope.items = [];
+            $scope.isAddAnotherAllowedMap = {!objPage.isAddAnotherAllowedMapJSON};
+            $scope.fieldToPopulateMap = {!objPage.fieldToPopulateMapJSON};
+            $scope.modelList = {!objPage.jsonModalFields};
+            console.log($scope.modelList);
+            $scope.sectionList = {!objPage.jsonViewlayout};
+            $scope.attachmentMap = {!objPage.attachmentMap};
+            $scope.paramMap = {!objPage.paramMap};  
+            $scope.lookupString = '';
+            $scope.helperIcon = '{!objPage.helperIcon}'
+            $scope.modelObjectMap = {!objPage.modelObjectMapJSON}
+            $scope.isException = false;
+			$scope.exceptionErrorMessage ='';
+			$scope.isErrorUpload = false;
+            $scope.save= function(form) {
+                $scope.loading = true;
+                //To Check Form is Validate or Not
+                if(form.$valid){
+                    var formValid = true;
+                    var parentId = null;
+                    for(var i = 0; i < $scope.sectionList.length; i++) {
+                        for(var fldIndex = 0; fldIndex < $scope.sectionList[i].field.length; fldIndex++) {
+                            var fieldInfo = $scope.sectionList[i].field[fldIndex];
+                            if(fieldInfo.type == 'UPLOAD') {
+                                if($scope.$eval(fieldInfo.requiredExpressionFinal)) {
+                                    if(fieldInfo.parentIdSource == 'STATIC') {
+                                        parentId = fieldInfo.parentId;
+                                        if($scope.attachmentMap[parentId] == null || $scope.attachmentMap[parentId].length == 0) {
+                                            formValid = false;
+                                            break;  
+                                        }
+                                    } else if(fieldInfo.parentIdSource == 'MODEL') {
+                                        var modelName = '';
+                                        if($scope.sectionList[i].modelType == 'SECTIONMODEL') {
+                                            modelName = $scope.sectionList[i].modelName;
+                                        } else {
+                                            modelName = fieldInfo.modelName;
+                                        }
+                                        for(var rIndex=0; rIndex < $scope.modelList[modelName].length; rIndex++) {
+                                            parentId = $scope.modelList[modelName][rIndex].Id;
+                                            if($scope.attachmentMap[parentId] == null || $scope.attachmentMap[parentId].length == 0) {
+                                                formValid = false;
+                                                break;  
+                                            }
+                                        }
+                                        if(!formValid) {
+                                            break;
+                                        }
+                                    } else if(fieldInfo.parentIdSource == 'PARAM') {
+                                        parentId = $scope.paramMap[fieldInfo.parentId];
+                                        if($scope.attachmentMap[parentId] == null || $scope.attachmentMap[parentId].length == 0) {
+                                            formValid = false;
+                                            break;  
+                                        }
+                                    }
+                                }
+                            } else if(fieldInfo.type == 'MULTIPICKLIST' && $scope.$eval(fieldInfo.requiredExpressionFinal)) {
+                                var modelName = '';
+                                if($scope.sectionList[i].modelType == 'SECTIONMODEL') {
+                                    modelName = $scope.sectionList[i].modelName;
+                                } else {
+                                    modelName = fieldInfo.modelName;
+                                }
+                                for(var rIndex=0; rIndex < $scope.modelList[modelName].length; rIndex++) {
+                                    if(!$scope.modelList[modelName][rIndex][fieldInfo.fieldAPIName]) {
+                                        formValid = false;
+                                        break;
+                                    }
+                                }
+                                if(!formValid) {
+                                    break;
+                                }
+                            }
+                        }
+                        if(!formValid) {
+                            break;
+                        }
+                    }
+                    if(formValid) {
+                        DataService.saveData($scope.modelList, {scope:$scope}).then(function(data) {
+                                if({!objPage.isDesktop} && {!objPage.isNextPage}) {
+                                    window.location="PageMaker?pageId={!objPage.nextPageId}&mode=desktop"; 
+                                } else {
+                                    if({!objPage.isNextSection}) {
+                                        window.location="PageMaker?pageId={!objPage.currentPageId}&sectionId={!objPage.nextSectionId}";
+                                    } else if({!objPage.isNextPage}){
+                                        window.location="PageMaker?pageId={!objPage.nextPageId}"; 
+                                    }
+                                }
+                        });
+                    }
+                }
+            } 
+            
+            $scope.parseExpression = function(value) {
+                var c = $parse(value);
+                return c($scope);
+            };
+        
+            $scope.populateDependentField= function(section, fieldInfo, modelName, sectionIndex, recordIndex, myfieldIndex, controllingFieldName, controllingFieldValue, obj) {
+                delete obj.$$hashKey;
+                Object.keys(fieldInfo.dependentCriteriaMap).forEach(function (key) {
+                    dField = key;
+                    var fieldIndex = 0;
+                    var dependentModel = dField.split('----')[0];
+                    var dependentField = dField.split('----')[1];
+                    
+                    //fieldIndex is index of dependentField for same section while myfieldIndex is the index of controlling field. 
+                    fieldIndex = DependentPicklistValuePopulation.dependentFieldIndex($scope.sectionList, sectionIndex, dependentField); 
+                    
+                    var isFirstValueBlank = DependentPicklistValuePopulation.isFirstValueBlank($scope.sectionList, dependentModel, dependentField);
+                        
+                    if($scope.sectionList[sectionIndex].field[myfieldIndex].picklistDependencyMap != null) {
+                        var pickVal = "[";
+                        if(isFirstValueBlank) {
+                            pickVal += '{"id":"", "name":"--None--"},';
+                        }
+                        var picklistVals = $scope.sectionList[sectionIndex].field[myfieldIndex].picklistDependencyMap[dField].split(';');
+                        for(i = 0; i < picklistVals.length; i++) {
+                            var dependentPickVal = picklistVals[i].split('-$#-');
+                            if(dependentPickVal.length == 2 && dependentPickVal[0] == controllingFieldValue) {
+                                val = dependentPickVal[1].split('#$#$');
+                                for(j = 0; j < val.length; j++) {
+                                    pickVal += '{"id":"' + val[j] + '","name":"' + val[j] + '"},';
+                                }
+                            }
+                        }
+                        pickVal = pickVal.substring(0, pickVal.length - 1);
+                        pickVal += "]";
+                        try {
+                            if(section.modelType == 'SECTIONMODEL' && section.modelName == dependentModel) {
+                                $scope.sectionList[sectionIndex].field[fieldIndex].selectOptionList[recordIndex] = JSON.parse(pickVal);
+                            } else {
+                                for(var sec = 0; sec < $scope.sectionList.length; sec++) {
+                                    for(var fld = 0; fld < $scope.sectionList[sec].field.length; fld++) {
+                                        if((($scope.sectionList[sec].modelType == 'SECTIONMODEL' && $scope.sectionList[sec].modelName == dependentModel) || $scope.sectionList[sec].field[fld].modelName == dependentModel) && $scope.sectionList[sec].field[fld].fieldAPIName == dependentField) {
+                                            $scope.sectionList[sec].field[fld].selectOptionList = [];
+                                            for(var modRec = 0; modRec < $scope.modelList[dependentModel].length; modRec++) {
+                                                $scope.sectionList[sec].field[fld].selectOptionList.push(JSON.parse(pickVal));
+                                            }   
+                                        } 
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            $scope.sectionList[sectionIndex].field[fieldIndex].selectOptionList[recordIndex] = [{'id':'', 'name':'--None--'}];
+                        }
+                    } else {
+                        Visualforce.remoting.Manager.invokeAction( 
+                            '{!$RemoteAction.PageBuildDirector.populateDependentPicklistValues}',
+                            fieldInfo.dependentCriteriaMap[dField], controllingFieldValue, JSON.stringify($scope.modelObjectMap), dField, JSON.stringify($scope.sectionList[sectionIndex].field[fieldIndex].lookupRecordCriteria), isFirstValueBlank,
+                            function(result, event){ 
+                                if (event.status) {
+                                    $timeout(function() {
+                                        if(section.modelType == 'SECTIONMODEL' && section.modelName == dependentModel) {
+                                            $scope.sectionList[sectionIndex].field[fieldIndex].selectOptionList[recordIndex] = result;
+                                        } else {
+                                            for(var sec = 0; sec < $scope.sectionList.length; sec++) {
+                                                for(var fld = 0; fld < $scope.sectionList[sec].field.length; fld++) {
+                                                    if((($scope.sectionList[sec].modelType == 'SECTIONMODEL' && $scope.sectionList[sec].modelName == dependentModel) || $scope.sectionList[sec].field[fld].modelName == dependentModel) && $scope.sectionList[sec].field[fld].fieldAPIName == dependentField) {
+                                                        $scope.sectionList[sec].field[fld].selectOptionList = [];
+                                                        for(var modRec = 0; modRec < $scope.modelList[dependentModel].length; modRec++) {
+                                                            $scope.sectionList[sec].field[fld].selectOptionList.push(result);
+                                                        }   
+                                                    }   
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else if (event.type === 'exception') {    
+                                    //alert(event.message);      
+                                    $scope.$apply(function() {
+	                         		$scope.isException = true;   
+	                            	$scope.exceptionErrorMessage = event.message;
+                           	}); 
+                                } else {
+                                      
+                                }
+                            }, 
+                            {escape: true}
+                         );
+                     }
+                 });
+            }
+            
+            $scope.saveSection = function(modelName, index, type, elementId, allowedContents, maxSize) {
+            	$scope.isErrorUpload = true;
+            	console.log($scope.modelList + '***' + modelName + '***' + index);
+                var serverData = angular.toJson($scope.modelList[modelName][index]);
+                var deferred = $q.defer();
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.PageBuildDirector.insertRecord}', 
+                    serverData, modelName, JSON.stringify($scope.isAddAnotherAllowedMap), JSON.stringify($scope.fieldToPopulateMap),
+                    function(result, event){
+                        if (event.status) {
+                            $timeout(function() {
+                                $scope.modelList[modelName][index] = result;
+                                if(type == 'UPLOAD DOCUMENT') {
+	                                parentId = $scope.modelList[modelName][index]['Id'];
+		            				$scope.uploadDocument(elementId, parentId, allowedContents, maxSize);
+	            				}
+                            });
+                        } else if (event.type === 'exception') {
+                           //alert(event.message);
+							$scope.$apply(function() {
+                         		$scope.isException = true;   
+                            	$scope.exceptionErrorMessage = event.message;
+                            	
+                           	});   
+                            
+                        } else {
+                          
+                        }
+                    }, 
+                    {escape: true}
+                 );
+                
+            }
+            
+            $scope.add= function(modelname, sectionIndex) {
+            	console.log($scope.execForm.$submitted);
+                var sampleObj = new Object() ;
+                $.each($scope.modelList[modelname][0], function(key, element) {
+                    if(key != '$$hashKey')
+                        sampleObj[key] = null;
+                }); 
+                $(sampleObj).attr('attributes', $($scope.modelList[modelname][0]).attr('attributes'));
+                $scope.modelList[modelname].push(sampleObj );
+                angular.forEach($scope.sectionList[sectionIndex].field, function(field, fieldIndex) {
+                    if(field != null) {
+                        if(field.selectOptionList != null) {
+                            field.selectOptionList.push(field.selectOptionList[field.selectOptionList.length - 1]);
+                        }
+                    }   
+                    console.log(field.selectOptionList);
+                });
+                $timeout(function () {
+                   initDatePicker();
+                   $scope.execForm.$setPristine();
+                });
+            } 
+            
+            $scope.delete= function(modelName, index , deletedId) {
+                if(confirm("Are you sure you want to delete this record?")) {
+	                console.log(deletedId);
+	                console.log($scope.modelObjectMap[modelName]);
+	                if(deletedId != undefined){
+	                    Visualforce.remoting.Manager.invokeAction(
+	                        '{!$RemoteAction.PageBuildDirector.deleteData}',
+	                        deletedId, $scope.modelObjectMap[modelName], 
+	                        function(result, event){
+	                            if (event.status) {
+	                                $timeout(function() {
+	                                    $scope.modelList[modelName].splice(index, 1); 
+	                                    for(var secIndex = 0; secIndex <= $scope.sectionList.length; secIndex++) {
+	                                    	var sectionList = $scope.sectionList;
+											for(var fldIndex = 0; fldIndex <= sectionList[secIndex].field.length; fldIndex++) {
+												if(sectionList[secIndex].field[fldIndex].type == 'LOOKUP' || sectionList[secIndex].field[fldIndex].type == 'REFERENCE' || sectionList[secIndex].field[fldIndex].type == 'TYPE AHEAD') {
+													sectionList[secIndex].field[fldIndex].displayValueAPIName.splice(index, 1); 
+												}         
+											} 
+										}
+	                                });
+	                            } else if (event.type === 'exception') { 
+	                                //alert(event.message);   
+	                                $scope.$apply(function() {
+		                         		$scope.isException = true;   
+		                            	$scope.exceptionErrorMessage = event.message;
+	                           		});    
+	                            } else {
+	                               
+	                            }
+	                        },  
+	                        {escape: true}
+	                    );
+                    }else{
+                    	$scope.modelList[modelName].splice(index, 1);
+                    	 for(var secIndex = 0; secIndex <= $scope.sectionList.length; secIndex++) {
+	                                    	var sectionList = $scope.sectionList;
+											for(var fldIndex = 0; fldIndex <= sectionList[secIndex].field.length; fldIndex++) {
+												if(sectionList[secIndex].field[fldIndex].type == 'LOOKUP' || sectionList[secIndex].field[fldIndex].type == 'REFERENCE' || sectionList[secIndex].field[fldIndex].type == 'TYPE AHEAD') {
+													sectionList[secIndex].field[fldIndex].displayValueAPIName.splice(index, 1); 
+												}         
+											} 
+						}
+                    	
+                    }
+                }
+            }
+            
+            $scope.removeAttachment = function(attachmentId, parentId, index){
+                if(confirm("Are you sure you want to delete this attachment?")) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.PageBuildDirector.removeAttachment}',
+                        attachmentId,
+                        function(result, event){
+                            if (event.status) {
+                                $timeout(function() {
+                                    $scope.attachmentMap[parentId].splice(index, 1);    
+                                });
+                            } else if (event.type === 'exception') { 
+                               //alert(event.message);
+                                $scope.$apply(function() {
+	                         		$scope.isException = true;   
+	                            	$scope.exceptionErrorMessage = event.message;
+	                           	}); 
+                            } else {
+                               
+                            }
+                        },  
+                        {escape: true}
+                    );
+                }
+            } 
+            
+            $scope.uploadModelDocument = function(elementId, parentId, allowedContents, maxSize, rIndex, modelName) {
+            	if(!parentId) {
+            		$scope.saveSection(modelName, rIndex, 'UPLOAD DOCUMENT', elementId, allowedContents, maxSize);
+                } else {
+                	$scope.uploadDocument(elementId, parentId, allowedContents, maxSize);
+                } 
+            	
+            }
+            
+            $scope.uploadDocument = function(elementId, parentId, allowedContents, maxSize) {
+            	jQuery('#loadingImageDiv').addClass('show');
+            	console.log('@@@@');
+                ele = document.getElementById(elementId);
+                console.log('ele' + ele);
+                if(ele == null) { 
+                    return;
+                }
+                //Get the file(s) from the input field
+                files = ele.files;
+                //Only proceed if there are files selected
+                console.log('ele' + files.length); 
+                
+                if(files.length == 0){ 
+                	jQuery('#loadingImageDiv').removeClass('show');
+            		jQuery('#loadingImageDiv').addClass('hide');
+                    alert('Please select a file!');
+                    return false; //end function
+                }
+                
+                for(i = 0; i < files.length; i++){
+                    console.log('ele' + i);
+                    //Create a new reader object, part of HTML5 File API
+                    var reader = new FileReader();
+                    reader.file = files[i];
+                    var fileType = reader.file.name.split('.')[1];
+                    if(allowedContents.indexOf(fileType) == -1) {
+                    	jQuery('#loadingImageDiv').removeClass('show');
+            			jQuery('#loadingImageDiv').addClass('hide');
+                        alert('File must be of following types: '+ allowedContents);
+                        return;
+                    }
+                    if(reader.file.size > maxSize) {
+                    	jQuery('#loadingImageDiv').removeClass('show');
+            			jQuery('#loadingImageDiv').addClass('hide');
+                        alert('Current file size is ' + reader.file.size + ' bytes. It must be less than '+ maxSize + ' bytes');
+                        return;
+                    }
+                    //Read the blobChunk as a binary string, reader.onloadend function below is automatically called after this line
+                    reader.readAsBinaryString(files[i]);
+                    var base64value;
+                    reader.onloadend = function(evt){ 
+                        if(evt.target.readyState == FileReader.DONE){ 
+                            base64value = window.btoa(evt.target.result);
+                            //console.log(this.file.name + '***' + parentId + '***' + base64value);
+                            Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.PageBuildDirector.uploadAttachment}',
+                            this.file.name, parentId, base64value, 
+                            function(result, event){
+                                if (event.status) {
+                                    $timeout(function() {
+                                        if($scope.attachmentMap[parentId] == null) {
+                                            $scope.attachmentMap[parentId] = [];
+                                        } 
+                                        $scope.attachmentMap[parentId].push(result);
+                                        jQuery('#loadingImageDiv').removeClass('show');
+            							jQuery('#loadingImageDiv').addClass('hide');
+                                    });
+                                } else if (event.type === 'exception') { 
+                                   //alert(event.message);
+                                   	$scope.$apply(function() {
+		                         		$scope.isException = true;   
+		                            	$scope.exceptionErrorMessage = event.message;
+		                           	}); 
+                                } else {
+                                   
+                                }
+                            },  
+                            {escape: true}
+                            );
+                        } else {
+                            //Error handling for bad read
+                            jQuery('#loadingImageDiv').removeClass('show');
+            				jQuery('#loadingImageDiv').addClass('hide');
+                            alert('Could not read file');
+                            return;
+                        }
+                    };
+                }
+                
+                clearInputFile(ele);
+            }
+            
+            $scope.htmlbinding = function(value) {
+                return $sce.trustAsHtml(value);
+            };
+            
+            $scope.interpolateString = function(value) {
+                return $interpolate(value);
+            };
+            
+            $scope.removeSelection = function(obj, recordIndex, sectionInfo, fieldInfo, fieldApiName) {
+                obj[fieldInfo.fieldAPIName] = '';
+                fieldInfo.displayValueAPIName[recordIndex].id = '';
+                fieldInfo.displayValueAPIName[recordIndex].name = '';
+            }
+           
+           $scope.selectLookup = function(obj, obj1, recordIndex, sectionInfo, fieldInfo) {
+                if(sectionInfo.modelType == 'SECTIONMODEL') {
+                    modelName = sectionInfo.modelName;
+                } else {
+                    modelName = fieldInfo.modelName;
+                }
+                obj[fieldInfo.fieldAPIName] = obj1.Id;
+                if(typeof fieldInfo.displayValueAPIName[recordIndex] == 'undefined' || fieldInfo.displayValueAPIName[recordIndex] == null){
+                    fieldInfo.displayValueAPIName[recordIndex] = new Object();
+                }
+                fieldInfo.displayValueAPIName[recordIndex].id = obj1.Id;
+                fieldInfo.displayValueAPIName[recordIndex].name = obj1.Name;
+                console.log($scope);
+           }
+        
+           $scope.availableValues = ['Option-1','Option-2','Option-3','Option-4','Option-5','Option-6','Option-7'];
+           $scope.selectedValues = [];
+           var selectedAvailableValIndex = null;
+           var selectedVal = null;
+           var selectedAvailableVal = null;
+           var selectedValIndex = null;
+           var isAddable = false;
+           var isRemovable = false;
+    
+            
+            $scope.sortableOptions = {
+                update: function(e, ui) {
+                },
+                receive: function(e, ui) {
+                },
+                connectWith: ".picklist" 
+            };
+            
+            $scope.addValue = function(valIndex, val) {
+                isAddable = true;
+                selectedAvailableVal = val;
+                selectedAvailableValIndex = valIndex;    
+            }
+                    
+                    
+            $scope.addToSelectedValues = function(selectedAvailableValObj, selectedValObj, modelName, recordIndex, fieldApiName) { 
+                if(isAddable) {
+                    selectedValObj.push(selectedAvailableVal); 
+                    selectedAvailableValObj.splice(selectedAvailableValIndex, 1); 
+                    var modelVar = '';
+                    for(i = 0; i < selectedValObj.length; i++) {
+                        modelVar += selectedValObj[i] + ';';
+                    }
+                    modelVar = modelVar.substring(0, modelVar.length - 1);
+                    $scope.modelList[modelName][recordIndex][fieldApiName] = modelVar;
+                    selectedAvailableVal = null;
+                    selectedAvailableValIndex = null;
+                    isAddable = false;
+                }
+            }
+                
+            $scope.removeVal = function(val, valIndex) {
+               isRemovable = true;
+               selectedVal = val;          
+               selectedValIndex = valIndex; 
+            }
+            
+            $scope.removeFromSelectedValues = function(selectedAvailableValObj, selectedValObj, modelName, recordIndex, fieldApiName) { 
+                if(isRemovable) {
+                    selectedValObj.splice(selectedValIndex, 1); 
+                    selectedAvailableValObj.push(selectedVal);
+                    var modelVar = '';
+                    for(i = 0; i < selectedValObj.length; i++) {
+                        modelVar += selectedValObj[i] + ';';
+                    }
+                    modelVar = modelVar.substring(0, modelVar.length - 1);
+                    $scope.modelList[modelName][recordIndex][fieldApiName] = modelVar;
+                    selectedVal = null; 
+                    selectedValIndex = null;
+                    isRemovable = false;
+                }
+            }
+            
+            $scope.isActive = function(item) {
+                console.log(selectedAvailableVal == item || selectedVal == item);
+                return selectedAvailableVal == item || selectedVal == item;
+            }      
+                
+            $scope.getLookupDetails = function(sectionInfo, fieldInfo, searchStringValue, fieldIndex, sectionIndex, fieldApiName, fieldDisplayApiName) {
+                 var modelName;
+                 if(sectionInfo.modelType == 'SECTIONMODEL') {
+                    modelName = sectionInfo.modelName;
+                 } else {
+                    modelName = fieldInfo.modelName;
+                 }
+                 var objectName = $scope.modelObjectMap[modelName];
+                 Visualforce.remoting.Manager.invokeAction(
+                     '{!$RemoteAction.PageBuildDirector.getLookupDataByObjectAndName}',
+                     objectName, fieldInfo.fieldAPIName, JSON.stringify(searchStringValue),
+                     function(result, event){
+                         if(event.statusCode == 200) {
+                             $timeout(function() {
+                                 $scope.sectionList[sectionIndex].field[fieldIndex].lookupValueList  = result;
+                             });    
+                         }
+                     },
+                     {escape: true}
+                 );      
+            }      
+        });
+        
+        mainApp.service('DataService', function($q) {              
+            this.saveData= function(a, options) {
+                delete a.$$hashKey;
+                var scope = (options.scope || $rootScope);   
+                scope.isErrorUpload = true;          
+                var serverData = angular.toJson(a);
+                var deferred = $q.defer();
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.PageBuildDirector.updateData}',
+                    serverData , JSON.stringify(scope.isAddAnotherAllowedMap), JSON.stringify(scope.fieldToPopulateMap),
+                    function(result, event){
+                        if (event.status) {
+                            var customer = JSON.stringify(result);
+                            var find = '\'';
+                            var re = new RegExp(find, 'g');
+                            customer = customer.replace(re, '');
+                            deferred.resolve(JSON.parse(customer));
+                        } else if (event.type === 'exception') { 
+                            //alert(event.message);
+                           	scope.$apply(function() {
+                           		scope.isException = true;   
+                           		scope.exceptionErrorMessage = event.message;
+                           	});
+                            deferred.reject(JSON.parse('[]'));
+                        } else {
+                          
+                        }
+                    }, 
+                    {escape: true}
+                 );              
+                 return deferred.promise; 
+            }
+        });
+        
+        mainApp.service('DependentPicklistValuePopulation', function() {
+            this.dependentFieldIndex = function(sectionList, sectionIndex, dependentField) {
+                var fieldIndex = 0;
+                for(var i = 0; i <= sectionList[sectionIndex].field.length; i++) {
+                    if(sectionList[sectionIndex].field[i] != null && sectionList[sectionIndex].field[i].fieldAPIName == dependentField) {
+                        fieldIndex = i;  // fieldIndex is index of dependentField while myfieldIndex is the index of controlling field. 
+                        break;
+                    }
+                }
+                return fieldIndex;
+            };
+            
+            this.isFirstValueBlank = function(sectionList, modelName, fieldAPIName) {
+                for(var secIndex = 0; secIndex <= sectionList.length; secIndex++) {
+                    if(sectionList[secIndex].modelType == 'SECTIONMODEL' && sectionList[secIndex].modelName == modelName) {
+                        for(var fldIndex = 0; fldIndex <= sectionList[secIndex].field.length; fldIndex++) {
+                            if(sectionList[secIndex].field[fldIndex].fieldAPIName == fieldAPIName) {
+                                return sectionList[secIndex].field[fldIndex].isFirstValueBlank != null && sectionList[secIndex].field[fldIndex].isFirstValueBlank;
+                            }           
+                        }
+                    } 
+                    if(sectionList[secIndex].modelType == 'FIELDMODEL') {
+                        for(var fldIndex = 0; fldIndex <= sectionList[secIndex].field.length; fldIndex++) {
+                            if(sectionList[secIndex].field[fldIndex].fieldAPIName == fieldAPIName && sectionList[secIndex].field[fldIndex].modelName == modelName) {
+                                return sectionList[secIndex].field[fldIndex].isFirstValueBlank != null && sectionList[secIndex].field[fldIndex].isFirstValueBlank;
+                            }           
+                        }
+                    } 
+                }
+            };
+        });
+        
+        $('.nav.navbar-nav.menu-bar li').click(function(e) {
+            $('.nav.navbar-nav.menu-bar li').removeClass('active');
+            $(this).addClass('active');
+        });
+        
+        mainApp.directive('customOnChange', function() {
+          return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+              var onChangeHandler = scope.$eval(attrs.customOnChange);
+              element.bind('change', onChangeHandler);
+            }
+          };
+        });
+    </script>
+    
+</apex:page>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Advisor_Goal__c.Goal_6__c:SUM / Advisor_Goal__c.Goal_4__c:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Interview Scheduled - Interview Complete</masterLabel>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Advisor_Goal__c.Goal_10__c:SUM / Advisor_Goal__c.Goal_8__c:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Applicant Complete - Enrollment Accepted</masterLabel>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Advisor_Goal__c.Goal_8__c:SUM / Advisor_Goal__c.Goal_6__c:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Interview Complete - Applicant Complete</masterLabel>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Advisor_Goal__c.Goal_8__c:SUM / Advisor_Goal__c.Goal_2__c:SUM</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA4</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Contact to Application</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA4</column>
+        </chartSummaries>
+        <chartType>LineGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>Advisor_Goal__c.Advisor__c</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>Advisor_Goal__c.Type__c</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_2__c</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_4__c</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_6__c</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_8__c</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_10__c</field>
+    </columns>
+    <columns>
+        <field>Advisor_Goal__c.Goal_12__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Advisor_Goal__c.Term__c</column>
+            <operator>startsWith</operator>
+            <value>Spring 2009</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Advisor_Goal__c.Advisor__c</column>
+            <operator>notContain</operator>
+            <value>Demo</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Advisor_Goal__c.Advisor__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Advisor_Goal__c.Term__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Advisor_Goal__c.Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Contact to Application</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Advisor_Goal__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

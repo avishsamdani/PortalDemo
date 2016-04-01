@@ -1,0 +1,64 @@
+<apex:component layout="none">
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS, '/assets/styles/salesforce-lightning-design-system-scoped.css')}"></apex:stylesheet> <!--customized by Dante-->
+    <!--<apex:stylesheet value="{!URLFOR($Resource.SLDS, '/assets/styles/salesforce-lightning-design-system-vf.css')}"></apex:stylesheet>-->
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.Utilities, '/css/sweetalert.css')}"></apex:stylesheet><!--customized to adapt SLDS-->
+
+    <!--sforce-->
+    <apex:includescript value="/soap/ajax/35.0/connection.js"></apex:includescript>
+    <!--sforce-->
+
+    <!--jquery-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></apex:includescript>
+    <!--<apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></apex:includescript>-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></apex:includescript>
+    <!--jquery-->
+
+    <!--bootstrap-->
+    <!--<apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></apex:includescript>-->
+    <!--bootstrap-->
+
+    <!--angularjs-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></apex:includescript>
+    <!--<apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.8/angular-sanitize.min.js"></apex:includescript>-->
+    <!--<apex:includescript value="{!URLFOR($Resource.Utilities, '/lib/angularjs/angular-route.min.js')}"></apex:includescript>-->
+    <!--<apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></apex:includescript>-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.4.8/angular-messages.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-drag-and-drop-lists/1.3.0/angular-drag-and-drop-lists.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.6/smart-table.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/11.0.1/ng-file-upload.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/checklist-model/0.9.0/checklist-model.min.js"></apex:includescript>
+    <!--angularjs-->
+
+    <!--ngForce-->
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/lib/ngForce/ngForce.min.js')}"></apex:includescript>
+    <apex:includescript value="{!if(contains($Api.Session_ID,'NULL'),'',URLFOR($Page.Angular_Config))}"></apex:includescript>
+    <!--<apex:includescript value="{!URLFOR($Page.Angular_Config)}"></apex:includescript>-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></apex:includescript>
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.min.js"></apex:includescript>
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/lib/ngForce/safeApply.js')}"></apex:includescript>
+    <!--ngForce-->
+
+    <!--forcetk-->
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/lib/forcetk.js')}"></apex:includescript>
+    <!--forcetk-->
+
+    <!--sweetalert-->
+    <apex:includescript value="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></apex:includescript>
+    <!--sweetalert-->
+
+    <!--custom js by Dante-->
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/applications/application.js')}"></apex:includescript>
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/services/ERxFormService.js')}"></apex:includescript>
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/directives/directives.js')}"></apex:includescript>
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/filters/filters.js')}"></apex:includescript>
+    <apex:includescript value="{!URLFOR($Resource.Utilities, '/js/lib/utilities.js')}"></apex:includescript>
+    <!--custom js by Dante-->
+    
+    <!--svg4everybody-->
+
+    <!--svg4everybody-->
+</apex:component>

@@ -1,0 +1,282 @@
+<apex:component >
+	<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<head>
+			<style>
+				#componentWrapper .slds-form-element__label,#componentWrapper .slds-dropdown-trigger,#componentWrapper .slds-checkbox ,#componentWrapper .richTextComponent{
+					float:left;
+				}
+				#componentWrapper .belowLabel{
+					display:inline-block;
+				}
+				#componentWrapper .aboveLabel,#componentWrapper .belowLabel,#componentWrapper .aboveField,#componentWrapper .belowField{
+					float:left;
+				}
+				#componentWrapper .astersikRequired{
+					color:red;
+				}
+				#componentWrapper .searchIcon{
+			        right: -7%;
+    				margin-top: -4%;
+				}
+				#componentWrapper .erx-popover {
+				    background-color: #4f6a92 !important;
+				    color: white !important;
+				    text-align: center;
+				    display:none;
+			    }
+			    #componentWrapper .inner-wrapper-ul-div{
+			    	overflow: initial;
+			    }
+			    #componentWrapper .slds-dropdown__item{
+			    	color:white !important;
+			    }
+			    @media (max-width: 768px) {
+				   #componentWrapper .col-md-12,#componentWrapper .col-sm-12{
+				    	min-height:22px;
+				    }
+				}
+				#componentWrapper .slds-form-element__label{
+					text-align:left;s
+				}
+				#componentWrapper .slds-picklist__options--multi{
+					width:100% !important;
+				}
+				#componentWrapper {
+					background-color: #FDF6F6 !important;
+				    padding-bottom: 5px !important;
+				    padding-top: 5px !important;
+				}
+				.addAnotherButton{
+					margin-top:2px;
+					float:right;
+				}
+				.removeButton{
+					margin-top:2px !important;
+					float:left;
+				}
+				.verticalBar{
+					border-left:3px solid red !important;
+				}
+				.labelRow{
+					margin-left:0px;
+					margin-right:0px;
+				}
+				.dummyDiv{
+					height:16px;
+				}
+				.customCol{
+					word-break: break-all;
+				}
+				
+				#componentWrapper hr {
+				    display: block;
+				    height: 1px;
+				    border: 0;
+				    border-top: 1px solid #ccc;
+				    margin: 1em 0;
+				    padding: 0;
+				}
+			</style>
+			<script>
+				$( document ).ready(function() {
+					$('.erx-CustomHover').mouseover(function() {
+						console.log($(this).children().eq(0));
+				  		$(this).children().eq(0).show();
+					});
+					
+					$('.erx-CustomHover').mouseout(function() {
+						console.log($(this).children().eq(0));
+				  		$(this).children().eq(0).hide();
+					});
+				});
+			</script>
+		</head>
+		<body>
+			<div id="componentWrapper">
+				<!-- STRING,ENCRYPTEDSTRING,PERCENT,EMAIL,PHONE,CURRENCY,DECIMAL,URL TYPE -->
+				<div class="slds-form-element" >
+					<div class="slds-form-element__control">
+						<div class="row">
+							<div class="row labelRow"  ng-if="(field.instructionTextPosition | uppercase) == 'ABOVE LABEL'">
+								<div class="customCol col-md-12 col-sm-12 " style="width:200px;" >
+									<span class="aboveLabel" ng-bind-html="renderHtml(field.instructionText)"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="row labelRow moreThanSevenSixty"  ng-if="(field.instructionTextPosition | uppercase) == 'ABOVE FIELD' && (customWidth > 768 || customWidth == 'inherit' || customWidth == '' )">
+								<div class="customCol col-md-12 col-sm-12 col-md-offset-2 col-sm-offset-0" >
+									<span class="aboveLabel" ng-bind-html="renderHtml(field.instructionText)"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="cusomtLeftRow col-md-2 col-sm-12" >
+								<div class="customCol col-md-12 col-sm-12">
+									<label class="slds-form-element__label" >
+										{{field.modelName}}<span ng-if="field.modelName != null">-</span>{{field.label}}
+										<span ng-if="field.required && field.requiredSymbol == '*'" class="astersikRequired">*</span>
+										<span class="glyphicon glyphicon-info-sign erx-CustomHover" ng-if="(field.hoverText) != ''">
+											<div  class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+							                    <ul class="slds-dropdown__list">
+							                        <li class="slds-dropdown__item">
+							                            <p class="slds-truncate">{{field.hoverText}}</p>
+							                        </li>
+							                    </ul>
+							                </div>
+										</span>
+									</label>
+								</div>
+								<div class="row labelRow"  ng-if="(field.instructionTextPosition | uppercase) == 'BELOW LABEL'">
+									<div class="customCol col-md-12 col-sm-12 " >
+										<span class="aboveLabel" ng-bind-html="renderHtml(field.instructionText)"></span>
+									</div>
+								</div>
+							</div>
+							
+						
+							<div class="customRightRow col-md-5 col-sm-12" >
+								
+								<div class="row labelRow lessThanSevenSixty"  ng-if="(field.instructionTextPosition | uppercase) == 'ABOVE FIELD' && customWidth < 768 && customWidth != ''">
+									<div class="customCol instructionAboveLabel col-md-12 col-sm-12" >
+										<span class="aboveLabel" ng-bind-html="renderHtml(field.instructionText)"></span>
+									</div>
+								</div>
+								<div class=" customCol col-md-12 col-sm-12" >
+									
+									<input ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"  	ng-if="(field.type | uppercase) == 'STRING' || (field.type | uppercase) == 'ENCRYPTEDSTRING' || (field.type | uppercase) == 'PERCENT' || (field.type | uppercase) == 'EMAIL' || (field.type | uppercase) == 'PHONE' || (field.type | uppercase) == 'CURRENCY' || (field.type | uppercase) == 'INTEGER' || (field.type | uppercase) == 'DOUBLE' || (field.type | uppercase) == 'DECIMAL' || (field.type | uppercase) == 'URL' " class="slds-input" type="text" placeholder="{{field.placeholderText}}" />
+									<select  ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"   id="selectSample1" class="slds-select" ng-if="(field.type | uppercase) == 'PICKLIST'">
+										<option></option>
+									</select>
+									
+									<textarea ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"   id="textareaSample2" class="slds-textarea" placeholder="{{field.placeholderText}}" ng-if="(field.type | uppercase) == 'TEXTAREA'"></textarea>
+									<span style="float: left;" class="verticalBar" ng-if="(field.type | uppercase) == 'BOOLEAN' && field.required && field.requiredSymbol == '|'" >|</Span>
+									<input ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"   name="default" type="checkbox" class="slds-checkbox" id="opportunities-ownership" ng-if="(field.type | uppercase) == 'BOOLEAN'" />
+									<div class="slds-picklist--draggable slds-grid" ng-if="(field.type | uppercase) == 'MULTIPICKLIST'">
+										<div class="slds-form-element">
+											<span class="slds-form-element__label" aria-label="select-1">First Category</span>
+											<div class="slds-picklist slds-picklist--multi">
+												<ul ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''" class="slds-picklist__options slds-picklist__options--multi shown">
+													<li draggable="true" id="po-0-0" class="slds-picklist__item" aria-selected="false" tabindex="0" role="option">
+														<span class="slds-truncate">
+														<span>Option One</span>
+														</span>
+													</li>
+													<li draggable="true" id="po-1-1" class="slds-picklist__item" aria-selected="false" tabindex="-1" role="option">
+														<span class="slds-truncate">
+														<span>Option Two</span>
+														</span>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="slds-grid slds-grid--vertical">
+											<button class="slds-button slds-button--icon-container">
+												<!--    <svg aria-hidden="true" class="slds-button__icon">
+													<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#left"></use>
+													</svg>--> 
+												<span class="glyphicon glyphicon-triangle-left"></span>
+											</button>
+											<button class="slds-button slds-button--icon-container">
+												<!--  <svg aria-hidden="true" class="slds-button__icon">
+													<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#right"></use>
+													</svg>-->
+												<span class="glyphicon glyphicon-triangle-right"></span> 
+											</button>
+										</div>
+										<div class="slds-form-element">
+											<span class="slds-form-element__label" aria-label="select-2">Second Category</span>
+											<div class="slds-picklist slds-picklist--multi">
+												<ul class="slds-picklist__options slds-picklist__options--multi shown"></ul>
+											</div>
+										</div>
+										<div class="slds-grid slds-grid--vertical">
+											<button class="slds-button slds-button--icon-container">
+												<!--  <svg aria-hidden="true" class="slds-button__icon">
+													<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#up"></use>
+													</svg>--> 
+												<span class="glyphicon glyphicon-triangle-top"></span>
+											</button>
+											<button class="slds-button slds-button--icon-container">
+												<!-- <svg aria-hidden="true" class="slds-button__icon">
+													<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+													</svg>--> 
+												<span class="glyphicon glyphicon-triangle-bottom"></span>
+											</button>
+										</div>
+									</div>
+									<div class="slds-input-has-icon slds-input-has-icon--right" ng-if="(field.type | uppercase) == 'DATE' || (field.type | uppercase) == 'DATETIME'">
+										<input ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''" class="slds-input" type="text" value="" placeholder="{{field.placeholderText}}">
+											<span style="margin-right: -96%;top: -24px;" class="glyphicon glyphicon-calendar"></span>
+										</input>
+									</div>
+									<div  class="richTextComponent" ng-if="(field.type | uppercase) == 'RICHTEXT'">
+										<span class="glyphicon glyphicon-align-justify"></span>
+										<span class="glyphicon glyphicon-align-left"></span>
+										<span class="glyphicon glyphicon-align-center"></span>
+										<span class="glyphicon glyphicon-align-right"></span>
+										<span class="glyphicon glyphicon-list"></span>
+										<span class="glyphicon glyphicon-bold"></span>
+										<span class="glyphicon glyphicon-italic"></span>
+										<span class="glyphicon glyphicon-font"></span>
+										<span class="glyphicon glyphicon-text-color"></span>
+									</div>
+									<textarea ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''" id="textareaSample2"  placeholder="{{field.placeholderText}}" class="slds-textarea" ng-if="(field.type | uppercase) == 'RICHTEXT'">
+									</textarea>
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" ng-if="(field.type | uppercase) == 'REFERENCE'">
+										<div class="slds-lookup slds-has-selection" data-select="multi" data-scope="single" data-typeahead="true">
+											<div class="slds-form-element">
+												<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+													<svg aria-hidden="true" class="slds-input__icon">
+											        	<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+											      	</svg>
+													<input ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''" id="lookup" placeholder="{{field.placeholderText}}" class="slds-input" type="text" aria-autocomplete="list" role="combobox" aria-expanded="false" aria-activedescendant="" />
+												</div>
+											</div>
+										</div> 
+									</div> 
+									<div   ng-if="(field.type | uppercase) == 'TYPE AHEAD'">
+										<div class="form-inline">
+											<input ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"  id="lookup" placeholder="{{field.placeholderText}}" class="slds-input" type="text" aria-autocomplete="list" role="combobox" aria-expanded="true" aria-activedescendant=""    />
+											<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right searchIcon">
+												<svg aria-hidden="true" class="slds-input__icon">
+										        	<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+										      	</svg>
+									      	</div>
+								      	</div>
+									</div>
+									<div class="col-md-2"  ng-if="field.fieldDisplayType.toUpperCase() == 'UPLOAD'">
+										<input id="uploadFile" ng-class="(field.required && field.requiredSymbol == '|') ? 'verticalBar' : ''"   placeholder="{{field.placeholderText}}" disabled="disabled"  />
+										<div class="fileUpload btn btn-primary"  >
+										    <span>Upload</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-12 col-sm-12" ng-if="field.fieldDisplayType.toUpperCase() == 'UPLOAD'">
+									<div  style="color:red;float:left;">(Max File Size:{{field.maximumsize}} bytes AND Supported Format {{field.allowedContentType}})</div>
+								</div>
+								<div class="row labelRow"  ng-if="(field.instructionTextPosition | uppercase) == 'BELOW FIELD'">
+									<div class="customCol col-md-12 col-sm-12 " >
+										<span class="aboveLabel" ng-bind-html="renderHtml(field.instructionText)"></span>
+									</div>
+								</div>
+								
+								<script>
+									$( document ).ready(function() {
+										if(globalWidth == ''){
+											globalWidth = 'inherit';
+										}
+									    setWidth(globalWidth);
+									});
+										
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+	
+</apex:component>

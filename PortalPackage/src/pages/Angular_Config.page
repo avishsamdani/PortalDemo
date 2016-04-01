@@ -1,0 +1,22 @@
+<apex:page showheader="false" sidebar="false" contenttype="text/javascript">
+    var urlSLDS='{!URLFOR($Resource.SLDS)}';
+    var urlHomepageBuilderAssets='{!URLFOR($Resource.HomepageBuilderAssets)}';
+    var urlPortalAssets='{!URLFOR($Resource.PortalAssets)}';
+    var urlSLDSTemplateAssets='{!URLFOR($Resource.SLDSTemplateAssets)}';
+    var urlUtilities='{!URLFOR($Resource.Utilities)}';
+    
+    var apiSessionID='{!$Api.Session_ID}';
+    var userId='{!$User.Id}';
+    var siteBaseUrl='{!$Site.BaseUrl}';
+
+    (function(angular){
+        var sitePrefix = '{!$Site.Prefix}';
+        if(sitePrefix === '') sitePrefix ='/apex';
+
+        angular.module('ngForce.config', []).constant('ngForceConfig', {
+            sessionId: '{!$Api.Session_ID}',
+            sitePrefix: sitePrefix,
+            resourceUrl: ''
+        });
+    })(angular);
+</apex:page>

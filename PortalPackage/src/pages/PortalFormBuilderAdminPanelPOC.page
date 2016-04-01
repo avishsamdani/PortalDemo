@@ -1,0 +1,132 @@
+<apex:page controller="PortalFormBuilderAdminPanelPOCCtrl" showHeader="false" standardSTyleSheets="false">
+	<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />    
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+		
+		<div ng-app="formBuilderAdminPanelApp">
+			<div ng-controller="formBuilderAdminPanelController">
+				<div class="slds">
+					<a href="#" class="slds-button slds-button--brand" ng-click="showCreateNewModel();">Create New Model</a>
+					
+					<!-- Create New Model -->
+					<div id="createNewModel">
+						<div>
+							<div aria-hidden="false" role="dialog" class="slds-modal slds-fade-in-open">
+								<div class="slds-modal__container">
+									<div class="slds-modal__header">
+										<h2 class="slds-text-heading--medium">Create New Model</h2>
+										<button class="slds-button slds-button--icon-inverse slds-modal__close" ng-click="hideCreateNewModel();">
+											<svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+												<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+											</svg>
+											<span class="slds-assistive-text">Close</span>
+										</button>
+									</div>
+									<div class="slds-modal__content">
+										<div class="slds-form--horizontal">
+ 											<div class="slds-form-element">
+ 												<label class="slds-form-element__label" for="modelName">Model Name</label>
+    											<div class="slds-form-element__control">
+      												<input id="modelName" class="slds-input" type="text" placeholder="Model Name" ng-model="modelName"/>
+    											</div>
+											</div>
+											<div class="slds-form-element">
+ 												<label class="slds-form-element__label" for="objectList">Object</label>
+    											<div class="slds-form-element__control">
+    												<select class="slds-select" ng-options="option.value as option.name for option in objectList | orderBy:'name'"
+	                                        			id="objectList" ng-model="selectedObject" ng-change="getSelectedObjectFields(selectedObject)">
+    												</select>
+    											</div>
+											</div>
+											<!-- <div class="slds-form-element">
+										  		<label class="slds-checkbox" for="checkboxSample{{$index}}" ng-repeat="field in fieldList">
+											    	<input name="checkbox" type="checkbox" id="checkboxSample{{$index}}" ng-true-value="field.value" ng-false-value="" ng-model="selectedFieldList"/>
+											    	<span class="slds-checkbox--faux"></span>
+											    	<span class="slds-form-element__label">{{field.name}}</span>
+											  	</label>
+											</div> -->
+											<div class="slds-form-element" ng-if="fieldList.length > 0">
+ 												<label class="slds-form-element__label" for="fieldList">Fields</label>
+    											<div class="slds-form-element__control">
+    												<select multiple="multiple" size="5" class="slds-select" ng-options="option.value as option.name for option in fieldList | orderBy:'name'"
+	                                        			id="fieldList" ng-model="selectedFields" style="height: 75px;">
+    												</select>
+    											</div>
+											</div>
+											{{selectedFields}}
+										</div>
+									</div>
+									<div class="slds-modal__footer">
+										<div class="slds-x-small-buttons--horizontal">
+											<button class="slds-button slds-button--neutral" ng-click="hideCreateNewModel();">Cancel</button>
+											<button class="slds-button slds-button--neutral slds-button--brand" ng-click="showFieldModel();">Save</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="slds-backdrop slds-backdrop--open"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</html>
+	
+	<script>
+		$(document).ready(function() {
+			//$('#createNewModel').hide();
+		});
+		
+		var formBuilderAdminPanelApp = angular.module("formBuilderAdminPanelApp", []);
+		
+		formBuilderAdminPanelApp.controller('formBuilderAdminPanelController', function($scope, $http, $sce, $q,$timeout){
+			$scope.modelName = '';
+			$scope.modelJson = [];
+			$scope.objectList = {!objectWrapperListString};
+			$scope.selectedObject = 'noObjectSelected';
+			$scope.fieldList;
+			$scope.selectedFieldList;
+			
+			console.log($scope.objectList);
+		
+			$scope.showCreateNewModel = function() {
+				$('#createNewModel').show('slow');
+			}
+			
+			$scope.hideCreateNewModel = function() {
+				$scope.modelName = '';
+				$('#createNewModel').hide();
+			}
+			
+			$scope.showFieldModel = function() {
+				alert($scope.modelName);
+			}
+			
+			$scope.getSelectedObjectFields = function(objectName) {
+				if(objectName != 'noObjectSelected') {
+					Visualforce.remoting.Manager.invokeAction(
+						'{!$RemoteAction.PortalFormBuilderAdminPanelPOCCtrl.getSelectedObjectFields}',
+						JSON.stringify(objectName),
+						function(result, event){
+							if(event.statusCode == 200) {
+								$timeout(function() {
+									$scope.fieldList  = result;
+									console.log($scope.fieldList);
+								});    
+							}
+						},
+						{escape: true}
+					);
+				} else {
+					$scope.fieldList = null;
+					console.log($scope.fieldList);
+				}	
+			}
+		});
+		
+	</script>
+</apex:page>

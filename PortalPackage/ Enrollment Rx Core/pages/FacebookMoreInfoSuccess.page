@@ -1,0 +1,24 @@
+<apex:page showHeader="false" controller="EnrollmentrxRx.FacebookMoreInfoSuccessController" >
+	<!--
+	action="{!init}" 
+	<div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
+		<apex:composition template="FacebookTempate">
+			<apex:define name="body">
+				<apex:outputPanel rendered="{!userAuthorized = FALSE}">
+					<fb:redirect url="http://www.facebook.com/login.php?v=1.0&api_key=cf1c352aa2f1705a6d1fde2a26840341&next=MoreInfoSuccess&canvas="/>
+				</apex:outputPanel>
+
+				<apex:outputPanel rendered="{!userAuthorized}">
+					<div width="100%" style="background-color: #1a2d6b;margin-bottom:20px;">
+						<img src="http://demoerx-developer-edition.na6.force.com/resource/1241803055000/SiteAdmissions" />
+					</div>
+
+					<h1>Thank you!</h1>
+	                    <p><b>Thanks for your interest in our school! One of our Admissions Advisors will contact
+	                    you shortly to begin the process of enrollment.</b></p>
+	                    <p><a href="http://apps.facebook.com/enrollmentrx">Add a College U. box on your profile!</a></p>
+				</apex:outputPanel>
+			</apex:define>
+		</apex:composition>
+	</div> -->
+</apex:page>

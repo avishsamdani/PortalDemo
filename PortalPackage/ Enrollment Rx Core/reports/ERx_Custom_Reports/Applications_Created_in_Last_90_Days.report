@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Enrollment_Opportunity__c.Applicant__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Admissions_Status__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_be_a_Full_Time_Student__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_Earn_a_Degree__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Intend_to_live_in_College_Housing__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.Highest_Level_of_Education__c</field>
+    </columns>
+    <columns>
+        <field>Enrollment_Opportunity__c.How_Did_You_Hear_About_Us__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <description>Show me all Applications that have been created in the Last 90 Days</description>
+    <format>Summary</format>
+    <name>Applications Created in Last 90 Days</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Enrollment_Opportunity__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_LAST90</interval>
+    </timeFrameFilter>
+</Report>

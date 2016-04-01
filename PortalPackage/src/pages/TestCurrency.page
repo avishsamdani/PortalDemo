@@ -1,0 +1,14 @@
+<apex:page controller="CurrencyController">
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    <apex:form >
+        Currency: <apex:inputField label="Currency" value="{!con.Test_Currency__c}" /><br />
+        Percent: <apex:inputText label="Percent" value="{!con.Test_Percent__c}"/> <br />
+        <apex:commandButton value="Save" action="{!saveContact}"/>
+        <div class="slds slds-spinner_container">
+            <div class=" slds-spinner slds-spinner--small" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </apex:form>
+</apex:page>

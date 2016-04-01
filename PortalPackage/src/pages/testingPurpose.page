@@ -1,0 +1,23 @@
+<apex:page controller="testingPurposeController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+    <html>
+        <head>           
+           	<apex:stylesheet value="{!URLFOR($Resource.SLDS0122, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
+            <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>    
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            
+            <style>
+                .active{
+                background-color:#F2F2F2; 
+                }
+            </style>
+        </head>
+        <body>
+            <div>
+            <c:MultipickListCmp />
+            </div>
+        </body>
+    </html>
+</apex:page>

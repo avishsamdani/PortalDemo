@@ -1,0 +1,19 @@
+<apex:page showHeader="false" standardStylesheets="false" docType="html-5.0">
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
+    </head> 
+    <html ng-app="mainApp" ng-controller="mainAppController"> 
+        hello <br /><br />
+        <button ng-click="prev()" value="next">Previous</button> <br />  
+     </html>
+        <script>
+        var app = angular.module('mainApp', []); 
+        app.controller('mainAppController', ['$scope', function($scope) {          
+            $scope.prev = function() {
+                window.location = "testingPageLinkingVF1";                 
+           	}
+        }]);
+        </script>
+    </apex:page>

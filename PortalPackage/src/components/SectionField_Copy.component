@@ -1,0 +1,134 @@
+<apex:component >
+	 <div class="slds-form-element" ng-if = "fieldInfo.type  == 'DATE'" ng-show=" {{fieldInfo.rendredExpression}}">
+        <div class='slds-form-element__label'>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+            <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+        </div>
+        <div class="slds-form-element__control" >
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+            <input placeHolder='{{fieldInfo.placeholderText}}' jqdatepicker="jqdatepicker"  ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''" ng-required="{{fieldInfo.requiredExpressionFinal}}" class="customDatePicker slds-input" type='text' ng-model='obj[fieldInfo.fieldAPIName]' name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}"/>   
+           	<div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>                                      
+        </div>
+    </div>
+     <div class="slds-form-element"  ng-if = "fieldInfo.type  == 'DATETIME'" ng-show="{{fieldInfo.rendredExpression}}">
+        <div class='slds-form-element__label'>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+            <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+        </div>
+        <div class="slds-form-element__control" >
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+            <input placeHolder='{{fieldInfo.placeholderText}}' jqdatetimepicker="jqdatetimepicker"   class="customDateTimePicker slds-input" type='text' ng-model='obj[fieldInfo.fieldAPIName]' ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"  ng-required="{{fieldInfo.requiredExpressionFinal}}" name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}" />   
+            <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>                                      
+        </div>
+    </div>
+    <div class="slds-form-element" ng-if = "fieldInfo.type  == 'PICKLIST'" ng-show=" {{fieldInfo.rendredExpression}}">
+        <div class='slds-form-element__label'>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+            <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+        </div>
+        <div class='slds-form-element__control'>  
+        	<div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+            <div class="slds-form-element__control slds-m-top--medium" ng-if="(fieldInfo.isControllingField == false || fieldInfo.isControllingField == null) && (fieldInfo.isdependentField == null || fieldInfo.isdependentField == false)" >
+                <select class="slds-select " name="{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}" ng-required="{{fieldInfo.requiredExpressionFinal}}" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"
+                        ng-options="option.id as option.name for option in fieldInfo.selectOptionList[$parent.$parent.$parent.$index]"
+                        ng-model="obj[fieldInfo.fieldAPIName]" ng-value="option.name" >
+                    <option value="" ng-if="false"></option> 
+                </select>
+                  <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+            </div> 
+            <div class="slds-form-element__control" ng-if="(fieldInfo.isControllingField == false || fieldInfo.isControllingField == null) && (fieldInfo.isdependentField == true)" >
+                <select class="slds-select" name="{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}"  ng-required="{{fieldInfo.requiredExpressionFinal}}" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"
+                        ng-options="option.id as option.name for option in fieldInfo.selectOptionList[$parent.$parent.$parent.$index]"
+                        ng-model="obj[fieldInfo.fieldAPIName]" ng-value="option.name" >
+                    <option value="" ng-if="false"></option> 
+                </select> 
+                  <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+            </div>
+            <div class="slds-form-element__control" ng-if="fieldInfo.isControllingField == true"> 
+                <select class="slds-select" name="{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}"  ng-required="{{fieldInfo.requiredExpressionFinal }}" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"
+                        ng-options="option.id as option.name for option in fieldInfo.selectOptionList[$parent.$parent.$parent.$index]"
+                        ng-model="obj[fieldInfo.fieldAPIName]" ng-value="option.name" ng-change='populateDependentField(section, fieldInfo, section.modelName, $parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, $index, fieldInfo.criteriaField, obj[fieldInfo.fieldAPIName], obj)' >
+                    <option value="" ng-if="false"></option> 
+                </select>
+                 <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+            </div>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>
+        </div>
+    </div>
+    <div class="slds-form-element" ng-if = "fieldInfo.type  == 'BOOLEAN'" ng-show="fieldInfo.type  == 'BOOLEAN' &&  {{fieldInfo.rendredExpression}} ">
+        <div class='slds-form-element__label'>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+            <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+        </div>
+        <div class="slds-form-element__control" >
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+            <input  type='checkbox' ng-model='obj[fieldInfo.fieldAPIName]' />        
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>                                                                          
+        </div>
+    </div>
+   <div class="slds-form-element" ng-if = "(fieldInfo.type == 'STRING' || fieldInfo.type == 'PHONE' || fieldInfo.type == 'NUMBER' || fieldInfo.type == 'DOUBLE')" ng-show=" {{fieldInfo.rendredExpression}}">
+       <div class='slds-form-element__label'> 
+           <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+           <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+           <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+       </div>
+      
+        <div class="slds-form-element__control" >
+           <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+           
+           <input placeHolder='{{fieldInfo.placeholderText}}' class="slds-input"  ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"  ng-required="{{fieldInfo.requiredExpressionFinal}}"  type='text' ng-model='obj[fieldInfo.fieldAPIName]' name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}" /> 
+             <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             </div>
+       </div>
+   </div>
+    <div class="slds-form-element" ng-if = "fieldInfo.type == 'EMAIL'" ng-show="{{fieldInfo.rendredExpression}} ">
+        <div class='slds-form-element__label'>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+            <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+            <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+        </div>
+        <div class="slds-form-element__control" > 
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+            <input placeHolder='{{fieldInfo.placeholderText}}' class="slds-input" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"  ng-required="{{fieldInfo.requiredExpressionFinal}}" type='email' ng-model='obj[fieldInfo.fieldAPIName]'  name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}"/>
+             <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$touched">
+             	<div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+             	<div class="errorLabel" ng-show= "execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.email">{{fieldInfo.fieldAPIName}}: Enter valid email.</div>
+             	
+             </div>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>
+        </div>
+    </div> 
+    <div class="slds-form-element" ng-if="fieldInfo.type == 'UPLOAD' " ng-show = "{{fieldInfo.rendredExpression}}">
+        <c:UploadContentComponent />
+    </div>
+    
+    <div class="slds-form-element" ng-if="fieldInfo.type  == 'LOOKUP' || fieldInfo.type  == 'TYPE AHEAD' || fieldInfo.type  == 'REFERENCE'" ng-show="{{fieldInfo.rendredExpression}}">
+        <c:LookupInput />
+    </div>
+    <div ng-show="fieldInfo.type == 'MULTIPICKLIST' && {{fieldInfo.rendredExpression}}">
+    	<c:MultipickListCmp />
+    </div>
+</apex:component>

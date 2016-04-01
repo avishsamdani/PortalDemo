@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>ERx Custom Object</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Add_Drop_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <label>Add/Drop Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_Day_To_Register__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <label>Last Day To Register</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Term_Desctiption__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Example:  Fall Semester – Track A</inlineHelpText>
+        <label>Term Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Term_End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <label>Term End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Term_Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ERx Custom Field</description>
+        <externalId>false</externalId>
+        <label>Term Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Term</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Term_Start_Date__c</columns>
+        <columns>Add_Drop_Date__c</columns>
+        <columns>Last_Day_To_Register__c</columns>
+        <columns>Term_End_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Terms</label>
+    </listViews>
+    <nameField>
+        <label>Term ID</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Terms</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Term_Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Term_End_Date__c</customTabListAdditionalFields>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <lookupDialogsAdditionalFields>Term_Start_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Term_End_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Add_Drop_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Last_Day_To_Register__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Term_Start_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Term_End_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Add_Drop_Date__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Last_Day_To_Register__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>Term_Start_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Term_End_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Add_Drop_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Last_Day_To_Register__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

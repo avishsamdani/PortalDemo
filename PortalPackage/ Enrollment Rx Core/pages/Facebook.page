@@ -1,0 +1,16 @@
+<apex:page showHeader="false">
+	<!-- <div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+		<apex:composition template="FacebookTempate">
+			<apex:define name="body">
+
+				<fb:if-is-app-user>
+						<fb:redirect url="http://apps.facebook.com/enrollmentrx/Page1"/>
+					<fb:else>
+						<fb:redirect url="http://www.facebook.com/login.php?v=1.0&api_key=cf1c352aa2f1705a6d1fde2a26840341&next=&canvas="/>
+					</fb:else>
+				</fb:if-is-app-user>
+
+			</apex:define>
+		</apex:composition>
+	</div> -->
+</apex:page>

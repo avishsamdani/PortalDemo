@@ -1,0 +1,37 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <div id="main">
+                <div id="bar">
+        
+                    <div class="topitem">
+                        <h1>Welcome to College Admissions!<br/>Upcoming Events</h1>
+                        <b>Monday</b>: <a href="#">Meet your professors</a><br/>
+                        <b>Tuesday</b>: <a href="#">Dorm tours</a><br/>
+                        <b>Wednesday</b>: <a href="#">Open House</a>
+                    </div>
+        
+                    <div class="item">
+                        <img src="{!$Resource.EnrollmentrxRx__SiteStudentIcon}" alt="" class="right" width="122" height="122">
+                        <h1>Join us this fall!</h1>
+                        This fall is expected to be our school's most exciting semester yet, with over 150 countries represented by our
+                        enrolling class. It's not too late to get your application in!
+                        <br/><br/>
+                        <a href="#">more...</a>
+                    </div>
+        
+                    <div class="item">
+                        <img src="{!$Resource.EnrollmentrxRx__SitePresidentIcon}" alt="" class="right" width="120" height="120">
+                        <h1>A Message from the President</h1>
+                        Schools come in many shapes and sizes. We hope we can offer you exactly what you need
+                        to launch your life in the direction you choose. I invite you to come, visit the campus,
+                        meet our wonderful faculty, and make the decision to apply to our school.
+                        <br/><br/>
+                        <a href="#">more...</a>
+                    </div>
+        
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

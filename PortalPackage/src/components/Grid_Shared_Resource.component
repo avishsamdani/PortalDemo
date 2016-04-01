@@ -1,0 +1,8 @@
+<apex:component layout="none">
+    <link href="{!URLFOR($Resource.Utilities, '/css/gridstack/gridstack.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.Utilities, '/css/gridstack/style.css')}" rel="stylesheet" />
+    <link href="{!URLFOR($Resource.Utilities, '/util/DynamicGrid/css/component.css')}" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.3/gridstack.min.js"></script>
+    <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/common.js')}"></script>
+</apex:component>

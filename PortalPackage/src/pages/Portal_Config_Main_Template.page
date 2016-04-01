@@ -1,0 +1,312 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Lightning Design System -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS0121, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    
+    <!-- Bootstrap SF1 -->
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/bootstrap.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/docs.min.css')}" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" />
+    <apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" />
+    <apex:includeScript value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/js/docs.js')}" />
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/reset.css')}"/> <!-- CSS reset -->
+  <link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/style.css')}"/> <!-- Resource style -->
+  </head>
+
+
+  <style>
+    .section-header {
+      padding-left: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      padding-top: 5px;
+      margin-top: 10px;
+      /*border-bottom: solid 1px #333333;*/
+    }
+    
+    .section-header h1 {
+      font-size: 20px;
+      color: #0070D2;
+    }
+
+    .components-margin {
+      margin: 50px 0;
+    }
+
+    .demo--inverse {
+      background-color: #16325c;
+      padding: 20px;
+    }
+
+    .demo-space {
+      margin: 20px 0;
+    }
+
+    .demo-container .slds-col,
+    .demo-container .slds-col--padded,
+    .demo-container > div > div,
+    .demo-container div, {
+      text-align: center;
+      line-height: 2rem;
+      background-color: #1589ee;
+      color: #fff;
+      box-shadow: rgba(0,0,0,0.1) 0 0 0 1px inset;
+    }
+
+    .demo--alert > div,
+    .demo--margin > div {
+      margin: 10px 0;
+    }
+
+    .headRow{
+        overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: #54698D;
+    }
+
+    .slds .section-header h1{
+          padding: 1em 0 0.5em 0;
+          text-align: left;
+    }
+    .cd-logo {
+      margin: 11px 0 11px 11px;
+  }
+  .erx-popover {
+      background-color: #4f6a92 !important;
+      color: white;
+      text-align: center;
+  }
+  .action-button {
+      border: none !important;
+      height: 2.5rem;
+      width: 5.5rem;
+  }
+
+  .action-img {
+      vertical-align: top !important;
+  }
+  .action-img {
+      vertical-align: top !important;
+  }
+
+  .selectedRowCus {
+    background-color:#d8dde6;
+  }
+  .unSelectedRowCus {
+    display: none;
+  }
+  section.erx-border {
+      /*min-width: 310px;*/
+      background-color: white;
+      border-radius: .5rem;
+      border: 1px solid rgb(216, 221, 230);
+  }
+  .content-wrapper{
+    background-color: #f4f6f9;
+  }
+    .col-Padding{
+      padding-right: 2.5rem;
+      padding-left: 2.5rem;
+      background-color: white;
+    }
+    .slds .slds-form--horizontal .slds-form-element__control {
+      width: calc(83% - (12px * 2));
+    }
+    .slds .slds-card {
+      background-color: #fff;
+    }
+
+    .erx-page-messages {
+    padding: 1rem;
+    color: #FFF;
+    background: #C23934 none repeat scroll 0% 0%;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+    .erx-page-messages img {
+        margin-right: 0.75rem;
+    }
+
+    .slds-active .slds-tabs--default__link {
+        border-color: #0070d2;
+        color: #16325c;
+    }
+
+
+
+
+  </style>
+  
+
+<body>
+
+
+  <main class="cd-main-content">
+
+    <nav class="cd-side-nav">
+  <a href="#0" class="cd-logo"><img src="{!URLFOR($Resource.MainTemplateAsset, 'img/ERx_Logo.jpg')}" alt="Logo"/></a>
+
+      <ul>
+        <li class="cd-label">Main</li>
+        <li class="has-children overview">
+          <a href="Portal_Home">Home</a>
+        </li>
+
+        <li class="has-children bookmarks">
+          <a href="TM_TemplateAssignment">Template Assignment</a>
+        </li>
+        
+        <li class="has-children bookmarks">
+          <a href="TM_TemplateContent">Template Content</a>
+        </li>
+        
+        <li class="has-children users">
+          <a href="Portal_RegistrationSetting">Login Configuration</a>
+        </li>
+        
+        <li class="has-children images">
+          <a href="Portal_Page_Configure">Form Builder</a>
+        </li>
+        
+        <li class="has-children images">
+          <a href="HomepageBuilder_ng">Homepage Builder</a>
+        </li>
+        
+
+        <li class="has-children images">
+          <a href="#0">Portal User Generation<br/>(Coming soon..)</a>
+          
+        </li>
+
+
+      </ul>
+
+
+      <ul>
+        <li class="cd-label">Action</li>
+        <li class="action-btn"><a href="/home/home.jsp">Back to Home</a></li>
+      </ul> 
+    </nav>
+
+    <div class="content-wrapper">
+
+    <div class="slds">
+      <!-- <header class="envZone">
+        <div class="envZone-wrapper" > -->
+        <c:Portal_EnvPanel />
+        <!-- </div>
+      </header>  -->
+    <br/>  
+
+    <!-- <hr/> -->
+    <!-- <c:Portal_Breadcrumbs /> -->
+
+
+<div class="slds-tabs--scoped">
+    <ul class="slds-tabs--scoped__nav" role="tablist">
+      <li class="navItem1 slds-tabs--scoped__item slds-text-heading--label" title="Home" role="presentation">
+        <a class="slds-tabs--scoped__link" href="Portal_Home" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item">Home</a>
+      </li>      
+      <li class="navItem2 slds-tabs--scoped__item slds-text-heading--label" title="Assignment" role="presentation">
+        <a class="slds-tabs--scoped__link" href="TM_TemplateAssignment" role="tab" tabindex="-1" aria-selected="true" aria-controls="tab-scoped-2" id="tab-scoped-1__item">Template Assignment</a>
+      </li>
+      <li class="navItem3 slds-tabs--scoped__item slds-text-heading--label" title="Template" role="presentation">
+        <a class="slds-tabs--scoped__link" href="TM_TemplateContent" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3" id="tab-scoped-2__item">Template Builder</a>
+      </li>
+      <li class="navItem4 slds-tabs--scoped__item slds-text-heading--label" title="Registration" role="presentation">
+        <a class="slds-tabs--scoped__link" href="Portal_RegistrationSetting" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-4" id="tab-scoped-2__item">Login Configuration</a>
+      </li>
+      <li class="navItem5 slds-tabs--scoped__item slds-text-heading--label" title="Form Builder" role="presentation">
+        <a class="slds-tabs--scoped__link" href="Portal_Page_Configure" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-5" id="tab-scoped-2__item">Form Builder</a>
+      </li>
+      <li class="navItem6 slds-tabs--scoped__item slds-text-heading--label" title="Homepage" role="presentation">
+        <a class="slds-tabs--scoped__link" href="HomepageBuilder_ng" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-6" id="tab-scoped-3__item">Homepage Builder</a>
+      </li>
+    </ul>
+    <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+        <c:Portal_Breadcrumbs />
+        <apex:outputpanel id="mainBody" layout="block" style="max-height: 500px; overflow-y: auto;">
+          <apex:insert name="body"/>
+        </apex:outputpanel>
+  </div>
+    
+  </div>
+
+
+    </div> 
+    </div> 
+  </main> 
+
+</body>
+    <script type="text/javascript">
+      
+      $(document).ready(function() { 
+            if('{!$CurrentPage.Name}'=='TM_TemplateAssignment'){
+                $(".navItem2").addClass("slds-active");
+            }else if('{!$CurrentPage.Name}'=='TM_TemplateContent'){
+                $(".navItem3").addClass("slds-active");
+            }else if('{!$CurrentPage.Name}'=='Portal_RegistrationSetting'){
+                $(".navItem4").addClass("slds-active");
+            }else if('{!$CurrentPage.Name}'=='Portal_Page_Configure'){
+                $(".navItem5").addClass("slds-active");
+           }else if('{!$CurrentPage.Name}'=='HomepageBuilder_ng'){
+                $(".navItem6").addClass("slds-active");
+            }else if('{!$CurrentPage.Name}'=='Portal_Home'){
+                $(".navItem1").addClass("slds-active");
+            }
+      });
+    </script>
+
+<style type="text/css">
+  .envZone {
+    /*position: absolute;*/
+    z-index: 2;
+    top: 0;
+    left: 0;
+    /* height: 45px; */
+    width: 100%;
+    background: transparent;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+  .envZone .envZone-wrapper{
+
+    margin-left: 0px;
+    padding-top: 0px;
+}
+@media only screen and (min-width: 768px){
+  .envZone {
+      /*position: fixed;*/
+      /* height: 55px; */
+      /*margin-left: 110px;*/
+  }
+}
+
+@media only screen and (min-width: 1170px){
+  .envZone {
+      /*margin-left: 200px;*/
+  }
+}
+.cd-side-nav{
+  padding-top: 10px !important;
+}
+.content-wrapper{
+  padding-top: 10px !important;
+}
+body {
+    background-color: #f4f6f9;
+}
+</style>
+</apex:page>

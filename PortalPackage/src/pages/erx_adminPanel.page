@@ -1,0 +1,118 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Lightning Design System -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS0121, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    
+    <!-- Bootstrap SF1 -->
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/bootstrap.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/css/docs.min.css')}" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" />
+    <apex:includeScript value="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" />
+    <apex:includeScript value="{!URLFOR($Resource.LDS_BootstrapSF1, 'dist/js/docs.js')}" />
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'/>
+
+	<link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/reset.css')}"/> <!-- CSS reset -->
+	<link rel="stylesheet" href="{!URLFOR($Resource.MainTemplateAsset, 'css/style.css')}"/> <!-- Resource style -->
+  </head>
+
+
+  <style>
+    .section-header {
+      padding-left: 5px;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .section-header h1 {
+      font-size: 20px;
+      color: #0070D2;
+    }
+
+    .components-margin {
+      margin: 50px 0;
+    }
+
+    .demo--inverse {
+      background-color: #16325c;
+      padding: 20px;
+    }
+
+    .demo-space {
+      margin: 20px 0;
+    }
+
+    .demo-container .slds-col,
+    .demo-container .slds-col--padded,
+    .demo-container > div > div,
+    .demo-container div {
+      text-align: center;
+      line-height: 2rem;
+      background-color: #1589ee;
+      color: #fff;
+      box-shadow: rgba(0,0,0,0.1) 0 0 0 1px inset;
+    }
+
+    .demo--alert > div,
+    .demo--margin > div {
+      margin: 10px 0;
+    }
+
+    .headRow{
+        overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: #54698D;
+    }
+
+    .slds .section-header h1{
+    	    padding: 1em 0 0.5em 0;
+    	    text-align: left;
+    }
+    .cd-logo {
+    	margin: 11px 0 11px 11px;
+	}
+
+  </style>
+	
+
+	<body>
+		<header class="cd-main-header">
+			<a href="#0" class="cd-logo"><img src="{!URLFOR($Resource.MainTemplateAsset, 'img/ERx_Logo.jpg')}" alt="Logo"/></a>
+			<a href="#0" class="cd-nav-trigger"><span></span></a>
+			<nav class="cd-nav">
+				<ul class="cd-top-nav">
+					<li><a href="#0">Support</a></li>
+				</ul>
+			</nav>
+		</header>
+		<!-- .cd-main-header -->
+		<main class="cd-main-content">
+			<nav class="cd-side-nav">
+				<ul>
+					<li class="cd-label">Main</li>
+					<li class="has-children overview">
+						<a href="PortalFormBuilderHome">Home</a>
+					</li>
+					<li class="has-children bookmarks">
+						<a href="Portal_Page_Configure">Page Management</a>
+					</li>
+				</ul>
+				<ul>
+					<li class="cd-label">Action</li>
+					<li class="action-btn"><a href="/home/home.jsp">Back to Home</a></li>
+				</ul>
+			</nav>
+			<div class="content-wrapper" >
+				<apex:insert name="body"/>
+			</div>
+		</main>
+		<!-- .cd-main-content -->
+		<script src="{!URLFOR($Resource.MainTemplateAsset, 'js/jquery.menu-aim.js')}"></script>
+		<script src="{!URLFOR($Resource.MainTemplateAsset, 'js/main.js')}"></script> 
+	</body>
+</apex:page>

@@ -1,0 +1,151 @@
+<apex:page controller="PortalPackagePicklistLookupController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+	<html>
+		<head>
+			<apex:stylesheet value="{!URLFOR($Resource.SLDS0121, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+			<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" />
+			<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" />
+		</head>
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+			
+			.main-wrapper {
+			    width: 98%;
+			    margin: 1%;
+			    border: 1px solid #ccc;
+			    border-top: 4px solid #004D90;
+			    border-radius: 0px;
+			    border-top-left-radius: 5px;
+			    border-top-right-radius: 5px;
+			    padding:5px;
+			}
+			
+			.main-wrapper .main-wrapper-header p{
+				font-size:12px;
+			}
+			
+			.slds hr {
+				margin: 7px 0px;
+			}
+			
+			.pull-left {
+				float:left;
+			}
+			
+			.pull-right {
+				float:right;
+			}
+			
+			.clearfix {
+				clear: both;
+			}
+			
+			.insert-button {
+				font-size: 10px;
+			}
+			
+			.lookup-data-table {
+				margin-top:5px;
+			}
+			
+			.slds .slds-table--bordered {
+				border-bottom: none;
+			} 
+		</style>
+		<body>
+			<div class="slds main-wrapper" ng-app="picklistLookup" ng-controller="picklistLookupController">
+				<div class="main-wrapper-header">
+					<p>Select the picklist values to add below.</p>
+				</div>
+				<hr />
+				<div>
+					<div class="pull-left">
+						<a class="" ng-click="deselectAll();" href="#!">Deselect All</a>
+					</div>
+					<div class="pull-right">
+						<button class="slds-button slds-button--brand insert-button" ng-click="updateSelected();" >Insert Selected</button>
+					</div>
+					<div class="clearfix">
+					</div>
+				</div>
+				<div class="slds-scrollable--x lookup-data-table">
+					<table class="slds-table slds-table--bordered">
+						<thead>
+							<tr class="slds-text-heading--label">
+								<th scope="col">
+									Action
+								</th>
+								<th scope="col">
+									<span class="slds-truncate">Value</span>
+								</th>
+							</tr>
+						</thead>
+							<tr ng-repeat="selectOpWrap in selectOpWrapList">
+								<td>
+									<input type="checkbox" ng-model="selectOpWrap.isChecked" id="selectOpWrap{{$index}}" name="selectOpWrap{{$index}}" ng-change="checkMultiSelect($index, isMultiSelect)"/>
+								</td>
+								<td>
+									<label for="selectOpWrap{{$index}}">{{selectOpWrap.label}}</label>
+								</td>
+							</tr>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</body>
+		
+		<script>
+			// Define Angular Module and Controller
+			angular.module("picklistLookup", []).controller('picklistLookupController', function($scope) {
+				$scope.selectOpWrapList = {!selectOpWrapListString};
+				$scope.index = {!index};
+				$scope.type = '{!type}';
+				$scope.isMultiSelect = {!isMultiSelect};
+				
+				// Method to deselect all values
+				$scope.deselectAll = function() {
+					angular.forEach($scope.selectOpWrapList, function(selectOpWrap) {
+						selectOpWrap.isChecked = false;
+					});	
+				}
+				
+				$scope.checkMultiSelect = function(checkedIndex, isMulti) {
+					if(!isMulti) {
+						if($scope.selectOpWrapList[checkedIndex].isChecked) {
+							angular.forEach($scope.selectOpWrapList, function(selectOpWrap, index) {
+								if(checkedIndex != index) {
+									selectOpWrap.isChecked = false;
+								} else {
+									selectOpWrap.isChecked = true;
+								}
+							});
+						}
+					}
+				}
+				
+				// Returns checked listed
+				$scope.getSelectedList = function() {
+					var selectedList = [];
+					angular.forEach($scope.selectOpWrapList, function(selectOpWrap) {
+						if(selectOpWrap.isChecked) {
+							selectedList.push(selectOpWrap);
+						}
+					});
+					
+					return selectedList;
+				}
+				
+				// Method to call Update Selected Value in Corrosponding value.
+				$scope.updateSelected = function() {
+					var winMain = window.opener;
+	                if (null == winMain) {
+	                    winMain = window.parent.opener;
+	                }
+	                winMain.angular.element('#uploadComponent').scope().$parent.updatePicklistlookupValue($scope.index, $scope.getSelectedList(), $scope.type);
+				}
+			});
+		</script>
+	</html>
+</apex:page>

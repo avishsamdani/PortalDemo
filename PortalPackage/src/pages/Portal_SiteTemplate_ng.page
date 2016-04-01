@@ -1,0 +1,45 @@
+<apex:page standardstylesheets="false" showheader="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0">
+    <c:ERx_Common_Utility />
+    <apex:stylesheet value="{!URLFOR($Resource.PortalAssets, '/style/common.css')}" />
+    <apex:includescript value="{!URLFOR($Resource.PortalAssets, '/javascript/common.js')}"></apex:includescript>
+    <!--  Header Start  -->
+    <div id="container" class="slds">
+        <c:Grid_Utility rendered="{!contains($CurrentPage.Name,'HomepageBuilder')}" />
+        <div class="slds-backdrop">
+            <img id="loading-image" ng-src="{{con.urlSLDS}}/assets/images/spinners/slds_spinner_brand.gif" alt="Loading..." />
+        </div>
+        <div id="header">
+            <div id="pcclogo">
+                <a href="https://www.pima.edu/"><img src="https://www.pima.edu/_files/images/headerLogo.jpg" alt="Pima Home Page" style="border:0;" /></a>
+            </div>
+            <div id="logout">
+                <apex:outputlink value="{!$Site.Prefix}/secur/logout.jsp" rendered="{!ISPICKVAL($User.UserType,'CspLitePortal')}">{!$Label.site.logout}</apex:outputlink>
+            </div>
+        </div>
+        <div class="slds-tabs--default" id="pcctopbar" style="background: black; width: auto;">
+            <ul class="slds-tabs--default__nav" role="tablist">
+                <li class="slds-tabs__item slds-text-heading--label " title="HOME" role="presentation"><a href="/ApplicantPortal/" target="_parent" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" style="color: white;border-bottom:none">Home</a></li>
+                <li class="slds-tabs__item slds-text-heading--label" title="MY PROFILE" role="presentation"><a href="/ApplicantPortal/MyProfile_ng" target="_parent" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" style="color: white;border-bottom:none">My Profile</a></li>
+                <li class="slds-tabs__item slds-text-heading--label" title="MY APPLICATION" role="presentation"><a href="/ApplicantPortal/MyApplication_ng" target="_parent" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" style="color: white; border-bottom: none">My Application</a></li>
+            </ul>
+        </div>
+        <!--  Header End  -->
+        <!--  Body Start -->
+        <div id="content">
+            <c:Checklist_Responsive rendered="{!$CurrentPage.parameters.id!=null&&contains($CurrentPage.Name,'MyApplication')&&ISPICKVAL($User.UserType,'CspLitePortal')}" />
+            <apex:pagemessages id="pagemessages" />
+            <apex:insert name="body" />
+        </div>
+        <!--  Body End -->
+        <!--  Footer Start  -->
+        <div id="footer">
+            <div id="pccbottombarwrapper" style="overflow: hidden;">
+                <img src="https://pima.edu/_files/images/footerBubbles.png" style="position:relative; left:20%;bottom: -2em;" />
+                <div id="pccbottombar" style="background:black;z-index: 10;">
+                    <p style="margin:0">&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Footer End  -->
+</apex:page>

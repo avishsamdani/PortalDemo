@@ -1,0 +1,29 @@
+<apex:page id="loginPage" showheader="false" title="{!$Label.site.site_login}" controller="Portal_LoginController" standardstylesheets="false" cache="false">
+    
+    <apex:composition template="TM_Template">
+        <apex:define name="body">
+            <div class="slds">
+            <apex:form id="loginForm" forcessl="true">
+            <div class="slds-card">
+            <apex:pagemessages />
+                    <h1 class="slds-text-heading--small slds-truncate">Login</h1>
+                    	<div class="slds-form-element">
+                            <label class="slds-form-element__label">Email (Username):</label>
+                            <apex:inputtext id="username" value="{!uWrap.email}" html-placeholder="Email (*Required)" styleClass="slds-input"/>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Password:</label>
+                            <apex:inputsecret id="password" value="{!uWrap.password}" html-placeholder="Password (*Required)" styleClass="slds-input"/>
+						</div>
+						
+                        <apex:commandbutton action="{!login}" value="Login" id="loginButton"  styleClass="slds-button slds-button--neutral slds-not-selected"/>
+                        <apex:outputlink value="{!$Page.Portal_ForgotPassword}"> <b class="LoginPageLinkStyle">Forgot Your Password?</b></apex:outputlink>
+                        <apex:outputtext value="  " rendered="{!$Site.RegistrationEnabled}" />
+                        <apex:outputlink value="{!$Page.Portal_Register}">| <b class="LoginPageLinkStyle">New User</b></apex:outputlink>
+             </div>
+            </apex:form>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

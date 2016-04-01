@@ -1,0 +1,22 @@
+<apex:page id="page" standardstylesheets="false" showheader="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0" controller="ngForceController" extensions="HomepageBuilderController_Common">
+    <html ng-app="AngularApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <c:Grid_Shared_Resource />
+        <script type="text/javascript">
+        var hwlJSON='{!hwlJSON}';
+        </script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/HomepageBuilder_Preview.js')}"></script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/controllers/PreviewCtrl.js')}"></script>
+    </head>
+    <body ng-controller="PreviewCtrl as con">
+        <apex:composition template="Portal_SiteTemplate_ng">
+            <apex:define name="body">
+                <div class="grid-stack"></div>
+            </apex:define>
+        </apex:composition>
+    </body>
+</html>
+</apex:page>

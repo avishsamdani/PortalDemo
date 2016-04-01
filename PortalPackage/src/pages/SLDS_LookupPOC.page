@@ -1,0 +1,119 @@
+<apex:page showHeader="false" standardSTyleSheets="false" controller="SLDSLoopupPOCController">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+        <style>
+            .slds .slds-pill {
+                padding: 10px;
+            }
+        </style>
+        <div class="slds">
+            <div ng-app="mainApp" ng-controller="mainAppController">
+                <div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="true" ng-show="lookupValue.Id == ''">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="lookup">{{objectName}}</label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                            <input id="lookupValue" class="slds-input" type="hidden" ng-value="lookupValue.Id" />
+                            <input id="lookup" class="slds-input" type="text" aria-autocomplete="list" role="combobox" aria-expanded="true" aria-activedescendant="" ng-model="lookupValue.Name" ng-change="getLookupDetails(objectName, lookupValue.Name);"/>
+                        </div>    
+                    </div>
+                    <div class="slds-lookup__menu" role="listbox" ng-show="lookupValue.Name.length > 0">
+                        <div class="slds-lookup__item">
+                            <button class="slds-button">
+                            {{lookupValue.Name}} in {{objectName}}</button>
+                        </div>
+                        <ul class="slds-lookup__list" role="presentation" ng-show="lookupList.length != 0">
+                            <li class="slds-lookup__item" ng-repeat="obj in lookupList">
+                                <a id="s{{$index}}" href="#" role="option" ng-click="selectLookup(obj);">
+                                    <span ng-bind-html="htmlbinding(obj.Name)"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="slds-lookup__list" role="presentation" ng-show="lookupList.length == 0">
+                            <li class="slds-lookup__item" style="color:red;">
+                                There is no records to select.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="slds-lookup slds-has-selection" data-select="single" data-scope="single" data-typeahead="false" ng-show="lookupValue.Id != ''">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="lookup">{{objectName}}</label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                            <svg aria-hidden="true" class="slds-input__icon">
+                                <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+                            </svg>
+                            <div class="slds-pill__container slds-show">
+                                <a href="#void" class="slds-pill">
+                                <span class="slds-pill__label" ng-bind-html="htmlbinding(lookupValue.Name)"></span>
+                                <button class="slds-button slds-button--icon-bare slds-pill__remove" ng-click="removeSelection();">
+                                    <svg aria-hidden="true" class="slds-button__icon">
+                                        <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Remove</span>
+                                </button>
+                                </a>
+                            </div>
+                            <input id="lookup" class="slds-input slds-hide" type="text" aria-autocomplete="list" role="combobox" aria-expanded="false" aria-activedescendant="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var mainApp = angular.module("mainApp", []);
+            mainApp.controller('mainAppController', function($scope, $http, $sce, $timeout){
+                $scope.objectName = 'Account';
+                $scope.lookupValue = {Id:'', Name:''};
+                $scope.lookupList = [];
+                
+                $scope.selectLookup = function(value) {
+                    console.log(value);
+                    $scope.lookupValue = value;
+                    console.log($scope.lookupValue);
+                }
+                
+                $scope.getLookupDetails = function(object, searchStringValue) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SLDSLoopupPOCController.getLookupDataByObjectAndName}',
+                        JSON.stringify(object), JSON.stringify(searchStringValue),
+                        function(result, event){
+                            if(event.statusCode == 200) {
+                                $timeout(function() {
+                                    $scope.lookupList  = result;
+                                });    
+                            }
+                        },
+                        {escape: true}
+                    );
+                    //alert(object + '-----' + searchStringValue);
+                }
+                
+                $scope.removeSelection = function() {
+                    $scope.lookupValue = {Id:'', Name:''};
+                }
+                
+                $scope.htmlbinding = function(value) {
+                    return $sce.trustAsHtml(value);
+                };
+            });
+            $(document).ready(function() {
+                if($('body').height() < $(document).height()) {
+                    $('body').height($(document).height());
+                }
+                $('body').click(function(e) {
+                    if($(e.target).attr('id') == 'lookup') {
+                        $('.slds-lookup__menu').show();
+                    } else {
+                        $('.slds-lookup__menu').hide();
+                    }
+                });
+            });
+        </script>
+    </html>
+</apex:page>

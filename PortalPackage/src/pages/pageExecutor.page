@@ -1,0 +1,9 @@
+<apex:page >
+      <apex:insert name="Header"></apex:insert>
+      <div>
+          <apex:insert name="template"/>
+          <apex:insert name="body"/>
+      </div>
+              
+      <apex:insert name="footer"></apex:insert>
+</apex:page>

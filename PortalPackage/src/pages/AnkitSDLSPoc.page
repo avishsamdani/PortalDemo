@@ -1,0 +1,169 @@
+<apex:page controller="AnkitSDLSDemoController" showHeader="false"
+   standardSTyleSheets="false">
+   <html xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+      <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+      <script
+         src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script>  
+         var mainApp = angular.module("mainApp", []);    
+         mainApp.service('DataService', function($q) {              
+           	
+           	this.getLookupDetails = function(name){
+           		var deferred = $q.defer();
+           		 Visualforce.remoting.Manager.invokeAction(
+                     '{!$RemoteAction.AnkitSDLSDemoController.getPlayersList}', name,
+                     function(result, event){
+                     	if (event.type == 'exception') {
+                           deferred.reject(JSON.parse('[]'));
+                    			} 
+                         else {
+                         	 deferred.resolve(result);
+                         }
+                     },
+                     {escape: false}
+                 );
+                   return deferred.promise;      
+             }      
+           }  );
+         mainApp.controller('mainAppController', function($scope, $http, $sce, DataService,$q,$timeout){
+             $scope.test = 'test';
+             $scope.lookupstring ='';
+              $scope.contacts=[];
+           		$scope.selectedvalue ={};
+           	$scope.selectLookup = function(index){
+           		$scope.lookupstring = ""; 
+           		$scope.selectedvalue =  $scope.contacts[index];
+           		$("#lookup").removeClass('slds-theme--warning');
+             
+           		$("#lookup").removeClass('slds-show');
+           	  	var search_icon_dom = $("#search-icon_div")
+           	  	angular.element(search_icon_dom).removeClass('slds-show');
+           	  	
+           	  	angular.element(search_icon_dom).addClass('slds-hide');
+         		console.log("executed");
+           		$("#lookup").addClass('slds-hide');
+           		$(".slds-pill__container").removeClass('slds-hide');
+           
+           		$(".slds-pill__container").addClass('slds-show');
+           	}
+           	$scope.removeSelection = function(){
+           		$("#lookup").removeClass('slds-hide');
+           		$("#lookup").removeClass('slds-theme--warning');
+             	$("#lookup").addClass('slds-show');
+           		$(".slds-pill__container").removeClass('slds-show');
+           		var search_icon_dom = $("#search-icon_div")
+         		angular.element(search_icon_dom).removeClass('slds-hide');
+           	  	angular.element(search_icon_dom).addClass('slds-show');
+         		
+           		$(".slds-pill__container").addClass('slds-hide');
+           			$scope.selectedvalue ={};
+           	}
+           	$scope.clearerror = function(){
+           	$("#lookup").removeClass('slds-theme--warning');
+           	}
+             $scope.getLookupDetails= function(event){
+              	$scope.contacts=[];
+              		$("#lookup").removeClass('slds-theme--warning');
+             	if($scope.lookupstring ==''){
+             		$("#lookup").addClass('slds-theme--warning');
+             	}
+             	else{
+            		 DataService.getLookupDetails($scope.lookupstring).then(function(data) {
+                   	$scope.contacts = data;
+                 })	
+                 }  }});
+             
+      </script>
+      <link rel="stylesheet"
+         href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+      <div class="slds" ng-app="mainApp">
+         <!-- MASTHEAD -->
+         <p class="slds-text-heading--label slds-m-bottom--small">Enrollment RX</p>
+         <!-- / MASTHEAD -->
+         <div class="slds-page-header" role="banner">
+            <!-- PAGE HEADER TOP ROW -->
+            <div class="slds-grid">
+               <!-- PAGE HEADER / ROW 1 / COLUMN 1 -->
+               <div class="slds-col">
+                  <!-- HEADING AREA -->
+                  <!-- MEDIA OBJECT = FIGURE + BODY -->
+                  <div class="slds-media">
+                     <div class="slds-media__figure">
+                        <svg aria-hidden="true"
+                           class="slds-icon slds-icon--large slds-icon-standard-user">
+                           <use 		xlink:href="{!URLFOR($Resource.SLDS090, 'assets/icons/standard-sprite/svg/symbols.svg#user')}"></use>
+                        </svg>
+                     </div>
+                     <div class="slds-media__body">
+                        <p class="slds-text-heading--label">Contacts</p>
+                        <h1 class="slds-text-heading--medium">SLDS Inc.</h1>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- PRIMARY CONTENT WRAPPER -->
+         </div>
+         <div class="myapp" ng-controller="mainAppController">
+            <div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="false">
+               <div class="slds-form-element">
+                  <label class="slds-form-element__label" for="lookup">Contacts</label>
+                  <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                     <svg aria-hidden="true" class="slds-input__icon">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                     </svg>
+                     <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right ">
+                        <svg aria-hidden="true" class="slds-input__icon" id="search-icon_div">
+                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/resource/1448011899000/salesforcelight/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                        </svg>
+                        <div class="slds-pill__container slds-hide">
+                           <a class="slds-pill" href="">
+                              <span class="slds-pill__label ng-binding">{{selectedvalue.Name}}</span>
+                              <button class="slds-button slds-button--icon-bare slds-pill__remove" ng-click="removeSelection();">
+                                 <svg aria-hidden="true" class="slds-button__icon">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/resource/1448011899000/salesforcelight/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                                 </svg>
+                                 <span class="slds-assistive-text">Remove</span>
+                              </button>
+                           </a>
+                        </div>
+                     </div>
+                     <input id="lookup"   placeholder="Enter the contact name" class="slds-input" type="text" aria-autocomplete="list" role="combobox" aria-expanded="true" aria-activedescendant="" ng-keypress="getLookupDetails();"  ng-model="lookupstring" ng-click="clearerror();"/>
+                  </div>
+               </div>
+               <div class="slds-lookup__menu" role="listbox">
+                  <div class="slds-lookup__item" ng-class="{'slds-hide' : lookupstring == '' }">
+                     <button class="slds-button">
+                        <svg aria-hidden="true" class="slds-icon slds-icon-text-default slds-icon--small">
+                           <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                        </svg>
+                        &quot;{{lookupstring}}&quot; in Contacts
+                     </button>
+                  </div>
+                  <ul class="slds-lookup__list" role="presentation">
+                     <li class="slds-lookup__item" ng-repeat="c in contacts">
+                        <a id="s02" href="#" role="option" ng-click="selectLookup($index);">
+                           <svg aria-hidden="true" class="slds-icon slds-icon-standard-account slds-icon--small">
+                              <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                           </svg>
+                           {{c.Name}}
+                        </a>
+                     </li>
+                     <div class="slds-lookup__item" ng-class="{'slds-hide' : contacts.length > 0 }">
+                        <button class="slds-button">
+                           <svg aria-hidden="true" class="slds-icon slds-icon-text-default slds-icon--small">
+                              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                           </svg>
+                           No records to display
+                        </button>
+                     </div>
+                  </ul>
+                </div>
+            </div>
+         </div>
+      </div>
+   </html>
+</apex:page>

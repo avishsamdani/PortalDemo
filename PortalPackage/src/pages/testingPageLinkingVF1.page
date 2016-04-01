@@ -1,0 +1,32 @@
+<apex:page action="{!initPageLoad}" controller="testingPageLinking" showHeader="false" standardStylesheets="false" docType="html-5.0">
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
+    </head> 
+    <html ng-app="mainApp" ng-controller="mainAppController"> 
+        hi <br /><br />
+    <button ng-click="prev()" value="next">Previous</button>
+    <button ng-click="next()" value="next">Next</button>   
+    </html>
+        <script>
+        var app = angular.module('mainApp', []); 
+        app.controller('mainAppController', ['$scope', function($scope) {        
+            $scope.prev = function() {      
+                window.location = "testingPageLinkingVF";                
+            }
+            
+            $scope.next = function() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.testingPageLinking.test}',
+                    function(result, event){
+                        if (event.status) {
+                            window.location = "testingPageLinkingVF2?pageId="+result; 
+                        } 
+                    }, 
+                    {escape: true}
+                );
+            }
+        }]);
+        </script>
+    </apex:page>

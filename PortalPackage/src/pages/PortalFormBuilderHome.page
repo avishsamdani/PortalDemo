@@ -1,0 +1,9 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+<apex:composition template="erx_adminPanel">
+<apex:define name="body">
+    <div class="section-header">
+        <h1 class="slds-text-heading--medium slds-truncate" >Welcome to Enrollmentrx Application App</h1>
+    </div>
+</apex:define>
+</apex:composition>
+</apex:page>

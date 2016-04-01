@@ -1,0 +1,210 @@
+<apex:page controller="CampusGenericLookUpController"  showHeader="false" sidebar="false" standardStyleSheets="false">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <apex:includeScript value="{!$Resource.standardjquery}" />
+        <apex:stylesheet value="{!URLFOR($Resource.jqueryui, 'jquery-ui.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.jqueryui, 'jquery-ui.js') }" /> 
+        <style>
+            .customButtons{
+                margin: auto;
+                width: 30%;
+                margin-top:1%;
+            }
+            
+            #loading-image {
+                position: fixed;
+                top: 40%;
+                left: 47%;
+                width:4%;
+            } 
+         
+            #loading { 
+                width: 100%;
+                height: 100%; 
+                top: 0px;
+                left: 0px;
+                position: absolute;
+                display:none;
+                opacity: 0.5;
+                filter: alpha(opacity = 50);
+                -moz-opacity: 0.5;
+                background-color: #fff;
+                text-align: center;
+                z-index: 100;
+            }
+            
+            .clear-search-button {
+                margin-left:10px !important;
+            }
+            
+            .search-button {
+                position:relative;
+                margin-top:10px;
+                text-align: right;          
+            }
+            
+            .slds .slds-select {
+                height:auto;
+            }
+            
+            .slds-truncate {
+                font-weight:bold;
+            }
+            
+            .filter-element {
+                position:relative;
+                margin-top:10px;
+            }
+        </style>
+        <script>
+            function showLoadingImage() {               
+                $('#loading').css('display', 'block');                                    
+            }
+           
+            function hideLoadingImage() {
+                $('#loading').css('display', 'none');
+            }
+            
+            function fillLookupDetails(name, id) {
+                var winMain = window.opener;
+                if (null == winMain) {
+                    winMain = window.parent.opener;
+                }
+            
+                 
+                CloseWindow(id, name, '{!JSENCODE($CurrentPage.parameters.idfield)}', '{!JSENCODE($CurrentPage.parameters.namefield)}');
+            }
+        
+            function CloseWindow(id, name, elementId, elementName) {
+                var winMain = window.opener;
+                if (null == winMain) {
+                    winMain = window.parent.opener;
+                }
+                console.log('@@@3'+id+'@@'+name);
+                winMain.closeLookupPopup(id, name, elementId, elementName);
+            }
+          
+        </script>
+        <apex:form id="genricLookupForm">  
+            <div class="slds">
+                <div class="slds-spinner--small" id="loading">
+                    <img id="loading-image" src="{!URLFOR($Resource.salesforcelight, '/assets/images/spinners/slds_spinner_brand.gif')}" alt="Loading..." />
+                </div>
+                <div class="slds-box slds-theme--alt-inverse slds-m-bottom--x-small overlapDiv">                         
+                    <h4 style="margin-left:0%;    font-size: 18px;font-weight: 500;margin-top:0%;display:inline;"><apex:outputText escape="false" value="Lookup Filter"></apex:outputText></h4>
+                    <apex:outputLink onclick="window.open('/','_self'); return false;" style="display:inline;float:right;text-decoration:none;color:white;font-size:15px;margin-right:2%;" >&#8592; Back to Home</apex:outputLink>                         
+                </div>
+                <div class="slds-box slds-box--small">
+                    <h4 style="margin-left:0%;    font-size: 18px;font-weight: 500;margin-top:0%;display:inline;">Powered by</h4>
+                </div>
+                <apex:outputPanel rendered="{!isErrorMessage != null}">
+                    <div class="slds-notify slds-notify--toast slds-theme--error" role="alert">
+                        <span class="slds-assistive-text">Error</span>
+                        <div class="notify__content slds-grid">
+                            <svg aria-hidden="true" class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex">
+                                <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#warning')}">
+                                </use>
+                            </svg>
+                            <div class="slds-col slds-align-middle">
+                                <h2 class="slds-text-heading--small">{!isErrorMessage}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!isErrorMessage == null}">
+                    <div class="slds-scrollable--x">
+                        <apex:repeat value="{!searchRecordWrappers}" var="c" >
+                            <div class="filter-element">
+                                <span class="slds-truncate"><apex:outputText escape="false" value="{!c.fieldLabel}"></apex:outputText></span>
+                                <span class="slds-truncate">
+                                    <apex:selectList styleClass="slds-select" value="{!c.fieldValue}" size="1" rendered="{!c.fieldType == 'PICKLIST'}"  >
+                                        <apex:selectOptions value="{!c.options}" />
+                                    </apex:selectList>
+                                    <apex:selectList styleClass="slds-select" value="{!c.inputTextList}" multiselect="true" size="6" rendered="{!c.fieldType == 'MULTIPICKLIST'}" >
+                                        <apex:selectOptions value="{!c.options}" />
+                                    </apex:selectList>
+                                    <apex:inputText styleClass="slds-input" value="{!c.fieldValue}" rendered="{!c.fieldType != 'PICKLIST' && c.fieldType != 'MULTIPICKLIST'}" />
+                                </span>
+                            </div>
+                        </apex:repeat>
+                        <div class="search-button">
+                            <apex:commandButton styleClass="slds-button slds-button--brand" action="{!searchRecords}" onClick="showLoadingImage();" onComplete="hideLoadingImage();" value="Search"  reRender="myPanel,myButtons"/>
+                            <apex:commandButton styleClass="slds-button slds-button--brand clear-search-button" action="{!clearSearch}" onClick="showLoadingImage();" onComplete="hideLoadingImage();" value="Clear Filters"  reRender="genricLookupForm"/>
+                        </div>
+                        <!--<table class="slds-table slds-table--bordered">
+                            <thead>                     
+                                <tr class="slds-text-heading--label">
+                                    <apex:repeat value="{!searchRecordWrappers}" var="c" >
+                                        <th scope="col">
+                                            <span class="slds-truncate"><apex:outputText escape="false" value="{!c.fieldLabel}"></apex:outputText></span>
+                                        </th>     
+                                    </apex:repeat>  
+                                    <th scope="col">
+                                        <span class="slds-truncate"><apex:outputText escape="false" value="Search"></apex:outputText></span>
+                                    </th>                      
+                                </tr>                           
+                            </thead> 
+                            <tbody>
+                                <tr class="slds-hint-parent">
+                                    <apex:repeat value="{!searchRecordWrappers}" var="c" >
+                                        <td data-label="confidence">
+                                            <span class="slds-truncate">
+                                                <apex:selectList value="{!c.fieldValue}" size="1" rendered="{!c.fieldType == 'PICKLIST'}"  >
+                                                    <apex:selectOptions value="{!c.options}" />
+                                                </apex:selectList>
+                                                <apex:selectList value="{!c.inputTextList}" multiselect="true" size="6" rendered="{!c.fieldType == 'MULTIPICKLIST'}" >
+                                                    <apex:selectOptions value="{!c.options}" />
+                                                </apex:selectList>
+                                                <apex:inputText styleClass="slds-input" value="{!c.fieldValue}" rendered="{!c.fieldType != 'PICKLIST' && c.fieldType != 'MULTIPICKLIST'}" />
+                                            </span>
+                                        </td>
+                                    </apex:repeat>
+                                    <td data-label="confidence">
+                                        <apex:commandButton styleClass="slds-button slds-button--brand" action="{!searchRecords}" onClick="showLoadingImage();" onComplete="hideLoadingImage();" value="Search"  reRender="myPanel,myButtons"/>
+                                        <apex:commandButton styleClass="slds-button slds-button--brand clear-search-button" action="{!clearSearch}" onClick="showLoadingImage();" onComplete="hideLoadingImage();" value="Clear Filters"  reRender="genricLookupForm"/>    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>  -->      
+                        <br/> <br/> 
+                                     
+                        <apex:pageBlock >
+                            <apex:outputPanel style="min-height:400px;display:block;">
+                                <apex:pageBlockTable id="myPanel" styleClass="slds-table slds-table--bordered" value="{!records}" var="res">
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:outputText value="Name" />
+                                        </apex:facet>
+                                        <apex:outputLink onclick="fillLookupDetails('{!res['Name']}', '{!res['Id']}'); return false;" value="#">
+                                            {!res['Name']}
+                                        </apex:outputLink>
+                                    </apex:column>
+                                    <apex:repeat value="{!filterFieldsDisplayMap}" var="field">
+                                        <apex:column rendered="{!field != 'Name'}">
+                                            <apex:facet name="header">
+                                                <apex:outputText value="{!filterFieldsDisplayMap[field]}" />
+                                            </apex:facet>
+                                            <apex:outputText >
+                                                {!res[field]}
+                                            </apex:outputText>
+                                        </apex:column>
+                                        <!--<apex:column value="{!res[field]}" rendered="{!field != 'Name'}"/> -->
+                                    </apex:repeat>
+                                </apex:pageBlockTable>
+                            </apex:outputPanel>  
+                        </apex:pageBlock>
+                        <apex:outputPanel id="myButtons" layout="block" styleClass="slds-button-group customButtons">             
+                            <apex:commandButton onClick="showLoadingImage();" onComplete="hideLoadingImage();" styleClass="slds-button slds-button--brand" action="{!Beginning}" title="Beginning" value="First" disabled="{!disablePrevious}" reRender="myPanel,myButtons"/>
+                            <apex:commandButton onClick="showLoadingImage();" onComplete="hideLoadingImage();" styleClass="slds-button slds-button--brand" action="{!Previous}" title="Previous" value="Previous" disabled="{!disablePrevious}" reRender="myPanel,myButtons"/>        
+                            <apex:commandButton onClick="showLoadingImage();" onComplete="hideLoadingImage();" styleClass="slds-button slds-button--brand" action="{!Next}" title="Next" value="Next" disabled="{!disableNext}" reRender="myPanel,myButtons"/>
+                            <apex:commandButton onClick="showLoadingImage();" onComplete="hideLoadingImage();" styleClass="slds-button slds-button--brand" action="{!End}" title="End" value="Last" disabled="{!disableNext}" reRender="myPanel,myButtons"/>                          
+                            <apex:inputText value="{!pageNumber}"/>
+                            <apex:commandButton onClick="showLoadingImage();" onComplete="hideLoadingImage();" styleClass="slds-button slds-button--brand" action="{!go}" title="Go" value="Go"  reRender="myPanel,myButtons"/>               
+                        </apex:outputPanel>  
+                          
+                    </div>
+               </apex:outputPanel>
+            </div>
+        </apex:form>
+    </html>      
+</apex:page>

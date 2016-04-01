@@ -1,0 +1,9 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" id="SiteTemplate">
+  <apex:insert name="header">
+    <c:SiteHeader />
+  </apex:insert>
+  <apex:insert name="body"/>
+  <apex:insert name="footer">
+    <c:SiteFooter />
+  </apex:insert>
+</apex:page>

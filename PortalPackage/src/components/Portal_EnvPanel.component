@@ -1,0 +1,158 @@
+<apex:component controller="Portal_EnvPanelController" allowDML="true">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<script type="text/javascript">
+  function expandCollapseEnvs() {
+        var arrows = $("#openClose svg");
+        
+        for(i=0;i<arrows.length;i++){
+            if(arrows.eq(i).css("display")=="none"){
+              arrows.eq(i).css("display","inline");
+            }else{
+              arrows.eq(i).css("display","none");
+            }
+        }
+        var envs = $(".unSelectedRowCus");
+        
+        for(i=0;i<envs.length;i++){
+            if(envs.eq(i).css("display")=="none"){
+              envs.eq(i).css("display","table-row");
+            }else{
+              envs.eq(i).css("display","none");
+            }
+        }
+  }
+</script>
+<!-- <div class="slds"> -->
+
+
+<apex:form id="wholeFormSectionIdEnv1">
+
+
+
+    <br/>
+
+    <apex:pageblock id="ExistingEntitySectionId">
+    <div class="slds-card">
+
+    <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Environments List</h3>
+                Please select the Environment you want to work on.
+              </div>
+            </div>
+            <div class="slds-no-flex">
+              <div class="slds-button-group">
+                <button type="button" class="slds-button slds-button--neutral" onclick="expandCollapseEnvs();" id='openClose'>
+                <!-- Expand   -->                
+                  <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small" style="display:inline">
+                    <use xlink:href="/resource/SLDS0121/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                  </svg>
+                  <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small" style="display:none">
+                    <use xlink:href="/resource/SLDS0121/assets/icons/utility-sprite/svg/symbols.svg#up"></use>
+                  </svg>
+                  </button>
+
+
+              </div>
+            </div>
+    </header>
+        
+    
+
+        <table class="slds-table slds-table--bordered" id="envTable">
+          <thead>
+            <tr class="slds-text-heading--label">
+              <th scope="col">
+                <span class="slds-truncate">Name</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Version</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Status</span>
+              </th>
+              <th scope="col" class="slds-max-medium-hide">
+                <span class="slds-truncate">Template</span>
+              </th>
+              <th scope="col" class="slds-max-medium-hide">
+                <span class="slds-truncate">Type</span>
+              </th>
+              <th scope="col" class="slds-max-medium-hide">
+                <span class="slds-truncate">Registration <br/>Fields</span>
+              </th>
+              <th scope="col" class="slds-max-medium-hide">
+                <span class="slds-truncate">Homepage <br/>Widgets</span>
+              </th>
+              <th scope="col" class="slds-max-medium-hide">
+                <span class="slds-truncate">Profile</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Action</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <apex:repeat value="{!entityListAll}" var="e">
+            <tr class="slds-hint-parent {!IF( currentEnv.Env__c = e.Id, 'selectedRowCus', 'unSelectedRowCus')}">
+              <td data-label="Name">
+                <span class="slds-truncate"><a href="#"  onclick="configureTemp('{!e.Id}','{!e.TP_Manage_Property__c}')">{!e.Name}</a></span>
+              </td>
+              <td data-label="Version">
+                <span class="slds-truncate">{!e.Version__c}</span>
+              </td>
+              <td data-label="Status">
+                <span class="slds-truncate">{!e.Env_Status__c}</span>
+              </td>
+              <td data-label="Template" class="slds-max-medium-hide">
+                <span class="slds-truncate">{!e.TemplateName__c}</span>
+              </td>
+              <td data-label="Type" class="slds-max-medium-hide">
+                <span class="slds-truncate">{!e.TP_Manage_Property__c}</span>
+              </td>
+              <td data-label="Registration Fields" class="slds-max-medium-hide">
+                <span class="slds-truncate">{!e.Registration_Fields__c}</span>
+              </td>
+              <td data-label="Registration Fields" class="slds-max-medium-hide">
+                <span class="slds-truncate">{!e.Homepage_Widgets__c}</span>
+              </td>
+              <td data-label="Registration Fields" class="slds-max-medium-hide">
+                <span class="slds-truncate">{!e.Self_Register_Profile__c}</span>
+              </td>
+              <td data-label="Select">
+                <span class="slds-truncate">
+               
+                     <div class="slds-dropdown-trigger">
+                     <!-- <apex:commandButton onclick="configureTemp('{!e.Id}','{!e.TP_Manage_Property__c}')" value="clcl" /> -->
+                          <button  type="button" onclick="configureTempEnv('{!e.Id}','{!e.TP_Manage_Property__c}');" class="slds-button slds-button--neutral action-button">
+                              <img src="/resource/SLDS0121/assets/icons/utility/edit_120.png" class="action-img" />
+                          </button>
+                          <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                              <ul class="slds-dropdown__list">
+                                  <li class="slds-dropdown__item">
+                                      <p class="slds-truncate">Edit</p>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                    
+
+                </span>
+              </td>
+            </tr>
+            </apex:repeat>
+            <apex:actionFunction name="configureTempEnv" rerender="wholeFormSectionIdEnv1,mainBody" immediate="true" action="{!setupCurrEntity}">
+                  <apex:param name="envIdx" value="" assignTo="{!envIdx}"/>
+                  <apex:param name="envTypex" value="" assignTo="{!envTypex}"/>
+            </apex:actionFunction>
+          </tbody>
+        </table>
+      </div>
+
+    </apex:pageblock>
+
+    </apex:form>
+    <!-- </div> -->
+    </html>
+</apex:component>

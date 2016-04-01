@@ -1,0 +1,27 @@
+<apex:page id="page" standardstylesheets="false" showheader="false" sidebar="false" applyhtmltag="false" applybodytag="false" doctype="html-5.0" controller="ngForceController" extensions="HomepageBuilderController_Common">
+    <html ng-app="AngularApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <c:Grid_Shared_Resource />
+        <link href="{!URLFOR($Resource.HomepageBuilderAssets, '/style/HomepageBuilder_ManageLayout.css')}" rel="stylesheet" />
+        <script type="text/javascript">
+        var hwlJSON='{!hwlJSON}';
+        </script>
+        <script src="{!URLFOR($Resource.Utilities, '/util/DynamicGrid/js/modernizr.custom.js')}"></script>
+        <script src="{!URLFOR($Resource.Utilities, '/util/DynamicGrid/js/classie.js')}"></script>
+        <script src="{!URLFOR($Resource.Utilities, '/util/DynamicGrid/js/gridSelector.js')}"></script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/HomepageBuilder_ManageLayout.js')}"></script>
+        <script src="{!URLFOR($Resource.HomepageBuilderAssets, '/javascript/controllers/ManageLayoutCtrl.js')}"></script>
+    </head>
+    <body ng-controller="ManageLayoutCtrl as con">
+        <apex:composition template="Portal_SiteTemplate_ng">
+            <apex:define name="body">
+                <div class="grid-stack"></div>
+            </apex:define>
+        </apex:composition>
+        <script src="{!URLFOR($Resource.Utilities, '/util/DynamicGrid/js/grid.js')}"></script>
+    </body>
+</html>
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page standardController="EnrollmentrxRx__Enrollment_Rx_Configuration__c" extensions="EnrollmentrxRx.MakeActiveController" >
+<!-- action="{!save}" -->
+	<script>
+        window.onload=function()
+        {
+          doInit();
+        };
+     </script> 
+      <apex:form >
+         <apex:actionFunction name="doInit" action="{!save}"/> 
+      </apex:form> 
+
+</apex:page>

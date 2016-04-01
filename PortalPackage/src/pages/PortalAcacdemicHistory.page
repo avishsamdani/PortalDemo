@@ -1,0 +1,347 @@
+<apex:page controller="PortalAcacdemicHistoryController" showHeader="false" standardSTyleSheets="false">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<apex:stylesheet value="{!URLFOR($Resource.salesforcelight, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />    
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+	<style>
+	    .sectionTitle {
+	        text-align:center;
+	        background-color:rgb(81,12,118);
+	        padding:10px !important;
+	        margin-top:5px !important;
+	        text-align:left;
+	    }
+	    
+	    .slds .slds-button--brand {
+	        text-align:center;
+	        margin:5px;
+	        background:#795F87 !important;
+	        border:#795F87 !important;
+	    }
+	    
+	    .slds .slds-text-heading--label{
+	        color:white !important;  
+	    }
+	    .sectionButton{
+	        margin: auto !important;
+	        width: 100px !important;
+	    }
+	    .slds img {
+	        max-width: 4%;
+	        margin-top: 1%;
+	    }
+	    .slds .slds-pill {
+			padding: 10px;
+		}    
+	</style>
+	<div class="slds">
+	    <div ng-app="mainApp" ng-controller="mainAppController" >
+	        <input type="hidden" ng-model="test" id="test" />
+	        <form name="contactForm" class="slds-form--horizontal">
+	          
+	            <div ng-repeat="section in sectionList">
+	                <div class="slds-grid slds-wrap">
+	                    <div class="slds-col slds-size--1-of-1" ng-repeat="obj in modelList[section.modelName]">
+	                        <div class="slds-grid slds-wrap" ng-if='section.noOfcolumn == 1'>
+	                            <p class="sectionTitle slds-col slds-size--1-of-1 slds-text-heading--label slds-m-bottom--small">{{section.title}}</p>
+	                            <div class='slds-size--1-of-1' ng-repeat="fieldInfo in section.field">
+	                                <div class="slds-form-element" ng-if='fieldInfo.rendered'>
+	                                    <label class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                    <div class="slds-form-element__control">
+	                                        <input class="slds-input" required='true' type='text' ng-model='obj[fieldInfo.APIName]' />
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    <div class="slds-grid slds-wrap" ng-if='section.noOfcolumn == 2'>
+	                        <p class="sectionTitle slds-col slds-size--1-of-1 slds-text-heading--label slds-m-bottom--small">{{section.title}}</p>
+	                        <div  ng-repeat="fieldInfo in section.field" class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+	                            <div  ng-if='fieldInfo.isBlank == false'>
+	                                <div class="slds-form-element" ng-if="fieldInfo.type  == 'date' && fieldInfo.rendered">
+	                                    <label class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                    <div class="slds-form-element__control" >
+	                                        <input jqdatepicker="jqdatepicker"   class="customDatePicker slds-input" type='text' ng-model='obj[fieldInfo.APIName]' />                                         
+	                                    </div>
+	                                </div>
+	                                <div class="slds-form-element" ng-if="fieldInfo.type  == 'picklist' && fieldInfo.rendered ">
+	                                    <label class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                    <div class="slds-form-element__control" >                                   
+	                                        <select class="slds-select" name="mySelect" id="mySelect"
+	                                        ng-options="option.id as option.name for option in fieldInfo.selectOptionList "
+	                                        ng-model="obj[fieldInfo.APIName]" ng-value="option.name">
+	                                        <option value="" ng-if="false"></option>
+	                                        </select>                                                                         
+	                                    </div>
+	                                </div>
+	                                <div class="slds-form-element" ng-if="fieldInfo.type  == 'checkbox' && fieldInfo.rendered ">                                
+	                                    <label class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                     <div class="slds-form-element__control" >
+	                                      <input  type='checkbox' ng-model='obj[fieldInfo.APIName]' />                                                                                  
+	                                    </div>                                  
+	                                </div>
+	                                <div class="slds-form-element" ng-if="fieldInfo.type  == 'text' && fieldInfo.rendered ">                                
+	                                    <label class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                     <div class="slds-form-element__control" >
+	                                      <input   class="slds-input"  type='text' ng-model='obj[fieldInfo.APIName]' />                                                                                  
+	                                    </div>                                  
+	                                </div>
+	                               
+	                                <div class="slds-form-element" ng-if="fieldInfo.type  == 'lookup'">
+	                                    <label ng-show="{{fieldInfo.rendered}}" class="slds-form-element__label">{{fieldInfo.label}}</label>
+	                                    <div ng-show="{{fieldInfo.rendered}}" class="slds-form-element__control" >
+	                                        <input type="hidden" id="targetIdOne-{{$parent.$parent.$parent.$index}}{{$parent.$index}}" ng-model='obj[fieldInfo.APIName]' ng-value='obj[fieldInfo.APIName]' />
+	                                        <div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="true" ng-show="obj[fieldInfo.APIName] == null || obj[fieldInfo.APIName] == ''">
+												<div class="slds-form-element">
+													<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+														<input type="text" class="slds-input" aria-autocomplete="list" role="combobox" aria-expanded="true" aria-activedescendant="" ng-model="lookupString" ng-value="lookupString" id="targetNameOne-{{$parent.$parent.$parent.$index}}{{$parent.$index}}" ng-change="getLookupDetails(fieldInfo.lookupNameObject, lookupString, $parent.$index, $parent.$parent.$parent.$parent.$parent.$index, fieldInfo.APIName, fieldInfo.displayValueAPIName);"/>
+														<svg aria-hidden="true" class="slds-input__icon">
+												        	<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+												      	</svg>
+													</div>    
+												</div>
+												<div class="slds-lookup__menu" role="listbox" ng-show="lookupString.length > 0">
+													<div class="slds-lookup__item">
+														<button class="slds-button">
+														{{lookupString}} in {{fieldInfo.label}}</button>
+													</div>
+													<ul class="slds-lookup__list" role="presentation" ng-show="fieldInfo.lookupValueList != null && fieldInfo.lookupValueList.length != 0">
+														<li class="slds-lookup__item" ng-repeat="obj in fieldInfo.lookupValueList">
+															<a href="#" role="option" ng-click="selectLookup(obj, $parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$parent.$parent.$parent.$index, fieldInfo.APIName, fieldInfo.displayValueAPIName);">
+																<span ng-bind-html="htmlbinding(obj.Name)"></span>
+															</a>
+														</li>
+													</ul>
+													<ul class="slds-lookup__list" role="presentation" ng-show="fieldInfo.lookupValueList == null || fieldInfo.lookupValueList.length == 0">
+														<li class="slds-lookup__item" style="color:red;">
+															There is no records to select.
+														</li>
+													</ul>
+												</div>
+											</div>
+											<div class="slds-lookup slds-has-selection" data-select="single" data-scope="single" data-typeahead="false" ng-show="obj[fieldInfo.APIName] != null && obj[fieldInfo.APIName] != ''">
+												<div class="slds-form-element">
+													<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+														<svg aria-hidden="true" class="slds-input__icon">
+															<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+														</svg>
+														<div class="slds-pill__container slds-show">
+															<a href="#!" class="slds-pill">
+															<span class="slds-pill__label" ng-bind-html="htmlbinding(obj[fieldInfo.displayValueAPIName].Name)"></span>
+															<button class="slds-button slds-button--icon-bare slds-pill__remove" ng-click="removeSelection($parent.$parent.$parent.$index, $parent.$parent.$parent.$parent.$parent.$index, fieldInfo.APIName, fieldInfo.displayValueAPIName);">
+																<svg aria-hidden="true" class="slds-button__icon">
+																	<use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+																</svg>
+																<span class="slds-assistive-text">Remove</span>
+															</button>
+															</a>
+														</div>
+														<input id="lookup" class="slds-input slds-hide" type="text" aria-autocomplete="list" role="combobox" aria-expanded="false" aria-activedescendant="" />
+													</div>
+												</div>
+											</div>
+	                                    </div>
+	                                </div>
+	                          </div>
+	                        <div style="height: 30px;" ng-if='fieldInfo.isBlank'>                                
+	                        </div>
+	                     </div>
+	                    <div ng-if="section.isRepeat && modelList[section.modelName].length > 1">                
+	                      <button class="slds-button slds-button--brand" ng-click="delete(section.modelName,$index)">{{section.deleteButtonLabel }}</button>       
+	                    </div>
+	                  </div>
+	                 
+	               </div>
+	                <div ng-if="section.isRepeat">
+	                      <button class="slds-button slds-button--brand" ng-click="add(section.modelName);">{{section.buttonLabel}}</button>
+	                </div>  
+	            </div>
+	          
+	         </div>
+	       
+	        <div class="slds-grid slds-wrap">
+	            <div class='slds-size--1-of-1 sectionButton'>
+	                <button class="slds-button slds-button--brand" ng-click="save()">Submit</button>
+	            </div>
+	        </div>
+	      </form>
+	      
+	   </div>
+	</div>
+	<script>
+	    var  lookupmodelName;
+	    var  lookupIndex;
+	    var  lookupFieldApiName;
+	    var  displayValueAPIName; 
+	    var  lookuosecindex;
+	    $( document ).ready(function() {
+	         initDatePicker();
+	         $('input').each(function(){
+	         	$(this).attr('autocomplete', 'off');
+	         });          
+	    }); 
+	    
+	    function initDatePicker(){
+	        $( ".customDatePicker" ).each(function( ) {
+	            $( this ).datepicker();           
+	        });
+	    }
+	    
+	    function closeLookupPopup(id, name, elementId, elementName) {
+	        if (null!=newWin) {              
+	            
+	            var scope = angular.element($("#"+elementName)).scope();   
+	            scope.$apply(function(){         
+	               
+	                scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][lookupFieldApiName] = id;
+	                if(typeof scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][displayValueAPIName] == 'undefined' ||  scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][displayValueAPIName] == null){
+	                    scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][displayValueAPIName] = new Object();
+	                    scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][displayValueAPIName].id = id; 
+	                  
+	                }
+	                scope.modelList[scope.sectionList[lookuosecindex].modelName][lookupIndex][displayValueAPIName].Name = name;
+	                
+	            });
+	            newWin.close();  
+	            
+	           
+	        }  
+	      
+	    }
+	</script>
+	<script>  
+	    var mainApp = angular.module("mainApp", []);    
+	       
+	    mainApp.controller('mainAppController', function($scope, $http, $sce, DataService,$q,$timeout){
+	        $scope.test = 'test';
+	        $scope.items = [];
+	        $scope.modelList = {!modelsJSON};
+	        console.log($scope.modelList);
+	        $scope.sectionList = {!jsonData};
+	        $scope.lookupString = '';
+	        
+	        $scope.save= function() {
+	            DataService.saveData($scope.modelList).then(function(data) {
+	            });
+	        }
+	          
+	        /*$scope.openLookupPopup = function(name,id,index,modelName,fieldapiName,secindex,rt,objectName, displayApiName) {
+	        	alert(index + ' -- ' + secindex);
+	            var url="/apex/CampusGenericLookUp?objectname=" + objectName + "&namefield=" + name + "&idfield=" + id + "&recordType="+rt;  
+	            lookupmodelName = modelName;
+	            lookupIndex = index;
+	            lookupFieldApiName= fieldapiName;
+	            displayValueAPIName = displayApiName;
+	            lookuosecindex = secindex;
+	            newWin=window.open(url, 'Popup','height=500,width=710,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+	            if (window.focus) {
+	                newWin.focus();
+	            }                           
+	            return false;
+	        };*/
+	        
+	        
+	        $scope.add= function(modelname) {
+	           
+	            var sampleObj = new Object() ;
+	            $.each($scope.modelList[modelname][0], function(key, element) {
+	                if(key != '$$hashKey')
+	                    sampleObj[key] = null;
+	            }); 
+	            $(sampleObj).attr('attributes', $($scope.modelList[modelname][0]).attr('attributes'));
+	            $scope.modelList[modelname].push(sampleObj );
+	            $timeout(function () {
+	               initDatePicker();
+	            });
+	        } 
+	        
+	        $scope.delete= function(modelName,index) {
+	            var c =  $scope.modelList[modelName].splice(index,1);   
+	            if( c[0] != null && c[0].Id != null){ 
+	              Visualforce.remoting.Manager.invokeAction(
+	            '{!$RemoteAction.PortalAcacdemicHistoryController.deleteData}',
+	            JSON.stringify(c[0]), 
+	            function(result, event){
+	                if (event.status) {
+	                   
+	                } else if (event.type === 'exception') {
+	                   
+	                } else {
+	                   
+	                }
+	            }, 
+	            {escape: true}
+	        );
+	            }else{
+	           
+	            }  
+	        }
+	        
+	        $scope.htmlbinding = function(value) {
+				return $sce.trustAsHtml(value);
+			};
+			
+			$scope.removeSelection = function(fieldIndex, sectionIndex, fieldApiName, fieldDisplayApiName) {
+				//alert(fieldIndex + ' -- ' + sectionIndex);
+				$scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldApiName] = '';
+                $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName].Name = '';
+			}
+			
+			$scope.selectLookup = function(obj, fieldIndex, sectionIndex, fieldApiName, fieldDisplayApiName) {
+				$scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldApiName] = obj.Id;
+				if(typeof $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName] == 'undefined' ||  $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName] == null){
+                    $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName] = new Object();
+                    $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName].id = obj.Id; 
+                }
+                $scope.modelList[$scope.sectionList[sectionIndex].modelName][fieldIndex][fieldDisplayApiName].Name = obj.Name;
+			}
+			
+			$scope.getLookupDetails = function(object, searchStringValue, fieldIndex, sectionIndex, fieldApiName, fieldDisplayApiName) {
+				Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.PortalAcacdemicHistoryController.getLookupDataByObjectAndName}',
+					JSON.stringify(object), JSON.stringify(searchStringValue),
+					function(result, event){
+						if(event.statusCode == 200) {
+							$timeout(function() {
+								$scope.sectionList[sectionIndex].field[fieldIndex].lookupValueList  = result;
+							});    
+						}
+					},
+					{escape: true}
+				);		
+			}      
+	    });
+	    
+	    mainApp.service('DataService', function($q) {              
+	        this.saveData= function(a) {
+	        delete a.$$hashKey;
+	                    
+	        var serverData = angular.toJson(a);
+	        var deferred = $q.defer();
+	        Visualforce.remoting.Manager.invokeAction(
+	            '{!$RemoteAction.PortalAcacdemicHistoryController.updateData}',
+	            serverData , 
+	                function(result, event){
+	                    if (event.status) {
+	                        var customer = JSON.stringify(result);
+	                        var find = '\'';
+	                        var re = new RegExp(find, 'g');
+	                        customer = customer.replace(re, '');
+	                        deferred.resolve(JSON.parse(customer));
+	                    } else if (event.type === 'exception') {
+	                        deferred.reject(JSON.parse('[]'));
+	                    } else {
+	                      
+	                    }
+	                }, 
+	                     {escape: true}
+	             );              
+	             return deferred.promise;
+	        }
+	    });
+	
+	</script>
+</html>    
+</apex:page>

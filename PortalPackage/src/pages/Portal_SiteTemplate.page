@@ -1,0 +1,26 @@
+<apex:page showheader="false" sidebar="false" >
+<!-- controller="TM_TemplateContentController"> -->
+<style>
+/*.positions{
+	margin: 0 auto;
+	max-width: 1200px;
+    
+	background-color: transparent;
+	background: transparent;
+	heigth: 450px;
+}*/
+</style>
+	<!--  Header Start  -->    
+    <!-- <apex:outputText escape="false" value="{!templateHeader}"></apex:outputText> -->
+    <!--  Header End  -->
+ 
+    <!--  Body Start -->
+    <!-- <div class="positions"> -->
+		<!-- <apex:insert name="body"/> -->
+	<!-- </div> -->
+	<!--  Body End -->
+    
+    <!--  Footer Start  -->  
+    <!-- <apex:outputText escape="false" value="{!templateFooter}"></apex:outputText> -->
+    <!--  Footer End  --> 
+</apex:page>

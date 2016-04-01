@@ -1,0 +1,20 @@
+<apex:component controller="SideBarComponent">
+    <apex:attribute name="pageList" type="sObject[]" description="page list" assignTo="{!pages}" />
+    
+    <div class="navigation-progess-bar-div col-md-2"> 
+        <nav role="navigation" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle see-progress-bar-button">
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> See Progress Bar
+                </button>
+            </div>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="navigation-progess-bar">
+                    <apex:repeat value="{!pages}" var="page">
+                        <li><a href="/PageMaker?pageId={!page.Id}"><input type="checkbox" disabled="disabled" autocomplete="off" />{!page.Page_Name__c}</a></li>
+                    </apex:repeat>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</apex:component>

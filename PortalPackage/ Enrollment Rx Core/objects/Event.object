@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <fullName>EnrollmentOpportunityNewEvent</fullName>
+        <availability>online</availability>
+        <description>Opens &quot;New Event&quot; window from an EO with the EO&apos;s contact auto-populated on the event.</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>New Event</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/00U/e?what_id={!Enrollment_Opportunity__c.Id}&amp;retURL=%2F{!Enrollment_Opportunity__c.Id}&amp;evt2={!Enrollment_Opportunity__c.Applicant_First_Name__c}+{!Enrollment_Opportunity__c.Applicant_Last_Name__c}</url>
+    </webLinks>
+</CustomObject>

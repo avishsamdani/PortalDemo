@@ -1,0 +1,75 @@
+<apex:component controller="LookupInputComponent" >
+    <apex:attribute name="fieldInformation" description="field information" type="String" />
+    <apex:attribute name="objectVar" description="object Variable" type="String" />
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+    <div  >
+    {{fieldInfo.lookupNameObject}}
+    <div class='slds-form-element__label'>
+        <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE LABEL'"></div>
+        <label class="slds-form-element__label">{{fieldInfo.label}}<span  class="astersikRequired" ng-show="{{fieldInfo.requiredExpressionFinal}} && fieldInfo.requiredSymbol == '*'">*</span></label>
+        <img ng-if="fieldInfo.hoverText != null && fieldInfo.hoverText != ''" src="{{helperIcon}}" alt="{{fieldInfo.hoverText}}" class="helpIcon" title="{{fieldInfo.hoverText}}" />
+        <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW LABEL'"></div>
+    </div>
+    <div class="slds-form-element__control" >
+        <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'ABOVE FIELD'"></div>
+        <div class="slds-form-element__control" >
+            <input type="hidden" id="targetIdOne-{{$parent.$parent.$parent.$index}}{{$parent.$index}}" ng-model='obj[fieldInfo.fieldAPIName]' ng-value='obj[fieldInfo.fieldAPIName]' />
+            <div class="slds-lookup" data-select="multi" data-scope="single" data-typeahead="true" ng-show="obj[fieldInfo.fieldAPIName] == null || obj[fieldInfo.fieldAPIName] == ''">
+                <div class="slds-form-element lookupfield ">
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                    	<input type="text" class="slds-input" aria-autocomplete="list" role="combobox" aria-expanded="true" aria-activedescendant="" ng-model="lookupString" ng-value="lookupString" id="targetNameOne-{{$parent.$parent.$parent.$index}}{{$parent.$index}}" ng-change="getLookupDetails(section, fieldInfo, lookupString, $parent.$index, $parent.$parent.$parent.$parent.$index, fieldInfo.fieldAPIName, fieldInfo.displayValueAPIName);" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''"  ng-required="{{fieldInfo.requiredExpressionFinal}}" name = "{{fieldInfo.fieldAPIName}}{{$parent.$index}}"/>
+                        <svg aria-hidden="true" class="slds-input__icon">
+                            <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+                        </svg>
+                        <div ng-show="execForm.$submitted || execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$touched">
+                            <div class ="errorLabel" ng-show="execForm.{{fieldInfo.fieldAPIName}}{{$parent.$index}}.$error.required"  >{{fieldInfo.requiredErrorMessage}}</div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="slds-lookup__menu" role="listbox" ng-show="lookupString.length > 0">
+                    <div class="slds-lookup__item">
+                        <button class="slds-button">
+                        {{lookupString}} in {{fieldInfo.label}}</button>
+                    </div>
+                    <ul class="slds-lookup__list" role="presentation" ng-show="fieldInfo.lookupValueList != null && fieldInfo.lookupValueList.length != 0">
+                        <li class="slds-lookup__item" ng-repeat="obj1 in fieldInfo.lookupValueList">
+                            <a href="" role="option" ng-click="selectLookup(obj, obj1, $parent.$parent.$parent.$parent.$index, section, fieldInfo)">
+                                <span ng-bind-html="htmlbinding(obj1.Name)"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="slds-lookup__list" role="presentation" ng-show="fieldInfo.lookupValueList == null || fieldInfo.lookupValueList.length == 0">
+                        <li class="slds-lookup__item" style="color:red;">
+                            There is no records to select.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class='instructionText' ng-bind-html="htmlbinding(fieldInfo.instructionText)" ng-if="fieldInfo.instructionTextPosition  == 'BELOW FIELD'"></div>
+        </div>
+                         
+        <div class="slds-lookup slds-has-selection" data-select="single" data-scope="single" data-typeahead="false" ng-show="obj[fieldInfo.fieldAPIName] != null && obj[fieldInfo.fieldAPIName] != ''">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                    <svg aria-hidden="true" class="slds-input__icon">
+                        <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#search')}"></use>
+                    </svg>
+                    <div class="slds-pill__container slds-show">
+                        <a href="#!" class="slds-pill" ng-class="{{fieldInfo.requiredExpressionFinal }} && fieldInfo.requiredSymbol != '*' ? 'requiredBar' : ''">
+                        <span class="slds-pill__label" ng-bind="fieldInfo.displayValueAPIName[$parent.$parent.$index].name"></span>
+                        <button class="slds-button slds-button--icon-bare slds-pill__remove" ng-click="removeSelection(obj, $parent.$parent.$parent.$index, section, fieldInfo);">
+                            <svg aria-hidden="true" class="slds-button__icon">
+                                <use xlink:href="{!URLFOR($Resource.salesforcelight,'/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Remove</span>
+                        </button>
+                        </a>
+                    </div>
+                    <input id="lookup" class="slds-input slds-hide" type="text" aria-autocomplete="list" role="combobox" aria-expanded="false" aria-activedescendant="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </html>  
+</apex:component>

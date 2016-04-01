@@ -1,0 +1,633 @@
+<apex:page controller="Portal_SiteFieldsMainController" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+<html ng-app="AngularApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+
+<script language="javascript">
+
+        var newWin=null;
+        function openLookupPopup()
+        {
+            var url="/apex/Portal_RegistrationField?Id=newStartMode";
+            newWin=window.open(url, "_blank",'height=750,width=1000,left=10,top=10,resizable=no,scrollbars=yes,toolbar=no,status=no');
+            return false;
+        }
+        
+         function openLookupEditPopup(fieldId)
+        {   
+            
+            var url="/apex/Portal_SiteLoginRegConfigure?Id="+fieldId;  
+            newWin=window.open(url, "_blank",'height=750,width=1000,left=10,top=10,resizable=no,scrollbars=yes,toolbar=no,status=no');
+            return false;
+        }
+        
+        function hideEdit(){
+          $(".hideMe").hide();
+        }
+</script>
+
+<apex:composition template="Portal_Config_Main_Template">
+<apex:define name="body">
+<div class="slds">
+
+<apex:form id="wholeFormSectionId">
+
+    <apex:actionFunction name="deleteTemp" rerender="wholeFormSectionId,fieldsZone" immediate="true" action="{!deleteField}">
+          <apex:param name="frontEndObjectId" value="" assignTo="{!frontEndObjectId}"/>
+    </apex:actionFunction>
+
+    <apex:actionFunction name="singleFieldEdit" rerender="fieldEditComponent" immediate="true" action="{!initPage}">
+          <apex:param name="frontFieldId" value="" assignTo="{!frontFieldId}"/>
+          <!-- <apex:param name="frontEnvId" value="" assignTo="{!frontEnvId}"/> -->
+          <apex:param name="editTag" value="" assignTo="{!editTag}"/>
+    </apex:actionFunction>
+
+
+<!--     <apex:actionFunction name="configFields" rerender="wholeFormSectionId" immediate="true">
+          <apex:param name="frontEnvId" value="" assignTo="{!frontEnvId}"/>
+          <apex:param name="RegistrationURL" value="" assignTo="{!RegistrationURL}"/>
+    </apex:actionFunction> -->
+
+    <!-- <apex:actionFunction name="nullOut" rerender="fieldsZone,fieldEditComponent" immediate="true"> -->
+      <!-- <apex:param name="frontFieldId" value="" assignTo="{!frontFieldId}"/> -->
+      <!-- <apex:param name="frontEnvId" value="" assignTo="{!frontEnvId}"/> -->
+    <!-- </apex:actionFunction> -->
+
+    <!-- <apex:actionFunction name="showEdit" rerender="fieldsZone,fieldEditComponent" immediate="true"> -->
+      <!-- <apex:param name="editTag" value="" assignTo="{!editTag}"/> -->
+      <!-- <apex:param name="frontEnvId" value="" assignTo="{!frontEnvId}"/> -->
+    <!-- </apex:actionFunction> -->
+
+    <apex:pageMessages />
+    <!-- <c:Portal_Breadcrumbs /> -->
+
+    <!-- <apex:pageblock id="ExistingEntitySectionId">
+    <div class="slds-card">
+
+    <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Portal Environments</h3>
+              </div>
+            </div>
+    </header>
+        
+    
+
+        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+          <thead>
+            <tr class="slds-text-heading--label">
+              <th scope="col">
+                <span class="slds-truncate">Name</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Version</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Status</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Registration Fields</span>
+              </th>
+              <th scope="col">
+                <span class="slds-truncate">Configure</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <apex:repeat value="{!envList}" var="e">
+            <tr class="slds-hint-parent {!IF( frontEnvId = e.Id, 'selectedRowCus', '')}">
+              <td data-label="Name">
+                <span class="slds-truncate"><a href="#" onclick="window.open('/{!e.Id}')">{!e.Name}</a></span>
+              </td>
+              <td data-label="Name">
+                <span class="slds-truncate">{!e.Version__c}</span>
+              </td>
+              <td data-label="Name">
+                <span class="slds-truncate">{!e.Env_Status__c}</span>
+              </td>
+          
+              <td data-label="Registration Fields">
+                <span class="slds-truncate">{!e.Registration_Fields__c}</span>
+              </td>
+              
+              <td data-label="Configure">
+                <span class="slds-truncate">
+               
+                     <div class="slds-dropdown-trigger">
+                          <button type="button" onclick="configFields('{!e.Id}','{!e.Self_Register_URL__c}')" class="slds-button slds-button--neutral action-button">
+                              <img src="/resource/SLDS0121/assets/icons/utility/edit_120.png" class="action-img" />
+                          </button>
+                          <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                              <ul class="slds-dropdown__list">
+                                  <li class="slds-dropdown__item">
+                                      <p class="slds-truncate">Edit</p>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                </span>
+              </td>
+            </tr>
+            </apex:repeat>
+          </tbody>
+        </table>
+      </div>
+
+    </apex:pageblock>
+ -->
+
+<br/>    
+
+
+
+<apex:outputPanel Id="fieldsZone">
+<apex:outputPanel rendered="{!currentEnv != null}"> 
+
+
+
+<apex:outputPanel layout="none" rendered="{!fieldList.size =0}"> 
+  <div class="erx-page-messages" >
+        <img class="slds-icon--small" src="/resource/SLDS0121/assets/icons/utility/warning_120.png" />
+        You have no custom field for registration page. Please click "Add New" to add.
+  </div>
+</apex:outputPanel>
+<div class="slds-card">
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Custom Fields</h3>
+              </div>
+            </div>
+            <div class="slds-no-flex">
+              <div class="slds-button-group">
+                <button type="button" onclick="singleFieldEdit('newStartMode','show');"  value="New Field" Class="slds-button slds-button--neutral" >New Field</button>
+                <button type="button" onclick="window.open('{!RegistrationURL}?previewMode=siteReview&envId={!currentEnv.Env__c}')" value="Preview" Class="slds-button slds-button--neutral" >Preview</button>
+<!--                 <button type="button" onclick="window.open('{!customSettingURL}')" value="Message" Class="slds-button slds-button--neutral" >Message</button> -->
+                <button type="button" onclick="window.open('/apex/Portal_ErrorMsgConfigure')" value="Message" Class="slds-button slds-button--neutral" >Message</button>
+                <!-- <apex:commandButton value="Preview"  onclick="window.open('{!RegistrationURL}')" styleClass="slds-button slds-button--neutral" />
+                <apex:commandButton value="Message"  onclick="window.open('{!customSettingURL}')"  styleClass="slds-button slds-button--neutral" /> -->
+
+              </div>
+            </div>
+          </header>
+    
+    
+    <table class="slds-table slds-table--bordered slds-max-medium-table--stacked">
+    <thead>
+    <tr class="slds-text-heading--label">
+      <th scope="col">
+        <span class="slds-truncate">Field Name</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Field API</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Order</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Required</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Active</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Object</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Action</span>
+      </th>
+<!--       <th scope="col">
+        <span class="slds-truncate">Grand Child</span>
+      </th>
+      <th scope="col">
+        <span class="slds-truncate">Action</span>
+      </th> -->
+
+    </tr>
+    </thead>
+    <tbody>
+    <apex:repeat value="{!fieldList}" var="fl">
+    <tr class="slds-hint-parent">
+      <td data-label="Field Name">
+        <span class="slds-truncate">{!fl.Name}</span>
+      </td>
+      <td data-label="Field API">
+        <span class="slds-truncate">{!fl.Field_API_Name__c}</span>
+      </td>
+      <td data-label="Order">
+        <span class="slds-truncate">{!fl.Display_Order__c}</span>
+      </td>
+      <td data-label="Required">
+        <apex:outputfield value="{!fl.Is_Field_Required__c}" />
+      </td>
+      <td data-label="Active">
+        <apex:outputfield value="{!fl.Active__c}" />
+      </td>
+      <td data-label="Object">
+        <span class="slds-truncate">{!fl.Object_Name__c}</span>
+      </td>
+<!--       <td data-label="Child">
+        <span class="slds-truncate">{!f.Children_Field_API_Name__c}</span>
+      </td>
+      <td data-label="Grand Child">
+        <span class="slds-truncate">{!f.Grand_Children_Field_API_Name__c}</span>
+      </td> -->
+
+      <td data-label="Action">
+                  <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="singleFieldEdit('{!fl.Id}','show'); " class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/edit_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Edit</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="slds-dropdown-trigger">
+                      <button type="button" onclick="deleteTemp('{!fl.Id}')" class="slds-button slds-button--neutral action-button">
+                          <img src="/resource/SLDS0121/assets/icons/utility/delete_120.png" class="action-img" />
+                      </button>
+                      <div class="slds-dropdown slds-dropdown--bottom slds-nubbin--bottom slds-dropdown--menu erx-popover">
+                          <ul class="slds-dropdown__list">
+                              <li class="slds-dropdown__item">
+                                  <p class="slds-truncate">Delete</p>
+                              </li>
+                          </ul>
+                      </div>
+                    </div>
+
+
+
+      </td>
+    </tr>
+    </apex:repeat>
+    </tbody>
+    </table>
+</div>
+
+
+
+
+
+</apex:outputPanel>
+</apex:outputPanel>
+</apex:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<apex:outputPanel id="fieldEditComponent">
+<apex:outputPanel rendered="{! editTag = 'show'}" styleClass="hideMe">
+<div>
+  <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--medium slds-fade-in-open">
+    <div class="slds-modal__container">
+      <div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">Field Name</h2>
+        <!-- <button class="slds-button slds-button--icon-inverse slds-modal__close">
+          <img src="/resource/SLDS0121/assets/icons/utility/close_120.png" class="action-img" />
+          <span class="slds-assistive-text">Close</span>
+        </button> -->
+      </div>
+      <div class="slds-modal__content">
+          <!-- <c:Portal_RegistrationField fieldIdPara="{!frontFieldId}" envIdPara="{!frontEnvId}"/> -->
+
+
+
+        <div class="slds-card">
+          <apex:form >
+
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Add New Field</h3>
+              </div>
+            </div>
+            <div class="slds-no-flex">
+              <div class="slds-button-group">
+                <!-- <apex:commandButton value="Save" action="{!addField}" styleClass="slds-button slds-button--neutral slds-button--small"/> -->
+                <apex:commandButton value="Save" action="{!addField}" styleClass="slds-button slds-button--neutral slds-button--small" reRender="fieldsZone,fieldEditComponent"/>
+                    <apex:commandButton value="Cancel" action="{!hideEdit}" styleClass="slds-button slds-button--neutral slds-button--small" reRender="fieldEditComponent"/>
+
+                <!-- singleFieldEdit('','{!envId}','hide'); -->
+              </div>
+            </div>
+          </header>
+
+          
+          <!-- <apex:actionFunction name="saveEdit" rerender="wholeFormSectionId,fieldEditComponent" immediate="true" action="{!addField}" oncomplete="hideEdit();"/> -->
+          <section class="slds-card__body">
+              <!-- <apex:commandButton value="Save" action="{!addField}" styleClass="slds-button slds-button--neutral slds-button--small"/> -->
+                    
+                 <div class="slds-form--horizontal col-Padding">
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" for='objName'>Object Name</label>
+                              <div class="slds-form-element__control">
+                                <apex:inputField value="{!f.Object_Name__c}"  styleClass="slds-input">
+                                  <apex:actionSupport event="onchange" reRender="fieldEditComponent" />
+                                </apex:inputField>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label">Field Type</label>
+                              <div class="slds-form-element__control">
+                                <apex:inputField value="{!f.FieldType__c}"  styleClass="slds-input">
+                                  <apex:actionSupport event="onchange" reRender="fieldEditComponent"  action="{!clearChildrenInput}"/>
+                                </apex:inputField>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Field Label</label>
+                              <div class="slds-form-element__control">
+                                <!-- <span class="slds-truncate">{!f.Object_Name__c}</span> -->
+                                <apex:inputText styleClass="slds-input" value="{!f.Name}"/>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Field API</label>
+                              <div class="slds-form-element__control">
+                                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                                <apex:selectList value="{!f.Field_API_Name__c}" size="1" styleClass="slds-input" >
+                                  <apex:actionSupport event="onchange" action="{!fieldAPIAction}" rerender="fieldEditComponent"/>
+                                  <apex:selectoptions value="{!SupportFields}" />
+                                </apex:selectList>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Active</label>
+                              <div class="slds-form-element__control">
+                                <!-- <label class="slds-checkbox" >
+                                  <apex:inputCheckBox value="{!f.Active__c}"/>
+                                  <span class="slds-checkbox--faux"></span>
+                                </label> -->
+                                <apex:inputCheckBox styleClass="slds-checkbox" value="{!f.Active__c}"/>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Is Field Required</label>
+                              <div class="slds-form-element__control">
+                                <label class="slds-checkbox" >
+                                  <apex:inputCheckBox value="{!f.Is_Field_Required__c}"/>
+                                  <span class="slds-checkbox--faux"></span>
+                                </label>
+                                
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Display Order</label>
+                              <div class="slds-form-element__control">
+                                <apex:inputText styleClass="slds-input" value="{!f.Display_Order__c}"/>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Linked to Portal</label>
+                              <div class="slds-form-element__control">
+                                <apex:inputField value="{!f.Linked_to_Portal__c}" styleClass="slds-select" />
+                              </div>
+                            </div>
+
+
+                            <apex:outputPanel rendered="{!f.FieldType__c='REFERENCE'}" layout="none">
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Criteria(s)</label>
+                              <div class="slds-form-element__control">
+                                <apex:inputTextArea styleClass="slds-textarea" value="{!f.queryCriteria__c}"/>
+                              </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                              <label class="slds-form-element__label" >Add child field</label>
+                              <div class="slds-form-element__control">
+                                <label class="slds-checkbox" >
+                                  <apex:inputCheckBox value="{!f.Look_Up_Field__c}">
+                                    <apex:actionSupport event="onchange" rerender="fieldEditComponent"/>
+                                  </apex:inputCheckBox>
+                                  <span class="slds-checkbox--faux"></span>
+                                </label>
+                                <!-- <apex:inputCheckBox styleClass="slds-checkbox" value="{!f.Active__c}"/> -->
+                              </div>
+                            </div>
+                            </apex:outputPanel>
+                    </div>
+<!--                   </tr>
+                </thead>  
+              </table>  --> 
+          </section>
+      
+
+
+<br/>
+<apex:outputpanel rendered="{!f.Look_Up_Field__c}" layout="none">
+  <apex:outputpanel id="childRenSection" layout="block">
+        <div class="slds-card">
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Child Relation</h3>
+              </div>
+            </div>
+          </header>
+
+          <section class="slds-card__body">
+            <div class="slds-form--horizontal col-Padding">
+              <div class="slds-form-element">
+              <label class="slds-form-element__label" >Child Field API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Children_Field_API_Name__c}" size="1" styleClass="slds-input" >
+                  <apex:actionSupport event="onchange" rerender="childRenSection"/>
+                  <apex:selectoptions value="{!ReferenceFields}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Child Field Label</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-truncate">{!f.Object_Name__c}</span> -->
+                <apex:inputText styleClass="slds-input" value="{!f.Children_Field_Label__c}"/>
+              </div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Child Object API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Children_Objects_API__c}" size="1" styleClass="slds-input" >
+                  <apex:actionSupport event="onchange" rerender="childRenSection"/>
+                  <apex:selectoptions value="{!ChildSobject}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Child Index Field API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Children_Index_Field_API__c}" size="1" styleClass="slds-input" >
+                  <!-- <apex:actionSupport event="onchange" rerender="childRenSection"/> -->
+                  <apex:selectoptions value="{!AllChildrenRelatedAPIName}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Criteria(s)</label>
+              <div class="slds-form-element__control">
+                <apex:inputTextArea styleClass="slds-textarea" value="{!f.childQueryCriteria__c}"/>
+              </div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Add grandchild field</label>
+              <div class="slds-form-element__control">
+                <label class="slds-checkbox" >
+                  <apex:inputCheckBox value="{!f.Has_GrandChildren__c}">
+                    <apex:actionSupport event="onchange" rerender="fieldEditComponent"/>
+                  </apex:inputCheckBox>
+                  <span class="slds-checkbox--faux"></span>
+                </label>
+                <!-- <apex:inputCheckBox styleClass="slds-checkbox" value="{!f.Active__c}"/> -->
+              </div>
+            </div>
+
+            </div>
+          </section>
+        </div>
+  </apex:outputpanel>
+</apex:outputpanel>
+
+<br/>
+<apex:outputpanel rendered="{!f.Has_GrandChildren__c}" layout="none">
+  <apex:outputpanel id="grandChildrenSectionId" layout="block">
+        <div class="slds-card">
+          <header class="slds-card__header slds-grid">
+            <div class="slds-media slds-media--center slds-has-flexi-truncate">
+              <div class="slds-media__figure">
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-text-heading--small slds-truncate">Grandchild Relation</h3>
+              </div>
+            </div>
+          </header>
+
+          <section class="slds-card__body">
+            <div class="slds-form--horizontal col-Padding">
+              <div class="slds-form-element">
+              <label class="slds-form-element__label" >Grandchild Field API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Grand_Children_Field_API_Name__c}" size="1" styleClass="slds-input" >
+                  <apex:actionSupport event="onchange" rerender="grandChildrenSectionId"/>
+                  <apex:selectoptions value="{!ReferenceFields}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Grandchild Field Label</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-truncate">{!f.Object_Name__c}</span> -->
+                <apex:inputText styleClass="slds-input" value="{!f.Grand_Children_Field_Label__c}"/>
+              </div>
+            </div>
+
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Grandchild Object API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Grand_Children_Objects_API__c}" size="1" styleClass="slds-input" >
+                  <apex:actionSupport event="onchange" rerender="grandChildrenSectionId"/>
+                  <apex:selectoptions value="{!GrandChildSobject}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Grandchild Index Field API</label>
+              <div class="slds-form-element__control">
+                <!-- <span class="slds-form-element__static">{!f.Field_API_Name__c}</span> -->
+                <apex:selectList value="{!f.Grand_Children_Index_Field_API__c}" size="1" styleClass="slds-input" >
+                  <!-- <apex:actionSupport event="onchange" rerender="childRenSection"/> -->
+                  <apex:selectoptions value="{!AllGrandChildrenRelatedAPIName}" />
+                </apex:selectList>
+              </div>
+            </div>
+                            
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" >Criteria(s)</label>
+              <div class="slds-form-element__control">
+                <apex:inputTextArea styleClass="slds-textarea" value="{!f.gdChildQueryCriteria__c}"/>
+              </div>
+            </div>
+            </div>
+          </section>
+        </div>
+  </apex:outputpanel>
+</apex:outputpanel>
+</apex:form>
+</div>
+
+
+
+
+
+
+
+      </div>
+      <div class="slds-modal__footer">
+        <!-- <div class="slds-x-small-buttons--horizontal">
+          <button class="slds-button slds-button--neutral">Cancel</button>
+          <button class="slds-button slds-button--neutral slds-button--brand">Save</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="slds-backdrop slds-backdrop--open"></div>
+</div>
+</apex:outputPanel>
+</apex:outputPanel>
+
+
+
+
+</div>
+</apex:define>
+</apex:composition>
+
+</html>
+</apex:page>

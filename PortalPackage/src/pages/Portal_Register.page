@@ -1,0 +1,120 @@
+<apex:page showHeader="false" sidebar="false" controller="Portal_RegisterController" standardStylesheets="false" cache="false">
+      
+      <apex:composition template="TM_Template">
+      <apex:define name="body">  
+      <div class="slds">
+      <apex:form forceSSL="true" >
+      
+      		<div class="slds-card">
+            <center><apex:pageMessages id="pageMsg" /></center>
+            <div class="slds-media__body">
+            <h1 class="slds-text-heading--small slds-truncate">Registration Information</h1>
+            </div>
+            
+            <div class="slds-form--stacked">
+    		<div class="slds-form-element">
+            <label class="slds-form-element__label">First Name:</label>
+            <div class="slds-form-element__control">
+            <apex:inputText value="{!uWrap.firstName}"  html-placeholder="First Name (*Required)" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Last Name:</Label>
+            <div class="slds-form-element__control">
+            <apex:inputText value="{!uWrap.lastName}"  html-placeholder="Last Name (*Required)" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Email (Username):</label>
+            <div class="slds-form-element__control">
+            <apex:inputText value="{!uWrap.email}"  html-placeholder="Email (*Required)" styleClass="slds-input"/>
+            </div>
+            </div>
+            
+            <div class="slds-form-element">
+            <label class="slds-form-element__label">Password:</label>
+            <div class="slds-form-element__control">
+            <apex:inputSecret value="{!uWrap.password}"  html-placeholder="Password (*Required)" styleClass="slds-input"/>
+			</div>
+			</div>
+			
+			<div class="slds-form-element">
+            <label class="slds-form-element__label">Confirm Passwords:</label>
+            <div class="slds-form-element__control">
+            <apex:inputSecret value="{!uWrap.confirmPassword}"  html-placeholder="confirmPassword (*Required)" styleClass="slds-input"/>
+			</div>
+			</div>
+			
+           <apex:repeat value="{!uWrap.customFields}" var="c">
+           <div class="slds-form-element__control">
+                <label class="slds-form-element__label">{!c.Label}</label>
+                <apex:outputPanel layout="block" styleClass="{!If(c.isRequired, 'requiredInput', '')}" >
+                   <apex:outputPanel layout="block" styleClass="{!If(c.isRequired, 'requiredBlock', '')}" />
+                   <apex:selectList value="{!c.inputText}" size="1" rendered="{!c.fldType = 'Picklist'}" styleClass="slds-select">
+                      <apex:selectOptions value="{!c.options}" />
+                   </apex:selectList>
+                   
+                   <apex:selectList value="{!c.inputTextList}" multiselect="true" size="6" rendered="{!c.fldType = 'Multipicklist'}" >
+                        <apex:selectOptions value="{!c.options}" />
+                   </apex:selectList>
+                   
+                   <fieldset class="slds-form-element">
+                   <apex:inputCheckbox value="{!c.inputCheckbox}" rendered="{!c.fldType=='Checkbox'}" />
+                   <span class="slds-checkbox--faux"></span>
+                   </fieldset>
+                   
+                   <apex:inputText value="{!c.inputNumber}" rendered="{!c.fldType=='Number'}"  html-placeholder="{!c.Label}" styleClass="slds-input"/>
+                   
+                   <apex:inputText value="{!c.inputDecimal}" rendered="{!c.fldType=='Decimal'}"  html-placeholder="{!c.Label}" styleClass="slds-input"/>
+                   
+                   <apex:inputTextArea value="{!c.inputText}" rendered="{!c.fldType=='TextArea'}" rows="3"  html-placeholder="{!c.Label}" required="{!c.isRequired}" styleClass="slds-textarea"/>
+                   
+                   <apex:inputText value="{!c.inputText}" rendered="{!c.fldType=='Phone'}"  html-placeholder="{!c.Label}" styleClass="slds-input"/>
+                   
+                   <apex:inputText value="{!c.inputText}" rendered="{!c.fldType=='String'}" html-placeholder="{!c.Label}" styleClass="slds-input"/>
+                   
+                   <apex:inputText value="{!c.inputDate}" rendered="{!c.fldType=='Date'}"  html-placeholder="{!c.Label}" styleClass="slds-input"/>
+
+                   
+                   <apex:outputPanel layout="block" rendered="{!c.fldType=='Reference'}">
+                       <apex:selectList value="{!c.inputText}" size="1" multiselect="false" styleClass="RegisterPageInputTextStyle">
+                            <apex:selectOptions value="{!c.options}" />
+                            <apex:actionSupport event="onchange" reRender="rerenderMe"/>
+                       </apex:selectList>
+                      
+                        <apex:outputPanel rendered="{!c.hasChildren}" id="rerenderMe" layout="block">
+                            <!-- {!c.inputText} -->
+                            <label class="RegisterPageLabelStyle">{!c.childrenLabel}</label>
+                            <apex:selectList value="{!c.childrenInputText}"  size="1" multiselect="false" styleClass="RegisterPageInputTextStyle">
+                                <apex:selectOptions value="{!c.childrenOptions}" />
+                                <apex:actionSupport event="onchange" reRender="rerenderMe2"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel rendered="{!c.hasGrandChildren}" id="rerenderMe2" layout="block">
+                            <!-- {!c.inputText} -->
+                            <label class="RegisterPageLabelStyle">{!c.grandChildrenLabel}</label>
+                            <apex:selectList value="{!c.grandChildrenInputText}"  size="1" multiselect="false" styleClass="RegisterPageInputTextStyle">
+                                <apex:selectOptions value="{!c.grandChildrenOptions}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                   </apex:outputPanel>
+                </apex:outputPanel> 
+                </div>
+            </apex:repeat>
+
+            
+            <apex:commandButton action="{!register}" value="Register" id="loginButton" styleClass="slds-button slds-button--neutral slds-not-selected"/>
+            <br/>
+              <apex:outputLink value="{!$Page.Portal_Login}" ><b class="slds-truncate">&lt;&lt;Back to Login</b></apex:outputLink>
+      
+      </div>
+      </div>
+      </apex:form>
+      </div>
+      <br/>
+    </apex:define>
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,15 @@
+<apex:page applyHtmlTag="false" standardStylesheets="false" showQuickActionVfHeader="false" applyBodyTag="false" showChat="false" showHeader="false" sidebar="false" docType="html-5.0">
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+  </head>
+  <body>
+    <apex:outputPanel layout="block" html-ng-app="">
+        <label>Name:</label>
+        <input type="text" ng-model="yourName" placeholder="Enter a name here"/>
+        <hr/>
+        <h1>Hello {{yourName}}!</h1>
+    </apex:outputPanel>
+  </body>
+</html>
+</apex:page>
